@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>WeiSJ&amp;HEXO</title>
+  <icon>http://lengnian.github.io/icon.png</icon>
+  <subtitle>享受独处</subtitle>
+  <link href="http://lengnian.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://lengnian.github.io/"/>
+  <updated>2024-07-22T09:21:49.091Z</updated>
+  <id>http://lengnian.github.io/</id>
+  
+  <author>
+    <name>魏笙葭</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://lengnian.github.io/2024/07/22/hello-world/"/>
+    <id>http://lengnian.github.io/2024/07/22/hello-world/</id>
+    <published>2024-07-22T09:21:49.091Z</published>
+    <updated>2024-07-22T09:21:49.091Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>first_blog</title>
+    <link href="http://lengnian.github.io/2024/07/22/first_blog/"/>
+    <id>http://lengnian.github.io/2024/07/22/first_blog/</id>
+    <published>2024-07-21T16:00:00.000Z</published>
+    <updated>2024-07-22T16:00:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;大家好,这是我的第一篇博客。&lt;br&gt;请大家多多指教。&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    <category term="魏笙葭的回忆录" scheme="http://lengnian.github.io/categories/%E9%AD%8F%E7%AC%99%E8%91%AD%E7%9A%84%E5%9B%9E%E5%BF%86%E5%BD%95/"/>
+    
+    
+    <category term="attack" scheme="http://lengnian.github.io/tags/attack/"/>
+    
+    <category term="base" scheme="http://lengnian.github.io/tags/base/"/>
+    
+    <category term="examples" scheme="http://lengnian.github.io/tags/examples/"/>
+    
+  </entry>
+  
+</feed>
