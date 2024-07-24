@@ -1,6 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo+GitHub Pages 个人博客搭建</title>
+    <url>/posts/866b0119/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久之前在网上看到别人自己的博客网站，感觉很好看。等到有时间，便自己也搭建了一个自己的网站，就好像自己的一个小空间，里面可以放些自己的内容。自己在搭建过程中也遇到了很多坑，所以结合自己搭建的过程，在这里记录一下。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><h4 id="GitHub注册"><a href="#GitHub注册" class="headerlink" title="GitHub注册"></a>GitHub注册</h4><p>要现在github注册一个账号，并且需要记住的用户名以及邮箱（后面会用）</p>
+<h4 id="Nodejs环境"><a href="#Nodejs环境" class="headerlink" title="Nodejs环境"></a>Nodejs环境</h4><p>Hexo是一款基于nodejs的博客框架，所以首先需要先安装nodejs。</p>
+<p><a href="https://nodejs.org/en/">Node.js — Run JavaScript Everywhere (nodejs.org)</a>在这里下载。</p>
+<p>下载之后使用Win+R进入cmd去验证是否安装成功。</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">nodejs</span><span class="token expression">安装后，该命令会显示nodejs的版本号</span></span>
+node <span class="token operator">-</span>v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"># 还有很重要的一个npm安装，通过该命令可以显示npm的版本号
+npm <span class="token operator">-</span>v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h4><p>在Git的官网进行下载。<a href="https://git-scm.com/">Git (git-scm.com)</a></p>
+<p>傻瓜式安装即可。</p>
+<p>通过一下代码检查是否成功（Win+R，输入cmd）</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git <span class="token operator">--</span>version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在桌面鼠标右击可以看到这个选项</p>
+<img src="/posts/866b0119/1.png" class loading="lazy">
+
+<p>Git是分布式的版本控制系统，需要将用户名和邮箱设置为标识，点击Git Bash Here后输入如下内容：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"user_name"</span> # user_name 填GitHub的用户名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"user_email"</span> # user_email填GitHub注册的邮箱<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#115;&#x6a;&#49;&#49;&#x31;&#50;&#x32;&#50;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x77;&#115;&#x6a;&#49;&#49;&#x31;&#50;&#x32;&#50;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"wsj"</span>
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="搭建GitHub博客"><a href="#搭建GitHub博客" class="headerlink" title="搭建GitHub博客"></a>搭建GitHub博客</h4><p><strong>注：这里新建仓库时，需要注意仓库的分支，如果默认分支和之后配置站点文件的分支不同会出现预览和实际不同的问题，<a href="#emphasize">见问题2</a>因为master容易带有侮辱性色彩，所以这里建议使用main分支，也建议在建仓库前修改默认分支为main。（后文配置站点文件以main为例）</strong></p>
+<ul>
+<li>修改全局默认分支右击头像-&gt;Settings-&gt;Repositories，修改default branch为main。</li>
+<li>修改单个仓库默认分支，点击仓库，在仓库中点击Settings，在general中修改default branch为main。</li>
+</ul>
+<p>去GitHub上新建一个仓库，仓库命名一定命名为 username.github.io，username替换为自己实际的用户名，比如wsj.github.io，并且选择为public。</p>
+<img src="/posts/866b0119/2.png" class loading="lazy">
+
+<h4 id="配置SSH-key"><a href="#配置SSH-key" class="headerlink" title="配置SSH key"></a>配置SSH key</h4><p>点击Git Bash Here，输入以下命令：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">ssh<span class="token operator">-</span>keygen <span class="token operator">-</span>t rsa <span class="token operator">-</span>C <span class="token string">"user.email"</span> # user<span class="token punctuation">.</span>email为GitHub注册时的邮箱
+
+# 例如
+ssh<span class="token operator">-</span>keygen <span class="token operator">-</span>t rsa <span class="token operator">-</span>C <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>连续按回车，不需要手动输入任何东西。</p>
+<p>打开C:\用户\用户名下找到.ssh文件。使用记事本打开id_rsa.pub文件，将其内容全部复制。</p>
+<p>紧接着在GitHub中点击头像，在settings中找到SSH and GPG keys，点击New SSH key。</p>
+<img src="/posts/866b0119/3.png" class loading="lazy">
+
+<img src="/posts/866b0119/4.png" class loading="lazy">
+
+<p>将刚才复制的内容全部黏贴到Key中，Title可以任意填写。</p>
+<p><strong>注意：id_rsa.pub是公钥，可以给别人，id_rsa是私钥，不可泄漏。</strong></p>
+<p>此时，在Git中验证公钥配置是否成功，右击打开Git Bash here，输入</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">ssh <span class="token operator">-</span>T git@github<span class="token punctuation">.</span>com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>配置成功显示如下：</p>
+<img src="/posts/866b0119/5.png" class loading="lazy">
+
+<h3 id="本地配置Hexo"><a href="#本地配置Hexo" class="headerlink" title="本地配置Hexo"></a>本地配置Hexo</h3><p>在电脑的文件夹中新建一个文件夹，用于存放博客的相关内容，命名、存放目录随意。如我在E:\My Blogs创建。</p>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>进入该目录即进入E:\My Blogs，打开Git（右击Git Bush here），输入以下命令</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span>cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="初始化hexo"><a href="#初始化hexo" class="headerlink" title="初始化hexo"></a>初始化hexo</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"># 输入命令
+hexo init<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>初始化成功后会提示：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">init successful：
+INFO  Cloning hexo<span class="token operator">-</span>starter https<span class="token operator">:</span><span class="token comment">//github.com/hexojs/hexo-starter.git</span>
+INFO  Install dependencies
+INFO  Start blogging with Hexo<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>初始化成功后也会在目录中多出很多文件。</p>
+<h4 id="配置站点文件"><a href="#配置站点文件" class="headerlink" title="配置站点文件"></a>配置站点文件</h4><p>在hexo中根据_config.yml文件进行配置。在根目录下的 _config.yml文件称为站点配置文件，即（E:\My Blogs\ _config.yml），使用不同主题时也会有配置文件，会位于E:\My Blogs\themes文件夹下，称为主题配置文件。</p>
+<p>现在打开根目录下的站点配置文件，在最后找到deploy：修改其中的内容。</p>
+<p>repo可以进入仓库，点击code，选择SSH或者HTTPS进行复制。</p>
+<img src="/posts/866b0119/7.png" class loading="lazy">
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token expression">Deployment</span></span>
+## Docs<span class="token operator">:</span> https<span class="token operator">:</span><span class="token comment">//hexo.io/docs/one-command-deployment</span>
+deploy<span class="token operator">:</span>
+  type<span class="token operator">:</span> git
+  # 这里使用了SSH配置<span class="token punctuation">(</span>推荐<span class="token punctuation">)</span>。如果使用https，则是https<span class="token operator">:</span><span class="token comment">//github.com/owner/username.github.io.git</span>
+  repo<span class="token operator">:</span> git@github<span class="token punctuation">.</span>com<span class="token operator">:</span>owner<span class="token operator">/</span>username<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token punctuation">.</span>git    
+  branch<span class="token operator">:</span> main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：这里的branch是main还是master，应该根据自己的默认分支走，但是建议选择main，2020年10月1日后master正式由main取代，master容易带有侮辱性色彩。如果这里的branch没有设置正确，容易踩坑<a href="#emphasize">见问题2</a></p>
+<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><p>在Git中输入以下命令：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">Chexo g  # 生成静态文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>执行完该命令，Hexo 就会在 <code>public</code> 文件夹中生成相关的 <code>html</code> 文件，这些文件将来都是要提交到 <code>GitHub</code> 上的 <code>username.github.io</code> 的仓库中去的。</p>
+<h4 id="预览主题"><a href="#预览主题" class="headerlink" title="预览主题"></a>预览主题</h4><p>在Git中输入以下命令：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>打开浏览器访问 <code>http://localhost:4000</code> 即可看到内容C</p>
+<img src="/posts/866b0119/6.png" class loading="lazy">
+
+<p>我这里第2行是因为使用了主题，不会影响预览。</p>
+<h4 id="安装部署工具"><a href="#安装部署工具" class="headerlink" title="安装部署工具"></a>安装部署工具</h4><p>部署到GitHub使用hexo d命令，但是在此之前要先安装一个部署插件</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">npm install hexo-deployer-git --save # 安装部署插件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h4><p>输入</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>部署成功后，在浏览器中输入username.github.io，例如wsj.github.io，就可以进入自己的博客啦！</p>
+<h3 id="我遇到的问题"><a href="#我遇到的问题" class="headerlink" title="我遇到的问题"></a>我遇到的问题</h3><h4 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h4><p>在hexo初始化，即hexo init过程中出现</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">INFO  Cloning hexo-starter https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo-starter.git
+fatal: unable to access &#39;https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo-starter.git&#x2F;&#39;: Failed to connect to github.com port 443 after 21055 ms: Couldn&#39;t connect to server
+WARN  git clone failed. Copying data instead
+FATAL Something&#39;s wrong. Maybe you can find the solution here: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;troubleshooting.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  可能是网速问题，解决方法：可以多次尝试hexo init解决。C</p>
+<h4 id="问题2："><a href="#问题2：" class="headerlink" title="问题2："></a>问题2：<span id="emphasize"></span></h4><p>我第一次配置时，明明使用hexo s预览没有问题，但是进入username.github.io中却没有变化（可以区分清楚不同分支者可以跳过此问题，此问题对于新手来说建议博客仓库中有一个分支）。</p>
+<p>最后的原因就是因为branch没有配置正确，默认分支为master，而实际配置站点分支为main。</p>
+<p>解决方法：删除仓库以及博客文件夹，重新配置。</p>
+<h4 id="问题3："><a href="#问题3：" class="headerlink" title="问题3："></a>问题3：</h4><p>LF will be replaced by CRLF</p>
+<p>Git中提示warning: LF will be replaced by CRLF in</p>
+<p>执行：</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">git config --global core.safecrlf false<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://blog.csdn.net/qq_62928039/article/details/130248518">Hexo+GitHub搭建个人博客教程（2023最新版）_hexo github个人网站教程-CSDN博客</a></p>
+<p><a href="https://fanyfull.github.io/2021/10/16/Github-Hexo-%E7%9C%9F-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-GitHub-%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/#%E4%BD%BF%E7%94%A8-hexo-%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6">GiHub + Hexo 真·从零开始搭建个人博客 - Fany Full’s Blog</a></p>
+<p><a href="https://blog.csdn.net/Lu_xiuyuan/article/details/112056997">关于hexo更新到GitHub后博客内容未变问题_hexo 部署到gitee 已经部署了 但是博客没更新-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>About me</title>
     <url>/posts/653763f0/</url>
     <content><![CDATA[<h3 id="在代码的诗行里，我与你相遇"><a href="#在代码的诗行里，我与你相遇" class="headerlink" title="在代码的诗行里，我与你相遇"></a>在代码的诗行里，我与你相遇</h3><ul>
@@ -54,7 +186,7 @@
 <li>喜欢乐器，学过七年萨克斯，现在尤其喜欢钢琴，有点后悔当初没有去学钢琴或者没有坚持学下来电子琴（学萨克斯前一直在学电子琴）</li>
 </ul>
 <h4 id="交友原则"><a href="#交友原则" class="headerlink" title="交友原则"></a>交友原则</h4><ul>
-<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#119;&#101;&#x69;&#x73;&#x6a;&#x5f;&#108;&#110;&#x40;&#49;&#x36;&#x33;&#46;&#99;&#111;&#x6d;">&#119;&#101;&#x69;&#x73;&#x6a;&#x5f;&#108;&#110;&#x40;&#49;&#x36;&#x33;&#46;&#99;&#111;&#x6d;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
+<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#x77;&#x65;&#105;&#115;&#106;&#95;&#108;&#110;&#64;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#x6d;">&#x77;&#x65;&#105;&#115;&#106;&#95;&#108;&#110;&#64;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#x6d;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
 <li>无论是交友或者指正我的错误，希望大家可以开门见山，千万不要发在吗？有时间嘛？等，这些内容看到瘆得慌，我也会直接忽略掉。大家的邮件我看到会及时回复。</li>
 </ul>
 <h4 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h4><p>其实看到别人都在搞一个自己的博客，自己也有点心动，所以也自己搞一个，可以用于自己记录一些内容，喜欢自己可以保持初心，如果在阅读过程发现我有什么写的错误的地方，欢迎指正(可以通过邮件联系我)。</p>
@@ -72,119 +204,6 @@
       </categories>
       <tags>
         <tag>回忆录</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo+GitHub Pages 个人博客搭建</title>
-    <url>/posts/866b0119/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久之前在网上看到别人自己的博客网站，感觉很好看。等到有时间，便自己也搭建了一个自己的网站，就好像自己的一个小空间，里面可以放些自己的内容。自己在搭建过程中也遇到了很多坑，所以结合自己搭建的过程，在这里记录一下。</p>
-<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><h4 id="GitHub注册"><a href="#GitHub注册" class="headerlink" title="GitHub注册"></a>GitHub注册</h4><p>要现在github注册一个账号，并且需要记住的用户名以及邮箱（后面会用）</p>
-<h4 id="Nodejs环境"><a href="#Nodejs环境" class="headerlink" title="Nodejs环境"></a>Nodejs环境</h4><p>Hexo是一款基于nodejs的博客框架，所以首先需要先安装nodejs。</p>
-<p><a href="https://nodejs.org/en/">Node.js — Run JavaScript Everywhere (nodejs.org)</a>在这里下载。</p>
-<p>下载之后使用Win+R进入cmd去验证是否安装成功。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># nodejs安装后，该命令会显示nodejs的版本号</span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 还有很重要的一个npm安装，通过该命令可以显示npm的版本号</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-
-<h4 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h4><p>在Git的官网进行下载。<a href="https://git-scm.com/">Git (git-scm.com)</a></p>
-<p>傻瓜式安装即可。</p>
-<p>通过一下代码检查是否成功（Win+R，输入cmd）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-
-<p>在桌面鼠标右击可以看到这个选项</p>
-<img src="/posts/866b0119/1.png" class loading="lazy">
-
-<p>Git是分布式的版本控制系统，需要将用户名和邮箱设置为标识，点击Git Bash Here后输入如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;user_name&quot; # user_name 填GitHub的用户名</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email &quot;user_email&quot; # user_email填GitHub注册的邮箱</span><br></pre></td></tr></table></figure>
-
-<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#x73;&#106;&#49;&#49;&#49;&#50;&#x32;&#50;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#x77;&#x73;&#106;&#49;&#49;&#49;&#50;&#x32;&#50;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;wsj&quot;</span><br><span class="line">git config --global user.email &quot;wsj111222@gmail.com&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="搭建GitHub博客"><a href="#搭建GitHub博客" class="headerlink" title="搭建GitHub博客"></a>搭建GitHub博客</h4><p><strong>注：这里新建仓库时，需要注意仓库的分支，如果默认分支和之后配置站点文件的分支不同会出现预览和实际不同的问题，<a href="#emphasize">见问题2</a>因为master容易带有侮辱性色彩，所以这里建议使用main分支，也建议在建仓库前修改默认分支为main。（后文配置站点文件以main为例）</strong></p>
-<ul>
-<li>修改全局默认分支右击头像-&gt;Settings-&gt;Repositories，修改default branch为main。</li>
-<li>修改单个仓库默认分支，点击仓库，在仓库中点击Settings，在general中修改default branch为main。</li>
-</ul>
-<p>去GitHub上新建一个仓库，仓库命名一定命名为 username.github.io，username替换为自己实际的用户名，比如wsj.github.io，并且选择为public。</p>
-<img src="/posts/866b0119/2.png" class loading="lazy">
-
-<h4 id="配置SSH-key"><a href="#配置SSH-key" class="headerlink" title="配置SSH key"></a>配置SSH key</h4><p>点击Git Bash Here，输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;user.email&quot; # user.email为GitHub注册时的邮箱</span><br><span class="line"></span><br><span class="line"># 例如</span><br><span class="line">ssh-keygen -t rsa -C &quot;wsj111222@gmail.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>连续按回车，不需要手动输入任何东西。</p>
-<p>打开C:\用户\用户名下找到.ssh文件。使用记事本打开id_rsa.pub文件，将其内容全部复制。</p>
-<p>紧接着在GitHub中点击头像，在settings中找到SSH and GPG keys，点击New SSH key。</p>
-<img src="/posts/866b0119/3.png" class loading="lazy">
-
-<img src="/posts/866b0119/4.png" class loading="lazy">
-
-<p>将刚才复制的内容全部黏贴到Key中，Title可以任意填写。</p>
-<p><strong>注意：id_rsa.pub是公钥，可以给别人，id_rsa是私钥，不可泄漏。</strong></p>
-<p>此时，在Git中验证公钥配置是否成功，右击打开Git Bash here，输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
-<p>配置成功显示如下：</p>
-<img src="/posts/866b0119/5.png" class loading="lazy">
-
-<h3 id="本地配置Hexo"><a href="#本地配置Hexo" class="headerlink" title="本地配置Hexo"></a>本地配置Hexo</h3><p>在电脑的文件夹中新建一个文件夹，用于存放博客的相关内容，命名、存放目录随意。如我在E:\My Blogs创建。</p>
-<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>进入该目录即进入E:\My Blogs，打开Git（右击Git Bush here），输入以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<h4 id="初始化hexo"><a href="#初始化hexo" class="headerlink" title="初始化hexo"></a>初始化hexo</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 输入命令</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-<p>初始化成功后会提示：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">init successful：</span><br><span class="line">INFO  Cloning hexo-starter https://github.com/hexojs/hexo-starter.git</span><br><span class="line">INFO  Install dependencies</span><br><span class="line">INFO  Start blogging with Hexo!</span><br></pre></td></tr></table></figure>
-
-<p>初始化成功后也会在目录中多出很多文件。</p>
-<h4 id="配置站点文件"><a href="#配置站点文件" class="headerlink" title="配置站点文件"></a>配置站点文件</h4><p>在hexo中根据_config.yml文件进行配置。在根目录下的 _config.yml文件称为站点配置文件，即（E:\My Blogs\ _config.yml），使用不同主题时也会有配置文件，会位于E:\My Blogs\themes文件夹下，称为主题配置文件。</p>
-<p>现在打开根目录下的站点配置文件，在最后找到deploy：修改其中的内容。</p>
-<p>repo可以进入仓库，点击code，选择SSH或者HTTPS进行复制。</p>
-<img src="/posts/866b0119/7.png" class loading="lazy">
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  # 这里使用了SSH配置(推荐)。如果使用https，则是https://github.com/owner/username.github.io.git</span><br><span class="line">  repo: git@github.com:owner/username.github.io.git    </span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
-
-<p>注：这里的branch是main还是master，应该根据自己的默认分支走，但是建议选择main，2020年10月1日后master正式由main取代，master容易带有侮辱性色彩。如果这里的branch没有设置正确，容易踩坑<a href="#emphasize">见问题2</a></p>
-<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><p>在Git中输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g  # 生成静态文件</span><br></pre></td></tr></table></figure>
-
-<p>执行完该命令，Hexo 就会在 <code>public</code> 文件夹中生成相关的 <code>html</code> 文件，这些文件将来都是要提交到 <code>GitHub</code> 上的 <code>username.github.io</code> 的仓库中去的。</p>
-<h4 id="预览主题"><a href="#预览主题" class="headerlink" title="预览主题"></a>预览主题</h4><p>在Git中输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>打开浏览器访问 <code>http://localhost:4000</code> 即可看到内容</p>
-<img src="/posts/866b0119/6.png" class loading="lazy">
-
-<p>我这里第2行是因为使用了主题，不会影响预览。</p>
-<h4 id="安装部署工具"><a href="#安装部署工具" class="headerlink" title="安装部署工具"></a>安装部署工具</h4><p>部署到GitHub使用hexo d命令，但是在此之前要先安装一个部署插件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save # 安装部署插件</span><br></pre></td></tr></table></figure>
-
-<h4 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h4><p>输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p>部署成功后，在浏览器中输入username.github.io，例如wsj.github.io，就可以进入自己的博客啦！</p>
-<h3 id="我遇到的问题"><a href="#我遇到的问题" class="headerlink" title="我遇到的问题"></a>我遇到的问题</h3><h4 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h4><p>在hexo初始化，即hexo init过程中出现</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INFO  Cloning hexo-starter https://github.com/hexojs/hexo-starter.git</span><br><span class="line">fatal: unable to access &#x27;https://github.com/hexojs/hexo-starter.git/&#x27;: Failed to connect to github.com port 443 after 21055 ms: Couldn&#x27;t connect to server</span><br><span class="line">WARN  git clone failed. Copying data instead</span><br><span class="line">FATAL Something&#x27;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span><br></pre></td></tr></table></figure>
-
-<p>  可能是网速问题，解决方法：可以多次尝试hexo init解决。</p>
-<h4 id="问题2："><a href="#问题2：" class="headerlink" title="问题2："></a>问题2：<span id="emphasize"></span></h4><p>我第一次配置时，明明使用hexo s预览没有问题，但是进入username.github.io中却没有变化（可以区分清楚不同分支者可以跳过此问题，此问题对于新手来说建议博客仓库中有一个分支）。</p>
-<p>最后的原因就是因为branch没有配置正确，默认分支为master，而实际配置站点分支为main。</p>
-<p>解决方法：删除仓库以及博客文件夹，重新配置。</p>
-<h4 id="问题3："><a href="#问题3：" class="headerlink" title="问题3："></a>问题3：</h4><p>LF will be replaced by CRLF</p>
-<p>Git中提示warning: LF will be replaced by CRLF in</p>
-<p>执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global core.safecrlf false</span><br></pre></td></tr></table></figure>
-<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://blog.csdn.net/qq_62928039/article/details/130248518">Hexo+GitHub搭建个人博客教程（2023最新版）_hexo github个人网站教程-CSDN博客</a></p>
-<p><a href="https://fanyfull.github.io/2021/10/16/Github-Hexo-%E7%9C%9F-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-GitHub-%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/#%E4%BD%BF%E7%94%A8-hexo-%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6">GiHub + Hexo 真·从零开始搭建个人博客 - Fany Full’s Blog</a></p>
-<p><a href="https://blog.csdn.net/Lu_xiuyuan/article/details/112056997">关于hexo更新到GitHub后博客内容未变问题_hexo 部署到gitee 已经部署了 但是博客没更新-CSDN博客</a></p>
-]]></content>
-      <categories>
-        <category>写文章</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>GitHub Pages</tag>
       </tags>
   </entry>
 </search>
