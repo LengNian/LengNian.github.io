@@ -54,7 +54,7 @@
 <li>喜欢乐器，学过七年萨克斯，现在尤其喜欢钢琴，有点后悔当初没有去学钢琴或者没有坚持学下来电子琴（学萨克斯前一直在学电子琴）</li>
 </ul>
 <h4 id="交友原则"><a href="#交友原则" class="headerlink" title="交友原则"></a>交友原则</h4><ul>
-<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#x77;&#101;&#x69;&#115;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#x31;&#54;&#x33;&#46;&#99;&#111;&#x6d;">&#x77;&#101;&#x69;&#115;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#x31;&#54;&#x33;&#46;&#99;&#111;&#x6d;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
+<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#119;&#x65;&#x69;&#x73;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#49;&#54;&#51;&#46;&#x63;&#111;&#109;">&#119;&#x65;&#x69;&#x73;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#49;&#54;&#51;&#46;&#x63;&#111;&#109;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
 <li>无论是交友或者指正我的错误，希望大家可以开门见山，千万不要发在吗？有时间嘛？等，这些内容看到瘆得慌，我也会直接忽略掉。大家的邮件我看到会及时回复。</li>
 </ul>
 <h4 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h4><p>其实看到别人都在搞一个自己的博客，自己也有点心动，所以也自己搞一个，可以用于自己记录一些内容，喜欢自己可以保持初心，如果在阅读过程发现我有什么写的错误的地方，欢迎指正(可以通过邮件联系我)。</p>
@@ -101,7 +101,7 @@ npm <span class="token operator">-</span>v<span aria-hidden="true" class="line-n
 
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"user_email"</span> # user_email填GitHub注册的邮箱<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#119;&#115;&#x6a;&#49;&#x31;&#49;&#50;&#x32;&#50;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#119;&#115;&#x6a;&#49;&#x31;&#49;&#50;&#x32;&#50;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
+<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#119;&#x73;&#106;&#49;&#49;&#49;&#x32;&#50;&#x32;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#119;&#x73;&#106;&#49;&#49;&#49;&#x32;&#50;&#x32;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"wsj"</span>
 git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -239,6 +239,122 @@ sitemap:
 ]]></content>
       <categories>
         <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的2023——谨以此纪念我的考研</title>
+    <url>/posts/ace8cace/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>回忆录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo-GitHub Pages解决上传文章图片不显示的问题</title>
+    <url>/posts/95fa3d73/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在自己搭建的网站写好文章以后，上传到GitHub上发现文章中的图片无法显示。这个问题改了很长时间，所以在这里记录最后有效的方法。</p>
+<h4 id="问题表现"><a href="#问题表现" class="headerlink" title="问题表现"></a>问题表现</h4><img src="/posts/95fa3d73/1.png" class loading="lazy">
+
+<p>自己在Typora中黏贴进去的图片，无论是预览还是部署以后都无法显示，上图为预览中的样子。</p>
+<p>当我部署在GitHub上我在控制台中查看图片的位置，竟然是在wsj.github.io&#x2F;1.png，图片的位置跑到了根目录下，显然路径位置不对。</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><h5 id="插件安装与配置"><a href="#插件安装与配置" class="headerlink" title="插件安装与配置"></a>插件安装与配置</h5><p>首先使用一个图片路径转换的插件hexo-asset-image，安装指令如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install https<span class="token operator">:</span><span class="token comment">//github.com/CodeFalling/hexo-asset-image --save</span>
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">npm</span> <span class="token expression">install hexo<span class="token operator">-</span>asset<span class="token operator">-</span>image <span class="token operator">--</span>save</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>安装好之后，需要打开node_modules&#x2F;hexo-asset-image&#x2F;index.js，将其中的代码更换，如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token char">'use strict'</span><span class="token punctuation">;</span>
+var cheerio <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token char">'cheerio'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span>
+function <span class="token function">getPosition</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> m<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> str<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+var version <span class="token operator">=</span> <span class="token function">String</span><span class="token punctuation">(</span>hexo<span class="token punctuation">.</span>version<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token char">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+hexo<span class="token punctuation">.</span>extend<span class="token punctuation">.</span>filter<span class="token punctuation">.</span><span class="token keyword">register</span><span class="token punctuation">(</span><span class="token char">'after_post_render'</span><span class="token punctuation">,</span> <span class="token function">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  var config <span class="token operator">=</span> hexo<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>post_asset_folder<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    	var link <span class="token operator">=</span> data<span class="token punctuation">.</span>permalink<span class="token punctuation">;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>version<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token function">Number</span><span class="token punctuation">(</span>version<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span>
+	   var beginPos <span class="token operator">=</span> <span class="token function">getPosition</span><span class="token punctuation">(</span>link<span class="token punctuation">,</span> <span class="token char">'/'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token keyword">else</span>
+	   var beginPos <span class="token operator">=</span> <span class="token function">getPosition</span><span class="token punctuation">(</span>link<span class="token punctuation">,</span> <span class="token char">'/'</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token comment">// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".</span>
+	var endPos <span class="token operator">=</span> link<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token char">'/'</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    link <span class="token operator">=</span> link<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>beginPos<span class="token punctuation">,</span> endPos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var toprocess <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token char">'excerpt'</span><span class="token punctuation">,</span> <span class="token char">'more'</span><span class="token punctuation">,</span> <span class="token char">'content'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>var i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> toprocess<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+      var key <span class="token operator">=</span> toprocess<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+ 
+      var $ <span class="token operator">=</span> cheerio<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>data<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+        ignoreWhitespace<span class="token operator">:</span> false<span class="token punctuation">,</span>
+        xmlMode<span class="token operator">:</span> false<span class="token punctuation">,</span>
+        lowerCaseTags<span class="token operator">:</span> false<span class="token punctuation">,</span>
+        decodeEntities<span class="token operator">:</span> false
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      $<span class="token punctuation">(</span><span class="token char">'img'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>$<span class="token punctuation">(</span>this<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token char">'src'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+			<span class="token comment">// For windows style path, we replace '\' to '/'.</span>
+			var src <span class="token operator">=</span> $<span class="token punctuation">(</span>this<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token char">'src'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token char">'\\'</span><span class="token punctuation">,</span> <span class="token char">'/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">/</span>http<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token operator">|</span>\<span class="token operator">/</span>\<span class="token operator">/</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token operator">/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+			   <span class="token operator">!</span><span class="token operator">/</span><span class="token operator">^</span>\s<span class="token operator">*</span>\<span class="token comment">//.test(src)) &#123;</span>
+			  <span class="token comment">// For "about" page, the first part of "src" can't be removed.</span>
+			  <span class="token comment">// In addition, to support multi-level local directory.</span>
+			  var linkArray <span class="token operator">=</span> link<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token char">'/'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token function">function</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span> elem <span class="token operator">!=</span> <span class="token char">''</span><span class="token punctuation">;</span>
+			  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			  var srcArray <span class="token operator">=</span> src<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token char">'/'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token function">function</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span> elem <span class="token operator">!=</span> <span class="token char">''</span> <span class="token operator">&amp;&amp;</span> elem <span class="token operator">!=</span> <span class="token char">'.'</span><span class="token punctuation">;</span>
+			  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			  <span class="token keyword">if</span><span class="token punctuation">(</span>srcArray<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span>
+				srcArray<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			  src <span class="token operator">=</span> srcArray<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token char">'/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			  $<span class="token punctuation">(</span>this<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token char">'src'</span><span class="token punctuation">,</span> config<span class="token punctuation">.</span>root <span class="token operator">+</span> link <span class="token operator">+</span> src<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			  console<span class="token punctuation">.</span>info<span class="token operator">&amp;&amp;</span>console<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"update link as:-->"</span><span class="token operator">+</span>config<span class="token punctuation">.</span>root <span class="token operator">+</span> link <span class="token operator">+</span> src<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+			console<span class="token punctuation">.</span>info<span class="token operator">&amp;&amp;</span>console<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"no src attr, skipped..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			console<span class="token punctuation">.</span>info<span class="token operator">&amp;&amp;</span>console<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span>$<span class="token punctuation">(</span>this<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      data<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> $<span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>之后，打开站点配置文件_config.yml，修改：</p>
+<pre class="line-numbers language-none"><code class="language-none">post_asset_folder: true<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这个指令的作用就是当你使用hexo new “article name”创建一篇新的文章时，可以自动在_post中生成一个与article name同名的文件夹，用于存放图片。当然，手动创建article name.md和article name文件夹也是可以的。<strong>注：但是对于解决文本的问题，post_asset_folder的设置是必须的，因为上文提到的插件，必须在post_asset_folder为true的情况下使用。</strong></p>
+<h5 id="Typora图像设置-可选"><a href="#Typora图像设置-可选" class="headerlink" title="Typora图像设置(可选)"></a>Typora图像设置(可选)</h5><p>设置了post_asset_folder后，就意味着文章内容在article name.md中完成，而文章中涉及的图片就要存储在article name文件夹中，一张张复制甚至重命名显然是麻烦的。所以可以在Typora中点击文件-&gt;偏好设置，点击图像，选择复制到指定路径。</p>
+<img src="/posts/95fa3d73/2.png" class loading="lazy">
+
+<p><code>./</code>表示当前文件夹，<code>$&#123;filename&#125;</code>表示当前文件名。通过这样设置说明图像如果黏贴到Typora后，就可以自动复制到article name文件夹中，免去自己复制。</p>
+<h5 id="文章使用该插件"><a href="#文章使用该插件" class="headerlink" title="文章使用该插件"></a>文章使用该插件</h5><p>该插件的作者表示如图所示：</p>
+<img src="/posts/95fa3d73/3.png" class loading="lazy">
+
+<p>引用图片只是文件名，而不能有其他路径，但是我按照这种方法还是不能显示方法。</p>
+<p><img src="/3.png" alt="3.png" loading="lazy"></p>
+<p>在文章中引用图片时，使用标签插件，如：</p>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#123;% asset_img img.png %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>比如你的图片命名为img.png，那么在Typora中。你就应该用表示图片。</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://blog.csdn.net/m0_43401436/article/details/107191688">hexo博客中插入图片失败——解决思路及个人最终解决办法_hexo 文章插入图片失败-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/xjm850552586/article/details/84101345">hexo引用本地图片无法显示-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>解问题</category>
       </categories>
       <tags>
         <tag>Hexo</tag>

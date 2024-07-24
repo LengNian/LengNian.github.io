@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-07-24T13:08:47.629Z</updated>
+  <updated>2024-07-24T16:09:22.099Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -17,11 +17,55 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Hexo-GitHub Pages解决上传文章图片不显示的问题</title>
+    <link href="http://lengnian.github.io/posts/95fa3d73/"/>
+    <id>http://lengnian.github.io/posts/95fa3d73/</id>
+    <published>2024-07-24T15:25:02.000Z</published>
+    <updated>2024-07-24T16:09:22.099Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="解问题" scheme="http://lengnian.github.io/categories/%E8%A7%A3%E9%97%AE%E9%A2%98/"/>
+    
+    
+    <category term="Hexo" scheme="http://lengnian.github.io/tags/Hexo/"/>
+    
+    <category term="GitHub Pages" scheme="http://lengnian.github.io/tags/GitHub-Pages/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我的2023——谨以此纪念我的考研</title>
+    <link href="http://lengnian.github.io/posts/ace8cace/"/>
+    <id>http://lengnian.github.io/posts/ace8cace/</id>
+    <published>2024-07-24T13:16:27.000Z</published>
+    <updated>2024-07-24T15:29:09.708Z</updated>
+    
+    
+    
+    
+    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="回忆录" scheme="http://lengnian.github.io/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hexo+GitHub Pages搭建的个人博客加入到Bing搜索引擎</title>
     <link href="http://lengnian.github.io/posts/7cddb87d/"/>
     <id>http://lengnian.github.io/posts/7cddb87d/</id>
     <published>2024-07-24T12:38:00.000Z</published>
-    <updated>2024-07-24T13:08:47.629Z</updated>
+    <updated>2024-07-24T13:09:06.525Z</updated>
     
     
       

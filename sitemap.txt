@@ -1,3 +1,5 @@
+http://lengnian.github.io/posts/95fa3d73/
+http://lengnian.github.io/posts/ace8cace/
 http://lengnian.github.io/posts/7cddb87d/
 http://lengnian.github.io/posts/866b0119/
 http://lengnian.github.io/posts/653763f0/
@@ -12,3 +14,4 @@ http://lengnian.github.io/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/
 http://lengnian.github.io/tags/Hexo/
 http://lengnian.github.io/tags/GitHub-Pages/
 http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/
+http://lengnian.github.io/categories/%E8%A7%A3%E9%97%AE%E9%A2%98/
