@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-07-24T02:49:24.077Z</updated>
+  <updated>2024-07-24T02:58:09.098Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -17,18 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hexo+GitHub Pages个人博客搭建</title>
-    <link href="http://lengnian.github.io/2024/07/24/Hexo-GitHub-Pages%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    <id>http://lengnian.github.io/2024/07/24/Hexo-GitHub-Pages%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</id>
-    <published>2024-07-24T02:19:46.000Z</published>
-    <updated>2024-07-24T02:49:24.077Z</updated>
+    <title>new_blog</title>
+    <link href="http://lengnian.github.io/2024/07/24/new-blog/"/>
+    <id>http://lengnian.github.io/2024/07/24/new-blog/</id>
+    <published>2024-07-24T02:57:06.000Z</published>
+    <updated>2024-07-24T02:58:09.098Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;测试图片&lt;/p&gt;
+    <summary type="html">&lt;p&gt;Test image load in my personal blog website.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/1.jpg&quot;</summary>
         
       
