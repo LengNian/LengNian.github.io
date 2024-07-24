@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-07-24T02:58:09.098Z</updated>
+  <updated>2024-07-24T03:02:01.132Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://lengnian.github.io/2024/07/24/new-blog/"/>
     <id>http://lengnian.github.io/2024/07/24/new-blog/</id>
     <published>2024-07-24T02:57:06.000Z</published>
-    <updated>2024-07-24T02:58:09.098Z</updated>
+    <updated>2024-07-24T03:02:01.132Z</updated>
     
     
       
@@ -29,7 +29,7 @@
         
         
     <summary type="html">&lt;p&gt;Test image load in my personal blog website.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/1.jpg&quot;</summary>
+&lt;img src=&quot;/2024/07/24/new-blog/1.jpg&quot; class</summary>
         
       
     
