@@ -110,6 +110,13 @@
 
   
   <url>
+    <loc>http://lengnian.github.io/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/</loc>
+    <lastmod>2024-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://lengnian.github.io/tags/Hexo/</loc>
     <lastmod>2024-07-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -118,13 +125,6 @@
   
   <url>
     <loc>http://lengnian.github.io/tags/GitHub-Pages/</loc>
-    <lastmod>2024-07-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://lengnian.github.io/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/</loc>
     <lastmod>2024-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
