@@ -54,7 +54,7 @@
 <li>喜欢乐器，学过七年萨克斯，现在尤其喜欢钢琴，有点后悔当初没有去学钢琴或者没有坚持学下来电子琴（学萨克斯前一直在学电子琴）</li>
 </ul>
 <h4 id="交友原则"><a href="#交友原则" class="headerlink" title="交友原则"></a>交友原则</h4><ul>
-<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#x77;&#101;&#105;&#x73;&#x6a;&#95;&#108;&#x6e;&#x40;&#49;&#54;&#51;&#x2e;&#x63;&#x6f;&#109;">&#x77;&#101;&#105;&#x73;&#x6a;&#95;&#108;&#x6e;&#x40;&#49;&#54;&#51;&#x2e;&#x63;&#x6f;&#109;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
+<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#x77;&#101;&#x69;&#115;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#x31;&#54;&#x33;&#46;&#99;&#111;&#x6d;">&#x77;&#101;&#x69;&#115;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#x31;&#54;&#x33;&#46;&#99;&#111;&#x6d;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
 <li>无论是交友或者指正我的错误，希望大家可以开门见山，千万不要发在吗？有时间嘛？等，这些内容看到瘆得慌，我也会直接忽略掉。大家的邮件我看到会及时回复。</li>
 </ul>
 <h4 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h4><p>其实看到别人都在搞一个自己的博客，自己也有点心动，所以也自己搞一个，可以用于自己记录一些内容，喜欢自己可以保持初心，如果在阅读过程发现我有什么写的错误的地方，欢迎指正(可以通过邮件联系我)。</p>
@@ -101,7 +101,7 @@ npm <span class="token operator">-</span>v<span aria-hidden="true" class="line-n
 
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"user_email"</span> # user_email填GitHub注册的邮箱<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#115;&#x6a;&#49;&#49;&#x31;&#50;&#x32;&#x32;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x77;&#115;&#x6a;&#49;&#49;&#x31;&#50;&#x32;&#x32;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
+<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#119;&#115;&#x6a;&#49;&#x31;&#49;&#50;&#x32;&#50;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#119;&#115;&#x6a;&#49;&#x31;&#49;&#50;&#x32;&#50;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"wsj"</span>
 git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -197,6 +197,45 @@ FATAL Something&#39;s wrong. Maybe you can find the solution here: https:&#x2F;&
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://blog.csdn.net/qq_62928039/article/details/130248518">Hexo+GitHub搭建个人博客教程（2023最新版）_hexo github个人网站教程-CSDN博客</a></p>
 <p><a href="https://fanyfull.github.io/2021/10/16/Github-Hexo-%E7%9C%9F-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-GitHub-%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/#%E4%BD%BF%E7%94%A8-hexo-%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6">GiHub + Hexo 真·从零开始搭建个人博客 - Fany Full’s Blog</a></p>
 <p><a href="https://blog.csdn.net/Lu_xiuyuan/article/details/112056997">关于hexo更新到GitHub后博客内容未变问题_hexo 部署到gitee 已经部署了 但是博客没更新-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+GitHub Pages搭建的个人博客加入到Bing搜索引擎</title>
+    <url>/posts/7cddb87d/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>搭建好个人博客以后，需要将自己的博客网站加入到搜索引擎中，自己在查找资料的过程中，找到一篇加入到Bing的文章。按照这个方法最后成功了，但是原文章作者省略了几个点，导致自己在设置的时候有点纠结，所以在本文章中完善一下这几点。看到本文的读者可以根据原作者的步骤以及本文中提到的原作者省略的设置细节完成自己博客的设置。</p>
+<h4 id="原文循迹"><a href="#原文循迹" class="headerlink" title="原文循迹"></a>原文循迹</h4><p><a href="https://www.cnblogs.com/RainbowC0/p/18107581">将 Github Pages 个人博客录入搜索引擎（以 Bing 为例） - RainbowC0 - 博客园 (cnblogs.com)</a></p>
+<p>虽然原文作者是将Gitee.io，但是和Github.io加入是一致的。</p>
+<h4 id="补充细节"><a href="#补充细节" class="headerlink" title="补充细节"></a>补充细节</h4><h5 id="步骤三：验证网站"><a href="#步骤三：验证网站" class="headerlink" title="步骤三：验证网站"></a>步骤三：验证网站</h5><p>原文中选择了XML File进行验证，下载BingSiteAuth.xml文件后，需要放到目录中。</p>
+<p>那么这个根目录是哪里呢？</p>
+<p>其实就是public文件夹下，我直接将BingSiteAuth.xml文件黏贴到public文件夹下，Git中hexo clean &amp;&amp; hexo g &amp;&amp; hexo d。但是当我去github的仓库中看时，仓库中并没有出现BingSiteAuth.xml文件。这是为什么呢？</p>
+<p>因为 Hexo 的生成流程不会保留 <code>public</code> 目录下非由 Hexo 生成的原始文件。<code>hexo g</code> 命令会清理 <code>public</code> 目录并重新生成所有内容，但只包括从 <code>source</code> 目录和主题中通过 Hexo 处理的文件。</p>
+<p>所以我的办法是先运行hexo clean &amp;&amp; hexo g之后，再将BingSiteAuth.xml黏贴到public下，之后再hexo d。这是github的仓库中就顺利出现了这个文件。</p>
+<p>网上我也搜索到了另一种方法，就是直接将BingSiteAuth.xml文件直接加入到github的仓库中，省去hexo c,g,d的操作。(未试验过)</p>
+<h5 id="步骤四：添加网站地图"><a href="#步骤四：添加网站地图" class="headerlink" title="步骤四：添加网站地图"></a>步骤四：添加网站地图</h5><p>原文中提到需要将sitemap.xml文件防到根目录下，但是原文只说了Hugo会自带，那么使用Hexo该怎么办呢？</p>
+<p>首先在Git中输入：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>sitemap <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>该插件可以帮助Hexo自动生成sitemap.xml文件。</p>
+<p>然后在站点配置文件_config.yml文件中输入：</p>
+<pre class="line-numbers language-none"><code class="language-none"># Sitemap Generator  
+sitemap:  
+  path: sitemap.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>之后在Git中使用</p>
+<pre class="line-numbers language-none"><code class="language-none">hexo g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>就可以看到在public中生成了sitemap.xml文件了。</p>
+<p>然后再通过部署到仓库，就可以在网站地图中完成网站地图的提交。</p>
+<h4 id="验证相关文件"><a href="#验证相关文件" class="headerlink" title="验证相关文件"></a>验证相关文件</h4><p>怎么知道sitemap.xml和BingSiteAuth.xml是否可以被搜索到呢？</p>
+<p>可以自己直接搜索username.github.io&#x2F;BingSiteAuth.xml和username.github.io&#x2F;sitemap.xml，username就是你的仓库用户名。如果可以看到xml文件中的内容就是上传到仓库成功。</p>
+<p>可能需要等一会才能搜索到。</p>
 ]]></content>
       <categories>
         <category>写文章</category>

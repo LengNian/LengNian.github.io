@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-07-24T11:56:48.068Z</updated>
+  <updated>2024-07-24T13:08:47.629Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo+GitHub Pages搭建的个人博客加入到Bing搜索引擎</title>
+    <link href="http://lengnian.github.io/posts/7cddb87d/"/>
+    <id>http://lengnian.github.io/posts/7cddb87d/</id>
+    <published>2024-07-24T12:38:00.000Z</published>
+    <updated>2024-07-24T13:08:47.629Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="Hexo" scheme="http://lengnian.github.io/tags/Hexo/"/>
+    
+    <category term="GitHub Pages" scheme="http://lengnian.github.io/tags/GitHub-Pages/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo+GitHub Pages 个人博客搭建</title>
