@@ -124,7 +124,7 @@ html.dark {
   --hty-secondary-text-color: #555;
   --post-block-bg-color: #fff;
   --smc-link-color: #0078e7;
-  --yun-bg-image: url("/images/background_image7.jpg");
+  --yun-bg-image: url("/images/background_image5.png");
   --banner-line-color: #000;
   --banner-char-color: #000;
 }
@@ -135,7 +135,7 @@ html.dark {
   --hty-secondary-text-color: #eee;
   --post-block-bg-color: #1b1f2e;
   --smc-link-color: #3ca1ff;
-  --yun-bg-image: url("/images/background_image9.jpg");
+  --yun-bg-image: url("/images/background_image6.png");
   --banner-line-color: #fff;
   --banner-char-color: #fff;
   --banner-char-bg-color: rgba(0,0,0,0.5);
