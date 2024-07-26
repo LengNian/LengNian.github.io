@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-07-24T16:18:12.802Z</updated>
+  <updated>2024-07-26T09:39:32.718Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>目标计数简洁框架</title>
+    <link href="http://lengnian.github.io/posts/9ec2453a/"/>
+    <id>http://lengnian.github.io/posts/9ec2453a/</id>
+    <published>2024-07-26T09:05:41.000Z</published>
+    <updated>2024-07-26T09:39:32.718Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="目标计数" scheme="http://lengnian.github.io/tags/%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0/"/>
+    
+    <category term="综述" scheme="http://lengnian.github.io/tags/%E7%BB%BC%E8%BF%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo-GitHub Pages解决上传文章图片不显示的问题</title>

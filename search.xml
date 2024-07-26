@@ -54,7 +54,7 @@
 <li>喜欢乐器，学过七年萨克斯，现在尤其喜欢钢琴，有点后悔当初没有去学钢琴或者没有坚持学下来电子琴（学萨克斯前一直在学电子琴）</li>
 </ul>
 <h4 id="交友原则"><a href="#交友原则" class="headerlink" title="交友原则"></a>交友原则</h4><ul>
-<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#x77;&#101;&#x69;&#115;&#106;&#95;&#108;&#110;&#64;&#49;&#54;&#x33;&#46;&#99;&#111;&#109;">&#x77;&#101;&#x69;&#115;&#106;&#95;&#108;&#110;&#64;&#49;&#54;&#x33;&#46;&#99;&#111;&#109;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
+<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#119;&#101;&#x69;&#115;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#x31;&#x36;&#x33;&#46;&#x63;&#x6f;&#109;">&#119;&#101;&#x69;&#115;&#x6a;&#x5f;&#x6c;&#x6e;&#64;&#x31;&#x36;&#x33;&#46;&#x63;&#x6f;&#109;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
 <li>无论是交友或者指正我的错误，希望大家可以开门见山，千万不要发在吗？有时间嘛？等，这些内容看到瘆得慌，我也会直接忽略掉。大家的邮件我看到会及时回复。</li>
 </ul>
 <h4 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h4><p>其实看到别人都在搞一个自己的博客，自己也有点心动，所以也自己搞一个，可以用于自己记录一些内容，喜欢自己可以保持初心，如果在阅读过程发现我有什么写的错误的地方，欢迎指正(可以通过邮件联系我)。</p>
@@ -72,45 +72,6 @@
       </categories>
       <tags>
         <tag>回忆录</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo+GitHub Pages搭建的个人博客加入到Bing搜索引擎</title>
-    <url>/posts/7cddb87d/</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>搭建好个人博客以后，需要将自己的博客网站加入到搜索引擎中，自己在查找资料的过程中，找到一篇加入到Bing的文章。按照这个方法最后成功了，但是原文章作者省略了几个点，导致自己在设置的时候有点纠结，所以在本文章中完善一下这几点。看到本文的读者可以根据原作者的步骤以及本文中提到的原作者省略的设置细节完成自己博客的设置。</p>
-<h4 id="原文循迹"><a href="#原文循迹" class="headerlink" title="原文循迹"></a>原文循迹</h4><p><a href="https://www.cnblogs.com/RainbowC0/p/18107581">将 Github Pages 个人博客录入搜索引擎（以 Bing 为例） - RainbowC0 - 博客园 (cnblogs.com)</a></p>
-<p>虽然原文作者是将Gitee.io，但是和Github.io加入是一致的。</p>
-<h4 id="补充细节"><a href="#补充细节" class="headerlink" title="补充细节"></a>补充细节</h4><h5 id="步骤三：验证网站"><a href="#步骤三：验证网站" class="headerlink" title="步骤三：验证网站"></a>步骤三：验证网站</h5><p>原文中选择了XML File进行验证，下载BingSiteAuth.xml文件后，需要放到目录中。</p>
-<p>那么这个根目录是哪里呢？</p>
-<p>其实就是public文件夹下，我直接将BingSiteAuth.xml文件黏贴到public文件夹下，Git中hexo clean &amp;&amp; hexo g &amp;&amp; hexo d。但是当我去github的仓库中看时，仓库中并没有出现BingSiteAuth.xml文件。这是为什么呢？</p>
-<p>因为 Hexo 的生成流程不会保留 <code>public</code> 目录下非由 Hexo 生成的原始文件。<code>hexo g</code> 命令会清理 <code>public</code> 目录并重新生成所有内容，但只包括从 <code>source</code> 目录和主题中通过 Hexo 处理的文件。</p>
-<p>所以我的办法是先运行hexo clean &amp;&amp; hexo g之后，再将BingSiteAuth.xml黏贴到public下，之后再hexo d。这是github的仓库中就顺利出现了这个文件。</p>
-<p>网上我也搜索到了另一种方法，就是直接将BingSiteAuth.xml文件直接加入到github的仓库中，省去hexo c,g,d的操作。(未试验过)</p>
-<h5 id="步骤四：添加网站地图"><a href="#步骤四：添加网站地图" class="headerlink" title="步骤四：添加网站地图"></a>步骤四：添加网站地图</h5><p>原文中提到需要将sitemap.xml文件防到根目录下，但是原文只说了Hugo会自带，那么使用Hexo该怎么办呢？</p>
-<p>首先在Git中输入：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>sitemap <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>该插件可以帮助Hexo自动生成sitemap.xml文件。</p>
-<p>然后在站点配置文件_config.yml文件中输入：</p>
-<pre class="line-numbers language-none"><code class="language-none"># Sitemap Generator  
-sitemap:  
-  path: sitemap.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>之后在Git中使用</p>
-<pre class="line-numbers language-none"><code class="language-none">hexo g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>就可以看到在public中生成了sitemap.xml文件了。</p>
-<p>然后再通过部署到仓库，就可以在网站地图中完成网站地图的提交。</p>
-<h4 id="验证相关文件"><a href="#验证相关文件" class="headerlink" title="验证相关文件"></a>验证相关文件</h4><p>怎么知道sitemap.xml和BingSiteAuth.xml是否可以被搜索到呢？</p>
-<p>可以自己直接搜索username.github.io&#x2F;BingSiteAuth.xml和username.github.io&#x2F;sitemap.xml，username就是你的仓库用户名。如果可以看到xml文件中的内容就是上传到仓库成功。</p>
-<p>可能需要等一会才能搜索到。</p>
-]]></content>
-      <categories>
-        <category>写文章</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>GitHub Pages</tag>
       </tags>
   </entry>
   <entry>
@@ -140,7 +101,7 @@ npm <span class="token operator">-</span>v<span aria-hidden="true" class="line-n
 
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"user_email"</span> # user_email填GitHub注册的邮箱<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#115;&#106;&#x31;&#x31;&#49;&#x32;&#50;&#x32;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#x77;&#115;&#106;&#x31;&#x31;&#49;&#x32;&#50;&#x32;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
+<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#119;&#x73;&#x6a;&#49;&#x31;&#49;&#50;&#50;&#50;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#119;&#x73;&#x6a;&#49;&#x31;&#49;&#50;&#50;&#50;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"wsj"</span>
 git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -236,6 +197,45 @@ FATAL Something&#39;s wrong. Maybe you can find the solution here: https:&#x2F;&
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://blog.csdn.net/qq_62928039/article/details/130248518">Hexo+GitHub搭建个人博客教程（2023最新版）_hexo github个人网站教程-CSDN博客</a></p>
 <p><a href="https://fanyfull.github.io/2021/10/16/Github-Hexo-%E7%9C%9F-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-GitHub-%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/#%E4%BD%BF%E7%94%A8-hexo-%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6">GiHub + Hexo 真·从零开始搭建个人博客 - Fany Full’s Blog</a></p>
 <p><a href="https://blog.csdn.net/Lu_xiuyuan/article/details/112056997">关于hexo更新到GitHub后博客内容未变问题_hexo 部署到gitee 已经部署了 但是博客没更新-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+GitHub Pages搭建的个人博客加入到Bing搜索引擎</title>
+    <url>/posts/7cddb87d/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>搭建好个人博客以后，需要将自己的博客网站加入到搜索引擎中，自己在查找资料的过程中，找到一篇加入到Bing的文章。按照这个方法最后成功了，但是原文章作者省略了几个点，导致自己在设置的时候有点纠结，所以在本文章中完善一下这几点。看到本文的读者可以根据原作者的步骤以及本文中提到的原作者省略的设置细节完成自己博客的设置。</p>
+<h4 id="原文循迹"><a href="#原文循迹" class="headerlink" title="原文循迹"></a>原文循迹</h4><p><a href="https://www.cnblogs.com/RainbowC0/p/18107581">将 Github Pages 个人博客录入搜索引擎（以 Bing 为例） - RainbowC0 - 博客园 (cnblogs.com)</a></p>
+<p>虽然原文作者是将Gitee.io，但是和Github.io加入是一致的。</p>
+<h4 id="补充细节"><a href="#补充细节" class="headerlink" title="补充细节"></a>补充细节</h4><h5 id="步骤三：验证网站"><a href="#步骤三：验证网站" class="headerlink" title="步骤三：验证网站"></a>步骤三：验证网站</h5><p>原文中选择了XML File进行验证，下载BingSiteAuth.xml文件后，需要放到目录中。</p>
+<p>那么这个根目录是哪里呢？</p>
+<p>其实就是public文件夹下，我直接将BingSiteAuth.xml文件黏贴到public文件夹下，Git中hexo clean &amp;&amp; hexo g &amp;&amp; hexo d。但是当我去github的仓库中看时，仓库中并没有出现BingSiteAuth.xml文件。这是为什么呢？</p>
+<p>因为 Hexo 的生成流程不会保留 <code>public</code> 目录下非由 Hexo 生成的原始文件。<code>hexo g</code> 命令会清理 <code>public</code> 目录并重新生成所有内容，但只包括从 <code>source</code> 目录和主题中通过 Hexo 处理的文件。</p>
+<p>所以我的办法是先运行hexo clean &amp;&amp; hexo g之后，再将BingSiteAuth.xml黏贴到public下，之后再hexo d。这是github的仓库中就顺利出现了这个文件。</p>
+<p>网上我也搜索到了另一种方法，就是直接将BingSiteAuth.xml文件直接加入到github的仓库中，省去hexo c,g,d的操作。(未试验过)</p>
+<h5 id="步骤四：添加网站地图"><a href="#步骤四：添加网站地图" class="headerlink" title="步骤四：添加网站地图"></a>步骤四：添加网站地图</h5><p>原文中提到需要将sitemap.xml文件防到根目录下，但是原文只说了Hugo会自带，那么使用Hexo该怎么办呢？</p>
+<p>首先在Git中输入：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>sitemap <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>该插件可以帮助Hexo自动生成sitemap.xml文件。</p>
+<p>然后在站点配置文件_config.yml文件中输入：</p>
+<pre class="line-numbers language-none"><code class="language-none"># Sitemap Generator  
+sitemap:  
+  path: sitemap.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>之后在Git中使用</p>
+<pre class="line-numbers language-none"><code class="language-none">hexo g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>就可以看到在public中生成了sitemap.xml文件了。</p>
+<p>然后再通过部署到仓库，就可以在网站地图中完成网站地图的提交。</p>
+<h4 id="验证相关文件"><a href="#验证相关文件" class="headerlink" title="验证相关文件"></a>验证相关文件</h4><p>怎么知道sitemap.xml和BingSiteAuth.xml是否可以被搜索到呢？</p>
+<p>可以自己直接搜索username.github.io&#x2F;BingSiteAuth.xml和username.github.io&#x2F;sitemap.xml，username就是你的仓库用户名。如果可以看到xml文件中的内容就是上传到仓库成功。</p>
+<p>可能需要等一会才能搜索到。</p>
 ]]></content>
       <categories>
         <category>写文章</category>
@@ -347,6 +347,79 @@ hexo<span class="token punctuation">.</span>extend<span class="token punctuation
       <tags>
         <tag>Hexo</tag>
         <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>目标计数简洁框架</title>
+    <url>/posts/9ec2453a/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h4><p>前阵子看了些目标计数的综述性文章，然后自己大概整理了个框架，可以供想要快速了解目标计数的阅读。</p>
+<h4 id="目标计数"><a href="#目标计数" class="headerlink" title="目标计数"></a><strong>目标计数</strong></h4><p><strong>目标计数：</strong>目标计数就是指对给定的图像或者视频进行分析，从中估计指定目标的数量。通过目标数量的空间分布信息，就可以推测给定场景中关注度高的区域，从而对图像或者视频进行合理的分析和解读。</p>
+<h4 id="目标计数模型分类-根据模型任务属性的角度分类"><a href="#目标计数模型分类-根据模型任务属性的角度分类" class="headerlink" title="目标计数模型分类(根据模型任务属性的角度分类)"></a><strong>目标计数模型分类(根据模型任务属性的角度分类)</strong></h4><h5 id="基于回归的计数模型"><a href="#基于回归的计数模型" class="headerlink" title="基于回归的计数模型"></a>基于回归的计数模型</h5><p>模型通过学习输入图像直接输出待计数目标的数量。这种方法只能提供场景内目标的数量信息，空间上目标数量的分布情况可以提供更加复杂的信息，同时，基于传统图像处理的目标计数方法所面临的问题就是复杂背景的干扰和，目标重叠。所以研究中更倾向于通过估计密度图来间接获得目标数量。</p>
+<h5 id="基于密度图估计的计数模型"><a href="#基于密度图估计的计数模型" class="headerlink" title="基于密度图估计的计数模型"></a>基于密度图估计的计数模型</h5><p>种计数模型的输出是一张密度图，密度图中的每一个元素的值反应了当前位置上包含目标的数量。同时，密度图整体上也可以反映目标的空间分布，对密度图中任意区域内的元素进行积分，就可得到该区域中的目标数量。 密度图生成的前提就是需要对目标样本逐个进行标记。密度图真实值生成过程就是对于一张给定的包含目标的图像，先对每个目标都用一个靠近目标(人头、细胞等)中心的点进行标注，然后采用归一化高斯函数对其进行卷积。重叠区域输出的密度图是每个目标经卷积后的叠加结果。</p>
+<h5 id="多任务模型-模型有多种输出"><a href="#多任务模型-模型有多种输出" class="headerlink" title="多任务模型(模型有多种输出)"></a>多任务模型(模型有多种输出)</h5><p>以密度图估计任务为主，其他任务(目标数量估计、密度等级划分、图像分割等任务)为辅来帮助提高计数任务的准确性。</p>
+<h4 id="常用目标计数数据集"><a href="#常用目标计数数据集" class="headerlink" title="常用目标计数数据集"></a><strong>常用目标计数数据集</strong></h4><p>目标计数的应用范围十分广泛，如人群计数、车辆计数、细胞计数、野生动物计数等。</p>
+<h5 id="人群计数常用数据集"><a href="#人群计数常用数据集" class="headerlink" title="人群计数常用数据集"></a>人群计数常用数据集</h5><ul>
+<li><p>UCSD：该数据集是第一个用于人群计数的数据集，记录了固定场景下的人群流动情况，包含2000张分辨率为158×238的图片，共包含了49885个行人。</p>
+</li>
+<li><p>Mall：该数据集来源于一个商业公共区域的监控视频，包含2000张分辨率大小为240×320的图片，共有62325个行人。其记录场景相对复杂，存在物体遮挡问题。</p>
+</li>
+<li><p>UCF_CC_50：该数据集覆盖了音乐会、体育场等不同的场景，但是只包含50张图片，平均每张图片包含1280个人。</p>
+</li>
+<li><p>WorldExpo’10：该数据集包含108个摄像头的1132个视频序列，分辨率大小为576×720，覆盖了大量不同场景，共计199923人。</p>
+</li>
+<li><p>Shanghai Tech：该数据集由PartA和PartB两部分组成，A部分来自网络，包含482张大小不一致的图片，一共包含241677人。B部分拍摄了来自上海主城区的繁华街头场景，包含716张分辨率大小为768×1024张图片，共计88488人。</p>
+</li>
+</ul>
+<h5 id="细胞计数常用数据集"><a href="#细胞计数常用数据集" class="headerlink" title="细胞计数常用数据集"></a>细胞计数常用数据集</h5><ul>
+<li><p>VGG Cells：该数据集是一个荧光细胞数据集，模拟了真实图片中经常会出现的一系列问题，包含200张分辨率大小为256×256的图片。</p>
+</li>
+<li><p>MBM Cells：该数据集记录了8个不同病人的健康骨髓细胞，共有11张分辨率大小为1200×1200的图片。对错误订成后裁剪为44张分辨率大小为600×600的图片。</p>
+</li>
+<li><p>Adipocyte Cells：人体皮下脂肪细胞数据集，每张图片分辨率为150×150。</p>
+</li>
+</ul>
+<h5 id="车辆计数常用数据集"><a href="#车辆计数常用数据集" class="headerlink" title="车辆计数常用数据集"></a>车辆计数常用数据集</h5><ul>
+<li><p>WebCamT：该数据集由多台不同的交通摄像机记录了不同天气条件、不同时刻的路况。训练集包含了45480张图片，测试集包含了14150张图片，场景分为市区道路和公园道路。</p>
+</li>
+<li><p>TRANCOS：该数据集记录了多种不同的道路交通场景，共标记了46796辆车辆，共1244张图片。</p>
+</li>
+</ul>
+<h4 id="人群计数方法"><a href="#人群计数方法" class="headerlink" title="人群计数方法"></a><strong>人群计数方法</strong></h4><h5 id="传统人群计数方法"><a href="#传统人群计数方法" class="headerlink" title="传统人群计数方法"></a>传统人群计数方法</h5><ul>
+<li><p>检测法：检测图像的个体并统计人数，当人群密集时就无法得到准确结果。</p>
+</li>
+<li><p>回归法：建立手工提取特征到图像人数之间的映射来完成计数。</p>
+</li>
+<li><p>密度估计方法：学习提取特征与密度图之间的映射关系。</p>
+</li>
+</ul>
+<h5 id="基于深度学习的人群计数方法"><a href="#基于深度学习的人群计数方法" class="headerlink" title="基于深度学习的人群计数方法"></a>基于深度学习的人群计数方法</h5><ul>
+<li><p>多列CNN模型：多列网络是指用不同的列对应于不同感受野的多尺度信息。但是这种网络模型参数较多，训练困难，计数的实时性较差，网络结构冗余度较高。</p>
+</li>
+<li><p>单列CNN模型：单列网络仅存在单个深度网络，不会增加网络的复杂性，结构简单，模型训练容易。但是这种网络不能有效分析任意场景的透视信息，对尺度变化的处理效率低。</p>
+</li>
+</ul>
+<h4 id="人群计数损失函数"><a href="#人群计数损失函数" class="headerlink" title="人群计数损失函数"></a><strong>人群计数损失函数</strong></h4><p>评价模型的预测值与真实值ground-truth的一致程度，通过定义损失函数，可以将人群密度图的映射关系学习转化为一个最优化问题。</p>
+<ul>
+<li><p>欧式距离损失：采用像素级的欧式距离，度量估计密度图与真实密度图之间的差距。但是这种方法的鲁棒性差，很容易因为个别像素点的极端情况影响整体的计数效果，并且由于取了平均值，所以其并不关注结构化信息，生成的密度图模糊，细节不清晰。</p>
+</li>
+<li><p>结构相似性损失(SSIM)：这种方法从图像的亮度、对比度和结构这三方面度量图像相似性，并通过均值、方差、协方差3个局部统计量计算图像之间的相似性，其取值范围在-1和1之间，值越大表示图像之间越相似。这种方法更好地关注图像间对应局部块的差异，更好的生成密度图。</p>
+</li>
+<li><p>生成对抗损失：使用对抗损失函数，通过对抗的方式对生成图片进行矫正，避免密度图模糊的情况。</p>
+</li>
+</ul>
+<h4 id="人群计数ground-truth密度图生成方法"><a href="#人群计数ground-truth密度图生成方法" class="headerlink" title="人群计数ground-truth密度图生成方法"></a><strong>人群计数ground-truth密度图生成方法</strong></h4><p>为图片中的每个人头标注中心坐标，然后再利用高斯核将坐标图转化为ground-truth人群密度图。ground-truth密度图生成的关键在于如何选择高斯核。</p>
+<ul>
+<li>几何自适应法：由于存在透视效应，人群图片中远近景目标的尺寸差异较大，不同位置人头对应着不同大小的像素区域，所以考虑到透视畸变的影响，大人头采用大尺寸高斯核，小人头采用小尺寸高斯核。</li>
+<li>固定高斯核法：这种方法忽略了人头尺寸差异以及自身与邻居的相似性，无论图片中哪个位置的人头均采用方差大小固定的高斯核对每个人头进行高斯模糊。但是对于远处的人头高斯核尺寸较大，可能会出现重叠，导致密度图质量的降低。</li>
+<li>内容感知标注法：首先使用暴力最近邻算法定位最近的头部，再用无监督分割算法分割出头部区域，然后依据邻居头部的大小计算高斯核尺寸。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>目标计数</tag>
+        <tag>综述</tag>
       </tags>
   </entry>
   <entry>

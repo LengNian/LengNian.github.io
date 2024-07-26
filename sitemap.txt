@@ -1,3 +1,4 @@
+http://lengnian.github.io/posts/9ec2453a/
 http://lengnian.github.io/posts/ace8cace/
 http://lengnian.github.io/guestbook/index.html
 http://lengnian.github.io/posts/95fa3d73/
@@ -13,5 +14,7 @@ http://lengnian.github.io/
 http://lengnian.github.io/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/
 http://lengnian.github.io/tags/Hexo/
 http://lengnian.github.io/tags/GitHub-Pages/
+http://lengnian.github.io/tags/%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0/
+http://lengnian.github.io/tags/%E7%BB%BC%E8%BF%B0/
 http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/
 http://lengnian.github.io/categories/%E8%A7%A3%E9%97%AE%E9%A2%98/
