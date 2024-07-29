@@ -54,7 +54,7 @@
 <li>喜欢乐器，学过七年萨克斯，现在尤其喜欢钢琴，有点后悔当初没有去学钢琴或者没有坚持学下来电子琴（学萨克斯前一直在学电子琴）</li>
 </ul>
 <h4 id="交友原则"><a href="#交友原则" class="headerlink" title="交友原则"></a>交友原则</h4><ul>
-<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#119;&#101;&#105;&#115;&#106;&#95;&#108;&#110;&#x40;&#x31;&#x36;&#51;&#46;&#x63;&#111;&#x6d;">&#119;&#101;&#105;&#115;&#106;&#95;&#108;&#110;&#x40;&#x31;&#x36;&#51;&#46;&#x63;&#111;&#x6d;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
+<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#x77;&#101;&#105;&#x73;&#106;&#x5f;&#x6c;&#110;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;">&#x77;&#101;&#105;&#x73;&#106;&#x5f;&#x6c;&#110;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
 <li>无论是交友或者指正我的错误，希望大家可以开门见山，千万不要发在吗？有时间嘛？等，这些内容看到瘆得慌，我也会直接忽略掉。大家的邮件我看到会及时回复。</li>
 </ul>
 <h4 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h4><p>其实看到别人都在搞一个自己的博客，自己也有点心动，所以也自己搞一个，可以用于自己记录一些内容，喜欢自己可以保持初心，如果在阅读过程发现我有什么写的错误的地方，欢迎指正(可以通过邮件联系我)。</p>
@@ -101,7 +101,7 @@ npm <span class="token operator">-</span>v<span aria-hidden="true" class="line-n
 
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"user_email"</span> # user_email填GitHub注册的邮箱<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#x73;&#x6a;&#49;&#49;&#x31;&#50;&#50;&#50;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x77;&#x73;&#x6a;&#49;&#49;&#x31;&#50;&#50;&#50;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
+<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#119;&#115;&#x6a;&#49;&#49;&#49;&#x32;&#x32;&#50;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#119;&#115;&#x6a;&#49;&#49;&#49;&#x32;&#x32;&#50;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"wsj"</span>
 git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -357,10 +357,48 @@ hexo<span class="token punctuation">.</span>extend<span class="token punctuation
 <img src="/posts/f891610e/1.png" class loading="lazy">
 
 <p>在这幅图最左侧是输入图像x，他的正确分类标签y为”panda”，我们将中间这幅图所表达的意思用μ来代替，即μ&#x3D;0.07*(sign(J(θ,x,y)‘))，其中sign是符号函数，J(θ,x,y)是训练网络的损失函数，J(θ,x,y)’表示损失函数J对x的导数。用x’代表生成的对抗样本，即x‘&#x3D;x+μ。从图中可以看到x’的分类标签y’成为了”gibbon“。说明对抗样本成功骗过了模型，使模型的分类错误。</p>
-<p>在神经网络中使用梯度下降算法，使梯度降低，从而不断最小化损失值以达到提高准确率的目的。其公式如下：<br>$$<br>\alpha &#x3D; \alpha - \delta\times\frac{\partial L}{\partial \alpha} \tag{1}<br>$$<br>如果把梯度下降中的后一项看成μ，即<br>$$<br>\eta &#x3D; \delta\times\frac{\partial L}{\partial \alpha} \tag{2}<br>$$<br>那么，梯度下降的公式就可以写为：<br>$$<br>\alpha &#x3D; \alpha - \eta \tag{3}<br>$$<br>这与FGSM中x’&#x3D;x+μ的公式非常像，为什么这么像呢？</p>
+<p>在神经网络中使用梯度下降算法，使梯度降低，从而不断最小化损失值以达到提高准确率的目的。其公式如下：</p>
+<div>
+$$
+\alpha = \alpha - \delta\times\frac{\partial L}{\partial \alpha} \tag{1}
+$$
+</div>
+如果把梯度下降中的后一项看成μ，即
+<div>
+$$
+\eta = \delta\times\frac{\partial L}{\partial \alpha} \tag{2}
+$$
+</div>
+那么，梯度下降的公式就可以写为：
+<div>
+$$
+\alpha = \alpha - \eta \tag{3}
+$$
+</div>
+这与FGSM中x'=x+μ的公式非常像，为什么这么像呢？
+
 <p>梯度代表函数值增加最快的方向，在神经网络中我们要通过反向传播不断降低损失值来达到提高准确率的目的，所i有要减去梯度，而在fgsm中，为了让分类错误，要让损失增大也就是梯度上升，所以这里只需要改为加号就可以了。所以这两个公式是非常像的。</p>
 <p><strong>我再写一下我对损失增大的理解，我们直到损失函数是度量真实值与预测值之间的差距的，当损失值越小，说明预测值和真实值越接近，而我们这里是要让分类错误，就是预测值和真实值不同，所以要让这个度量指标变大，其越大说明预测值和真实值之间的差距越大，也就说明模型的分类是错误的。</strong></p>
-<p>接下来我们介绍一下FGSM算法中的μ，公式如下：<br>$$<br>\mu &#x3D; \epsilon sign(\nabla_xJ(\boldsymbol{\theta},\boldsymbol{x},y)) \tag{4}<br>$$<br>在这个公式中，x是输入的原始图像，θ是模型的参数，y是原始图像x的真实类别，J是损失函数，∇x 表示对 x 求偏导，sign是符号函数。我们在这里看一下符号函数的公式。<br>$$<br>\text{sign}(x) &#x3D;<br>  \begin{cases}<br>   -1 &amp; \text{if } x &lt; 0, \<br>   0 &amp; \text{if } x &#x3D; 0, \<br>   1 &amp; \text{if } x &gt; 0.<br>  \end{cases}<br>  \tag{5}<br>$$<br>在FGSM中引入符号函数可以确定对抗扰动的方向。在FGSM中不需要关心具体的梯度大小，只需要知道方向即可通过确定对抗扰动的方向。（<strong>这里我的理解是，FGSM要寻找一个可以使模型分类错误的有效扰动，而不是最优的扰动的大小，所以只关心梯度方向，具体扰动大小则由epsilon确定，初次之外，有资料中说，对抗性扰动的泛化性因不同的模型和数据集，具体的梯度大小会有所不同，而梯度方向包含了导致模型判断错误的关键信息，所以更注重梯度的方向。对于使用符号函数的相关原因，欢迎大家一起讨论。</strong>）</p>
+<p>接下来我们介绍一下FGSM算法中的μ，公式如下：</p>
+<div>
+$$
+\mu = \epsilon sign(\nabla_xJ(\boldsymbol{\theta},\boldsymbol{x},y)) \tag{4}
+$$
+</div>
+在这个公式中，x是输入的原始图像，θ是模型的参数，y是原始图像x的真实类别，J是损失函数，∇x 表示对 x 求偏导，sign是符号函数。我们在这里看一下符号函数的公式。
+<div>
+$$
+\text{sign}(x) = 
+  \begin{cases} 
+   -1 & \text{if } x < 0, \\
+   0 & \text{if } x = 0, \\
+   1 & \text{if } x > 0.
+  \end{cases} 
+  \tag{5}
+$$
+</div>
+在FGSM中引入符号函数可以确定对抗扰动的方向。在FGSM中不需要关心具体的梯度大小，只需要知道方向即可通过确定对抗扰动的方向。（**这里我的理解是，FGSM要寻找一个可以使模型分类错误的有效扰动，而不是最优的扰动的大小，所以只关心梯度方向，具体扰动大小则由epsilon确定，初次之外，有资料中说，对抗性扰动的泛化性因不同的模型和数据集，具体的梯度大小会有所不同，而梯度方向包含了导致模型判断错误的关键信息，所以更注重梯度的方向。对于使用符号函数的相关原因，欢迎大家一起讨论。**）
+
 <p>这里的ε控制着扰动的大小。ε较小，对抗扰动不易被察觉，如果过大，扰动会很明显，容易被识别出来。</p>
 <h4 id="Pytorch代码实现"><a href="#Pytorch代码实现" class="headerlink" title="Pytorch代码实现"></a>Pytorch代码实现</h4><p>FGSM的代码在Pytorch已经实现(<a href="https://pytorch.org/tutorials/beginner/fgsm_tutorial.html?highlight=fgsm">Adversarial Example Generation — PyTorch Tutorials 2.4.0+cu124 documentation</a>)</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">FGSM_attack</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> epsilons<span class="token punctuation">,</span> data_grad<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -706,6 +744,30 @@ plt.tight_layout()
       </tags>
   </entry>
   <entry>
+    <title>电影和电视剧</title>
+    <url>/posts/cb44fd80/</url>
+    <content><![CDATA[<p>在这记录一些我想看的电影和电视剧，有些是因为题材去看的，有些是因为演员去看的，还有些是因为某个片段去看的。</p>
+<ul>
+<li>黑暗荣耀 √</li>
+<li>尘封十三载√</li>
+<li>太平轮上下</li>
+<li>默杀</li>
+<li>抓娃娃</li>
+<li>第二十条</li>
+<li>周处除三害</li>
+<li>东哥闯东北</li>
+<li>大唐狄公案</li>
+<li>来福大酒店</li>
+</ul>
+]]></content>
+      <categories>
+        <category>记随笔</category>
+      </categories>
+      <tags>
+        <tag>追剧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>我的2023——谨以此纪念我的考研</title>
     <url>/posts/ace8cace/</url>
     <content><![CDATA[<p>很久之前就想写这篇文章了，但是一直拖着没有完成（其实自己就是非常懒）。近期正好没什么事情，而且再不写感觉就要忘记了。</p>
@@ -737,30 +799,6 @@ plt.tight_layout()
       </categories>
       <tags>
         <tag>回忆录</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电影和电视剧</title>
-    <url>/posts/cb44fd80/</url>
-    <content><![CDATA[<p>在这记录一些我想看的电影和电视剧，有些是因为题材去看的，有些是因为演员去看的，还有些是因为某个片段去看的。</p>
-<ul>
-<li>黑暗荣耀 √</li>
-<li>尘封十三载√</li>
-<li>太平轮上下</li>
-<li>默杀</li>
-<li>抓娃娃</li>
-<li>第二十条</li>
-<li>周处除三害</li>
-<li>东哥闯东北</li>
-<li>大唐狄公案</li>
-<li>来福大酒店</li>
-</ul>
-]]></content>
-      <categories>
-        <category>记随笔</category>
-      </categories>
-      <tags>
-        <tag>追剧</tag>
       </tags>
   </entry>
   <entry>

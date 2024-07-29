@@ -5,7 +5,13 @@
 }
 document.addEventListener("DOMContentLoaded", initScrollReveal);
 document.addEventListener("pjax:success", initScrollReveal);
-</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
     window.Yun = {}
     window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
   </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="前言初次接触对抗样本，在这里记录一下自己的学习过程，希望可以帮助自己更好理解，也希望可以帮助到有需要的人。 FGSM原理FGSM，即Fast Gradient Sign Method，这是一种用于生成对抗性样本的算法。在论文Explaining and Harnessing Adversarial Examples中被提到。它是一种基于梯度生成的算法，属于无目标攻击（不要求指定生成的对抗样本的类别">
@@ -22,7 +28,7 @@ document.addEventListener("pjax:success", initScrollReveal);
 <meta property="og:image" content="http://lengnian.github.io/posts/f891610e/5.png">
 <meta property="og:image" content="http://lengnian.github.io/posts/f891610e/6.png">
 <meta property="article:published_time" content="2024-07-29T01:39:09.000Z">
-<meta property="article:modified_time" content="2024-07-29T08:43:29.452Z">
+<meta property="article:modified_time" content="2024-07-29T11:00:57.763Z">
 <meta property="article:author" content="魏笙葭">
 <meta property="article:tag" content="对抗样本生成与防御">
 <meta property="article:tag" content="对抗攻击">
@@ -49,10 +55,48 @@ IconifyProviders = {
 <img src="/posts/f891610e/1.png" class loading="lazy">
 
 <p>在这幅图最左侧是输入图像x，他的正确分类标签y为”panda”，我们将中间这幅图所表达的意思用μ来代替，即μ&#x3D;0.07*(sign(J(θ,x,y)‘))，其中sign是符号函数，J(θ,x,y)是训练网络的损失函数，J(θ,x,y)’表示损失函数J对x的导数。用x’代表生成的对抗样本，即x‘&#x3D;x+μ。从图中可以看到x’的分类标签y’成为了”gibbon“。说明对抗样本成功骗过了模型，使模型的分类错误。</p>
-<p>在神经网络中使用梯度下降算法，使梯度降低，从而不断最小化损失值以达到提高准确率的目的。其公式如下：<br>$$<br>\alpha &#x3D; \alpha - \delta\times\frac{\partial L}{\partial \alpha} \tag{1}<br>$$<br>如果把梯度下降中的后一项看成μ，即<br>$$<br>\eta &#x3D; \delta\times\frac{\partial L}{\partial \alpha} \tag{2}<br>$$<br>那么，梯度下降的公式就可以写为：<br>$$<br>\alpha &#x3D; \alpha - \eta \tag{3}<br>$$<br>这与FGSM中x’&#x3D;x+μ的公式非常像，为什么这么像呢？</p>
+<p>在神经网络中使用梯度下降算法，使梯度降低，从而不断最小化损失值以达到提高准确率的目的。其公式如下：</p>
+<div>
+$$
+\alpha = \alpha - \delta\times\frac{\partial L}{\partial \alpha} \tag{1}
+$$
+</div>
+如果把梯度下降中的后一项看成μ，即
+<div>
+$$
+\eta = \delta\times\frac{\partial L}{\partial \alpha} \tag{2}
+$$
+</div>
+那么，梯度下降的公式就可以写为：
+<div>
+$$
+\alpha = \alpha - \eta \tag{3}
+$$
+</div>
+这与FGSM中x'=x+μ的公式非常像，为什么这么像呢？
+
 <p>梯度代表函数值增加最快的方向，在神经网络中我们要通过反向传播不断降低损失值来达到提高准确率的目的，所i有要减去梯度，而在fgsm中，为了让分类错误，要让损失增大也就是梯度上升，所以这里只需要改为加号就可以了。所以这两个公式是非常像的。</p>
 <p><strong>我再写一下我对损失增大的理解，我们直到损失函数是度量真实值与预测值之间的差距的，当损失值越小，说明预测值和真实值越接近，而我们这里是要让分类错误，就是预测值和真实值不同，所以要让这个度量指标变大，其越大说明预测值和真实值之间的差距越大，也就说明模型的分类是错误的。</strong></p>
-<p>接下来我们介绍一下FGSM算法中的μ，公式如下：<br>$$<br>\mu &#x3D; \epsilon sign(\nabla_xJ(\boldsymbol{\theta},\boldsymbol{x},y)) \tag{4}<br>$$<br>在这个公式中，x是输入的原始图像，θ是模型的参数，y是原始图像x的真实类别，J是损失函数，∇x 表示对 x 求偏导，sign是符号函数。我们在这里看一下符号函数的公式。<br>$$<br>\text{sign}(x) &#x3D;<br>  \begin{cases}<br>   -1 &amp; \text{if } x &lt; 0, \<br>   0 &amp; \text{if } x &#x3D; 0, \<br>   1 &amp; \text{if } x &gt; 0.<br>  \end{cases}<br>  \tag{5}<br>$$<br>在FGSM中引入符号函数可以确定对抗扰动的方向。在FGSM中不需要关心具体的梯度大小，只需要知道方向即可通过确定对抗扰动的方向。（<strong>这里我的理解是，FGSM要寻找一个可以使模型分类错误的有效扰动，而不是最优的扰动的大小，所以只关心梯度方向，具体扰动大小则由epsilon确定，初次之外，有资料中说，对抗性扰动的泛化性因不同的模型和数据集，具体的梯度大小会有所不同，而梯度方向包含了导致模型判断错误的关键信息，所以更注重梯度的方向。对于使用符号函数的相关原因，欢迎大家一起讨论。</strong>）</p>
+<p>接下来我们介绍一下FGSM算法中的μ，公式如下：</p>
+<div>
+$$
+\mu = \epsilon sign(\nabla_xJ(\boldsymbol{\theta},\boldsymbol{x},y)) \tag{4}
+$$
+</div>
+在这个公式中，x是输入的原始图像，θ是模型的参数，y是原始图像x的真实类别，J是损失函数，∇x 表示对 x 求偏导，sign是符号函数。我们在这里看一下符号函数的公式。
+<div>
+$$
+\text{sign}(x) = 
+  \begin{cases} 
+   -1 & \text{if } x < 0, \\
+   0 & \text{if } x = 0, \\
+   1 & \text{if } x > 0.
+  \end{cases} 
+  \tag{5}
+$$
+</div>
+在FGSM中引入符号函数可以确定对抗扰动的方向。在FGSM中不需要关心具体的梯度大小，只需要知道方向即可通过确定对抗扰动的方向。（**这里我的理解是，FGSM要寻找一个可以使模型分类错误的有效扰动，而不是最优的扰动的大小，所以只关心梯度方向，具体扰动大小则由epsilon确定，初次之外，有资料中说，对抗性扰动的泛化性因不同的模型和数据集，具体的梯度大小会有所不同，而梯度方向包含了导致模型判断错误的关键信息，所以更注重梯度的方向。对于使用符号函数的相关原因，欢迎大家一起讨论。**）
+
 <p>这里的ε控制着扰动的大小。ε较小，对抗扰动不易被察觉，如果过大，扰动会很明显，容易被识别出来。</p>
 <h4 id="Pytorch代码实现"><a href="#Pytorch代码实现" class="headerlink" title="Pytorch代码实现"></a>Pytorch代码实现</h4><p>FGSM的代码在Pytorch已经实现(<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/fgsm_tutorial.html?highlight=fgsm">Adversarial Example Generation — PyTorch Tutorials 2.4.0+cu124 documentation</a>)</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">FGSM_attack</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> epsilons<span class="token punctuation">,</span> data_grad<span class="token punctuation">)</span><span class="token punctuation">:</span>
