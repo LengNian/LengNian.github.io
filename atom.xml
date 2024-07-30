@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-07-29T11:00:57.763Z</updated>
+  <updated>2024-07-30T09:04:35.094Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>对抗攻击:FGSM算法</title>
+    <title>对抗攻击:PGD算法</title>
+    <link href="http://lengnian.github.io/posts/a1b31fc5/"/>
+    <id>http://lengnian.github.io/posts/a1b31fc5/</id>
+    <published>2024-07-30T03:25:03.000Z</published>
+    <updated>2024-07-30T09:04:35.094Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;p&gt;之前介绍了FGSM算法还有I-FGSM算法，接下来再看看FGSM算法的拓展PGD算法。&lt;/p&gt;
+&lt;h4 id=&quot;PGD原理&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="对抗样本生成与防御" scheme="http://lengnian.github.io/tags/%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E4%B8%8E%E9%98%B2%E5%BE%A1/"/>
+    
+    <category term="对抗攻击" scheme="http://lengnian.github.io/tags/%E5%AF%B9%E6%8A%97%E6%94%BB%E5%87%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>对抗攻击:FGSM和BIM算法</title>
     <link href="http://lengnian.github.io/posts/f891610e/"/>
     <id>http://lengnian.github.io/posts/f891610e/</id>
     <published>2024-07-29T01:39:09.000Z</published>
-    <updated>2024-07-29T11:00:57.763Z</updated>
+    <updated>2024-07-30T09:05:22.452Z</updated>
     
     
       
@@ -49,7 +77,7 @@
     <link href="http://lengnian.github.io/posts/cb44fd80/"/>
     <id>http://lengnian.github.io/posts/cb44fd80/</id>
     <published>2024-07-29T01:34:30.000Z</published>
-    <updated>2024-07-29T08:43:29.453Z</updated>
+    <updated>2024-07-30T01:44:26.156Z</updated>
     
     
       
@@ -57,8 +85,7 @@
         
         
     <summary type="html">&lt;p&gt;在这记录一些我想看的电影和电视剧，有些是因为题材去看的，有些是因为演员去看的，还有些是因为某个片段去看的。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;黑暗荣耀</summary>
+&lt;h4 id=&quot;电影&quot;&gt;&lt;a href=&quot;#电影&quot; class=&quot;headerlink&quot;</summary>
         
       
     
