@@ -24,5 +24,5 @@ http://lengnian.github.io/tags/%E8%BF%BD%E5%89%A7/
 http://lengnian.github.io/tags/%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0/
 http://lengnian.github.io/tags/%E7%BB%BC%E8%BF%B0/
 http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/
-http://lengnian.github.io/categories/%E8%AE%B0%E9%9A%8F%E7%AC%94/
 http://lengnian.github.io/categories/%E8%A7%A3%E9%97%AE%E9%A2%98/
+http://lengnian.github.io/categories/%E8%AE%B0%E9%9A%8F%E7%AC%94/
