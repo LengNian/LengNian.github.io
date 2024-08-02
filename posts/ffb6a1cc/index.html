@@ -1,0 +1,433 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>对抗攻击:CW算法 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="前言CW原理CW是一种基于优化的攻击，它同时兼顾高攻击准确率和低对抗扰动两个方面。在论文1608.04644 (arxiv.org)中被提出。 在优化过程中需要完成两个目标，一是对抗样本和对应的干净样本的差距应该越小越好；二是对抗样本应该使得模型分类错，且错的那一类的概率越高越好。 最初，CW攻击依赖于对抗性实例的初始表述：$$minimize \quad D(x,x+\delta) \such;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对抗攻击:CW算法">
+<meta property="og:url" content="http://lengnian.github.io/posts/ffb6a1cc/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="前言CW原理CW是一种基于优化的攻击，它同时兼顾高攻击准确率和低对抗扰动两个方面。在论文1608.04644 (arxiv.org)中被提出。 在优化过程中需要完成两个目标，一是对抗样本和对应的干净样本的差距应该越小越好；二是对抗样本应该使得模型分类错，且错的那一类的概率越高越好。 最初，CW攻击依赖于对抗性实例的初始表述：$$minimize \quad D(x,x+\delta) \such;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lengnian.github.io/posts/ffb6a1cc/1.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/ffb6a1cc/2.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/ffb6a1cc/3.png">
+<meta property="article:published_time" content="2024-07-30T12:33:53.000Z">
+<meta property="article:modified_time" content="2024-08-02T08:23:16.035Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="对抗样本生成与防御">
+<meta property="article:tag" content="对抗攻击">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lengnian.github.io/posts/ffb6a1cc/1.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">10</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">8</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CW%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">CW原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pytorch%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">Pytorch实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83-%E6%94%BB%E5%87%BB%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">训练+攻击完整代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/ffb6a1cc/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">对抗攻击:CW算法</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-07-30 20:33:53" itemprop="dateCreated datePublished" datetime="2024-07-30T20:33:53+08:00">2024-07-30</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-08-02 16:23:16" itemprop="dateModified" datetime="2024-08-02T16:23:16+08:00">2024-08-02</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">3.5k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">17m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E6%96%87%E7%AB%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写文章</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E4%B8%8E%E9%98%B2%E5%BE%A1/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">对抗样本生成与防御</span></a><a class="tag-item" href="/tags/%E5%AF%B9%E6%8A%97%E6%94%BB%E5%87%BB/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">对抗攻击</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h4 id="CW原理"><a href="#CW原理" class="headerlink" title="CW原理"></a>CW原理</h4><p>CW是一种基于优化的攻击，它同时兼顾高攻击准确率和低对抗扰动两个方面。在论文<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1608.04644">1608.04644 (arxiv.org)</a>中被提出。</p>
+<p>在优化过程中需要完成两个目标，一是对抗样本和对应的干净样本的差距应该越小越好；二是对抗样本应该使得模型分类错，且错的那一类的概率越高越好。</p>
+<p>最初，CW攻击依赖于对抗性实例的初始表述：<br>$$<br>minimize \quad D(x,x+\delta) \<br>such;that \quad C(x+\delta)&#x3D;t \<br>\qquad x+\delta \in [0,1]^n<br>\tag{1}<br>$$<br>D是度量对抗样本和干净样本的度量函数，可以选择不同的范数距离(本文主要讲解L2范数)。C表示分类器，t为期望对抗样本被分类成的标签。</p>
+<p>上述公式中的C(x+δ)&#x3D;t是非线性的，现有的算法难以解决，想要求解需要选择更适合优化的表达式。所以论文作者定义了一系列的目标函数f当且仅当f(x+δ)≤0时，C(x+δ)&#x3D;t。</p>
+<p>所以，优化目标可以修改为如下：<br>$$<br>minimize \quad D(x,x+\delta) \<br>such;that \quad f(x+\delta) \leq 0 \<br>\qquad x+\delta \in [0,1]^n<br>\tag{2}<br>$$<br>目标函数论文中列举了七种，这里只列举部分：<br>$$<br>f_1(x’)&#x3D;-loss_{F,t}(x’)+1 \<br>f_2(x’)&#x3D;(\underset{i \neq t}{max}(F(x’)_i)-F(x’)_t)^+ \<br>…… \<br>f_6(x’)&#x3D;(\underset{i \neq t}{max}(Z(x’)_i)-Z(x’)_t)^+ \<br>……<br>$$<br>论文作者通过添加常量来调整上面一些公式，目的是为了使函数符合论文中的定义，所以公式(2)就可以转换成以下可求解的新的优化形式。<br>$$<br>minimize \quad D(x,x+\delta)+c ; \cdot ; f(x+\delta)  \<br>such;that \quad x+\delta \in [0,1]^n \<br>\tag{3}<br>$$<br>使用范数去实例化距离度量函数，问题就变为了：<br>$$<br>minimize \parallel \delta \parallel_p + c ; \cdot ; f(x+\delta) \<br>such ; that \quad x+\delta \in [0,1]^n<br>\tag{4}<br>$$<br>为了保证对抗样本是一个有效的图像，必须对扰动δ进行一个约束。如果不进行约束，很容易超出范围，论文中提到了三种方法：</p>
+<ul>
+<li><p>梯度投影下降：</p>
+</li>
+<li><p>梯度截断下降：这种方法没有真正意义上的截断样本，而是直接把约束加入到了目标函数f中，将f(x+δ)使用f(min(max(x+δ,0),1))来代替，但是这样也存在梯度消失的问题。</p>
+</li>
+<li><p>变量引入：通过引入变量w使用x+δ满足约束，此时对抗样本就表示为：<br>$$<br>x_i + \delta_i &#x3D; \frac{1}{2}(tan(w_i)+1) \tag{5}<br>$$</p>
+</li>
+</ul>
+<p>由于tanh的取值范围为[-1,1]，经过这种约束方法，x+δ的取值范围变成了[0,1]，很好的满足了上述所提到的要求。<br>下面就可以开始进行攻击了，在这里主要使用L2范数。此时公式就变为了：<br>$$<br>minimize \parallel \frac{1}{2}(tanh(w)+1) - x \parallel_2^2 + ; c ; \cdot ; f(\frac{1}{2}(tanh(w)+1)) \<br>f(x’)&#x3D;max(max { Z(x’)_i:i \neq t }-Z(x’)_t, -k)<br>\tag{6}<br>$$<br>  此时，令<br>$$<br>R_n&#x3D;\frac{1}{2}(tanh(w_n)+1) - X_n  \tag{7}<br>$$<br>这里的Rn表示干净样本和对抗样本的差值，这里如果使用tanh，x的范围就是[0,1]。而加入tanh映射空间后，就扩大到了-inf和inf之间。</p>
+<p>然后主要说一下目标函数，这里选的是上述论文列出来的第六个。Z(x)代表的就是输入图像还未经过softmax激活函数的向量，这个向量的最大值所对应的标号就是即将被预测的类别。t是希望生成的对抗样本所属于的类别。</p>
+<p>max{Z(x’)i，i≠t}表示的就是Z(x)中除去t这个类别以外的最大值，也就是除去t类别以外，最可能将x分类的那个类别的值，将max{Z(x)i,i≠t}-Z(x’)t就是指除去t类别以外最有可能被分类的类别所对应的在未经过softmax激活函数前的向量的最大值和对应t类的的最大值的差。将这个差最小化也就使对抗样本离变成t类越接近。</p>
+<p>从(6)可以看到还有一个参数k，这个参数就是置信度。这里可以理解为k越大，置信度越大。k是一个概率，在0~1之间。</p>
+<p>为了方便起，对(6)中第一行公式编号为(8)，第二行编号为(9)，此时：<br>$$<br>minimize \parallel R_n \parallel_2^2 + ; c ; \cdot ; f(\frac{1}{2}(tanh(w)+1)) \tag{8}<br>$$</p>
+<p>$$<br>f(x’)&#x3D;max(max { Z(x’)_i:i \neq t }-Z(x’)_t, -k)<br>$$</p>
+<p>如果f(x’)的值为max{Z(x’)i,i≠t}-Z(x’)t,那么(8)中的第二项就是c*max{Z(x’)i,i≠t}-Z(x’)t，只需要不断减小就可以。</p>
+<p>但是如果f(x’)的值为-k，那么(8)中第二项就变为-ck。k越大，-ck就越小，优化过程就会更倾向于(8)中的第一项，即平方误差那项，就可能会导致生成的对抗样本更接近我们希望它变成的那个类别。</p>
+<h4 id="Pytorch实现"><a href="#Pytorch实现" class="headerlink" title="Pytorch实现"></a>Pytorch实现</h4><p>这里包含了目标函数f和计算优化目标两部分的内容。</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">def cw_l2_attack(model, images, labels, targeted&#x3D;False, c&#x3D;8, kappa&#x3D;0, max_iter&#x3D;1000, learning_rate&#x3D;0.01):
+
+    # 定义目标函数f
+    def f(x):
+        # 论文中的 Z(X) 输出 batchsize, num_classes
+        outputs &#x3D; model(x)
+        # 就是一个one-hot编码,然后预测类别为1,其余为0，共有batch_size行，然后每行根据label置为0或1
+        one_hot_labels &#x3D; torch.eye(len(outputs[0])).to(device)[labels]
+        # 1-one_hot_labels就是字面意思，原来是0的，就是1-0&#x3D;1，原来是1的就是1-1&#x3D;0，经过处理后除了真实类别以外的都是1
+        # 水平方向最大的取值，忽略索引。意思是，除去真实标签，看看每个 batchsize 中哪个标签的概率最大，取出概率
+        # 概率值, 标号
+        i, _ &#x3D; torch.max((1 - one_hot_labels) * outputs, dim&#x3D;1)
+        # 选择真实标签的概率
+        j &#x3D; torch.masked_select(outputs, one_hot_labels.bool())
+
+        # 如果有攻击目标，虚假概率减去真实概率，
+        if targeted:
+            # 如果 i - j 的计算结果小于 -kappa，那么使用 -kappa 作为结果，而不是原始值。
+            return torch.clamp(i - j, min&#x3D;-kappa)
+        # 没有攻击目标，就让真实的概率小于虚假的概率，逐步降低，也就是最小化这个损失
+        else:
+            return torch.clamp(j - i, min&#x3D;-kappa)
+        
+
+    w &#x3D; torch.zeros_like(images, requires_grad&#x3D;True).to(device)
+    optimizer &#x3D; torch.optim.Adam([w], lr&#x3D;learning_rate)
+    
+    prev &#x3D; 1e10
+
+    for step in range(max_iter):
+        a &#x3D; 1 &#x2F; 2 * (nn.Tanh()(w) + 1)
+        # 最小化目标的两个部分
+        # 第一个目标，对抗样本与原始样本足够接近
+        loss1 &#x3D; nn.MSELoss(reduction&#x3D;&#39;sum&#39;)(a, images)
+        # 第二个目标，误导模型输出
+        loss2 &#x3D; torch.sum(c * f(a))
+
+        cost &#x3D; loss1 + loss2
+        optimizer.zero_grad()
+        cost.backward()
+        optimizer.step()
+
+        if step % (max_iter &#x2F;&#x2F; 10) &#x3D;&#x3D; 0:
+            if cost &gt; prev:
+                print(&#39;Attack Stopped due to CONVERGENCE....&#39;)
+                return a
+            prev &#x3D; cost
+
+    attack_images &#x3D; 1 &#x2F; 2 * (nn.Tanh()(w) + 1)
+
+    return attack_images<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="训练-攻击完整代码"><a href="#训练-攻击完整代码" class="headerlink" title="训练+攻击完整代码"></a>训练+攻击完整代码</h4><p>还是和之前一样，使用自己在MNIST手写数据集上训练的LeNet模型来测试CW算法产生的对抗样本。</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">import torch
+import numpy as np
+import torchvision
+import random
+import copy
+from tqdm import tqdm
+import torch.nn as nn
+from torchvision import datasets, transforms
+from torchsummary import summary
+import matplotlib.pyplot as plt
+import torch.nn.functional as F
+from torch.utils.data import DataLoader
+
+
+# 搭建LeNet模型
+class LeNet(nn.Module):
+    def __init__(self):
+        super(LeNet, self).__init__()
+
+        # 卷积层
+        self.conv &#x3D; nn.Sequential(
+            nn.Conv2d(in_channels&#x3D;1, out_channels&#x3D;6, kernel_size&#x3D;5, padding&#x3D;2),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size&#x3D;2, stride&#x3D;2),
+            nn.Conv2d(in_channels&#x3D;6, out_channels&#x3D;16, kernel_size&#x3D;5),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size&#x3D;2, stride&#x3D;2)
+        )
+
+        # 全连接层
+        self.fc &#x3D; nn.Sequential(
+            nn.Linear(in_features&#x3D;16 * 5 * 5, out_features&#x3D;120),
+            nn.ReLU(),
+            nn.Linear(in_features&#x3D;120, out_features&#x3D;84),
+            nn.ReLU(),
+            nn.Linear(in_features&#x3D;84, out_features&#x3D;10)
+        )
+
+    def forward(self, img):
+        img &#x3D; self.conv(img)
+        img &#x3D; img.view(img.size(0), -1)
+        out &#x3D; self.fc(img)
+        # out &#x3D; self.softmax(out)
+        
+        return out
+
+    
+net &#x3D; LeNet()
+net &#x3D; net.to(device)
+
+device &#x3D; torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)
+
+mean &#x3D; 0.1307
+std &#x3D; 0.3801
+
+# 对图像变换
+transform &#x3D; transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((mean,), (std,))
+]
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-Python'" data-language="Python'"><code class="language-Python'"># 训练数据集, 测试数据集
+train_dataset &#x3D; datasets.MNIST(&#39;..&#x2F;datasets&#x2F;MNIST&#39;, train&#x3D;True, transform&#x3D;transform, download&#x3D;True) # len 60000
+test_dataset &#x3D; datasets.MNIST(&#39;..&#x2F;datasets&#x2F;MNIST&#39;, train&#x3D;False, transform&#x3D;transform, download&#x3D;True) # len 10000
+
+# 数据迭代器
+train_dataloader &#x3D; DataLoader(train_dataset, batch_size&#x3D;64, shuffle&#x3D;True)  # len 938
+test_dataloader &#x3D; DataLoader(test_dataset, batch_size&#x3D;64, shuffle&#x3D;True) # len 157
+
+lr &#x3D; 1e-3
+epochs &#x3D; 20
+optimizer &#x3D; torch.optim.Adam(net.parameters(), lr&#x3D;lr)
+criterion &#x3D; nn.CrossEntropyLoss()
+scheduler &#x3D; torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, &#39;min&#39;, factor&#x3D;0.5, verbose&#x3D;True, patience&#x3D;5, min_lr&#x3D;0.0000001)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">train_loss &#x3D; []
+train_acc &#x3D; []
+val_loss &#x3D; []
+val_acc &#x3D; []
+
+for epoch in tqdm(range(epochs)):
+    train_losses &#x3D; 0
+    train_acces &#x3D; 0
+    val_losses &#x3D; 0
+    val_acces &#x3D; 0
+    
+    for x, y in train_dataloader:
+        x, y &#x3D; x.to(device), y.to(device)
+        output &#x3D; net(x)
+        # 计算loss
+        loss &#x3D; criterion(output, y)
+        # 计算预测值
+        _, pred &#x3D; torch.max(output, axis&#x3D;1)
+        # 计算acc
+        acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
+
+        # 反向传播
+        # 梯度清零
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        train_losses +&#x3D; loss.item()
+        train_acces +&#x3D; acc.item()
+
+    train_loss.append(train_losses &#x2F; len(train_dataloader))
+    train_acc.append(train_acces &#x2F; len(train_dataloader))
+
+    # 模型评估
+    net.eval()
+    with torch.no_grad():
+        for x, y in test_dataloader:
+            x, y &#x3D; x.to(device), y.to(device)
+            output &#x3D; net(x)
+            loss &#x3D; criterion(output, y)
+            scheduler.step(loss)
+            _, pred &#x3D; torch.max(output, axis&#x3D;1)
+            acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
+
+            val_losses +&#x3D; loss.item()
+            val_acces +&#x3D; acc.item()
+        
+        val_loss.append(val_losses &#x2F; len(test_dataloader))
+        val_acc.append(val_acces &#x2F; len(test_dataloader))
+
+    print(f&quot;epoch:&#123;epoch+1&#125;  train_loss:&#123;train_losses &#x2F; len(train_dataloader):.4f&#125;, train_acc:&#123;train_acces &#x2F; len(train_dataloader):.4f&#125;, val_loss:&#123;val_losses &#x2F; len(test_dataloader):.4f&#125;, val_acc:&#123;val_acces &#x2F; len(test_dataloader)&#125;&quot;)
+
+plt.plot(train_loss, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train loss&#39;)
+plt.plot(val_loss, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val loss&#39;)
+plt.legend()
+plt.xlabel(&quot;epoch&quot;)
+plt.ylabel(&quot;loss&quot;)
+plt.show()
+
+
+plt.plot(train_acc, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train acc&#39;)
+plt.plot(val_acc, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val acc&#39;)
+plt.legend()
+plt.xlabel(&quot;epoch&quot;)
+plt.ylabel(&quot;acc&quot;)
+plt.show()
+
+PATH &#x3D; &#39;.&#x2F;cw_mnist_lenet1.pth&#39;
+torch.save(net, PATH)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">5%|▌         | 1&#x2F;20 [00:08&lt;02:46,  8.76s&#x2F;it]
+epoch:1  train_loss:0.0304, train_acc:0.9907, val_loss:0.0406, val_acc:0.9872
+ 10%|█         | 2&#x2F;20 [00:18&lt;02:50,  9.49s&#x2F;it]
+epoch:2  train_loss:0.0301, train_acc:0.9908, val_loss:0.0404, val_acc:0.9872
+ 15%|█▌        | 3&#x2F;20 [00:28&lt;02:44,  9.70s&#x2F;it]
+epoch:3  train_loss:0.0300, train_acc:0.9908, val_loss:0.0403, val_acc:0.9872
+ 20%|██        | 4&#x2F;20 [00:37&lt;02:29,  9.37s&#x2F;it]
+epoch:4  train_loss:0.0298, train_acc:0.9908, val_loss:0.0401, val_acc:0.9871
+ 25%|██▌       | 5&#x2F;20 [00:48&lt;02:26,  9.79s&#x2F;it]
+epoch:5  train_loss:0.0296, train_acc:0.9908, val_loss:0.0399, val_acc:0.9871
+ 30%|███       | 6&#x2F;20 [00:58&lt;02:19,  9.97s&#x2F;it]
+epoch:6  train_loss:0.0294, train_acc:0.9909, val_loss:0.0398, val_acc:0.9872
+ 35%|███▌      | 7&#x2F;20 [01:07&lt;02:04,  9.57s&#x2F;it]
+epoch:7  train_loss:0.0293, train_acc:0.9910, val_loss:0.0396, val_acc:0.9872
+ 40%|████      | 8&#x2F;20 [01:17&lt;01:57,  9.78s&#x2F;it]
+epoch:8  train_loss:0.0291, train_acc:0.9910, val_loss:0.0395, val_acc:0.9872
+ 45%|████▌     | 9&#x2F;20 [01:28&lt;01:50, 10.06s&#x2F;it]
+epoch:9  train_loss:0.0290, train_acc:0.9911, val_loss:0.0393, val_acc:0.9872
+ 50%|█████     | 10&#x2F;20 [01:36&lt;01:36,  9.68s&#x2F;it]
+epoch:10  train_loss:0.0288, train_acc:0.9912, val_loss:0.0392, val_acc:0.9874
+ 55%|█████▌    | 11&#x2F;20 [01:46&lt;01:27,  9.78s&#x2F;it]
+epoch:11  train_loss:0.0287, train_acc:0.9912, val_loss:0.0390, val_acc:0.9874
+ 60%|██████    | 12&#x2F;20 [01:57&lt;01:19,  9.94s&#x2F;it]
+epoch:12  train_loss:0.0286, train_acc:0.9913, val_loss:0.0389, val_acc:0.9875
+ 65%|██████▌   | 13&#x2F;20 [02:05&lt;01:07,  9.58s&#x2F;it]
+epoch:13  train_loss:0.0285, train_acc:0.9914, val_loss:0.0388, val_acc:0.9876
+ 70%|███████   | 14&#x2F;20 [02:16&lt;00:58,  9.80s&#x2F;it]
+epoch:14  train_loss:0.0283, train_acc:0.9914, val_loss:0.0387, val_acc:0.9876
+ 75%|███████▌  | 15&#x2F;20 [02:26&lt;00:49, 10.00s&#x2F;it]
+epoch:15  train_loss:0.0282, train_acc:0.9915, val_loss:0.0386, val_acc:0.9878
+ 80%|████████  | 16&#x2F;20 [02:37&lt;00:40, 10.09s&#x2F;it]
+epoch:16  train_loss:0.0281, train_acc:0.9915, val_loss:0.0384, val_acc:0.9878
+ 85%|████████▌ | 17&#x2F;20 [02:47&lt;00:30, 10.21s&#x2F;it]
+epoch:17  train_loss:0.0280, train_acc:0.9915, val_loss:0.0383, val_acc:0.9878
+ 90%|█████████ | 18&#x2F;20 [02:56&lt;00:19,  9.75s&#x2F;it]
+epoch:18  train_loss:0.0279, train_acc:0.9916, val_loss:0.0382, val_acc:0.988
+ 95%|█████████▌| 19&#x2F;20 [03:06&lt;00:09,  9.93s&#x2F;it]
+epoch:19  train_loss:0.0278, train_acc:0.9916, val_loss:0.0381, val_acc:0.988
+100%|██████████| 20&#x2F;20 [03:16&lt;00:00,  9.84s&#x2F;it]
+epoch:20  train_loss:0.0277, train_acc:0.9917, val_loss:0.0380, val_acc:0.988<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/ffb6a1cc/1.png" class loading="lazy">
+
+<img src="/posts/ffb6a1cc/2.png" class loading="lazy">
+
+<p>这里没有改变参数，只是对一个参数进行了测试</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># 用于可视化
+adv_examples &#x3D; []
+correct &#x3D; 0
+vis_max &#x3D; 10
+vis_num &#x3D; 0
+rand_num &#x3D; -1
+
+for data, label in  test_dataloader:
+    data, label &#x3D; data.to(device), label.to(device)
+    attack_data &#x3D; cw_l2_attack(model&#x3D;net, images&#x3D;data, labels&#x3D;label)
+    output &#x3D; net(attack_data)
+    _, pred &#x3D; torch.max(output, axis&#x3D;1)
+    # print(label)
+    # print(pred)
+    # print(sum(pred &#x3D;&#x3D; label))
+    # 统计一下攻击以后正确的数量
+    correct +&#x3D; torch.sum(pred &#x3D;&#x3D; label)
+    rand_num &#x3D; torch.randint(0, 11, (1,))
+    if rand_num % 2 &#x3D;&#x3D; 0 and vis_num &lt; vis_max:
+        adv_examples.append((data, label, attack_data, pred))
+        vis_num +&#x3D; 1
+
+print(&quot;Attack accuracy:&quot;, float(correct) &#x2F; len(test_dataset))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可视化生成的对抗样本</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+index <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token comment"># 当前行画的图片</span>
+current <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token comment"># 设置当前行画原始还是攻击</span>
+odd <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>adv_examples<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data<span class="token punctuation">,</span> label<span class="token punctuation">,</span> attack_data<span class="token punctuation">,</span> pred <span class="token operator">=</span> adv_examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    current <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>adv_examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 一个批次的数据只画5张</span>
+        <span class="token keyword">if</span> label<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">!=</span> pred<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token keyword">and</span> current <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">:</span>
+            index <span class="token operator">+=</span> <span class="token number">1</span>
+            current <span class="token operator">+=</span> <span class="token number">1</span>
+            plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>adv_examples<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> index<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> current <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword">and</span> odd <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"original image"</span><span class="token punctuation">)</span>            
+            <span class="token keyword">elif</span> current <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword">and</span> odd <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"attack image"</span><span class="token punctuation">)</span>
+                
+            <span class="token keyword">if</span> odd <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"&#123;&#125; --> &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>label<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> pred<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                plt<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span>attack_data<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"&#123;&#125; --> &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>label<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> label<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                plt<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span>data<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    odd <span class="token operator">+=</span> <span class="token number">1</span>
+
+    plt<span class="token punctuation">.</span>tight_layout<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>需要注意的是，这篇文章中的可视化，我尝试了batch_size不为1，而是64，和前几篇文章截然不同。</p>
+<img src="/posts/ffb6a1cc/3.png" class loading="lazy">
+
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1684098">独家解读 | 基于优化的对抗攻击：CW攻击的原理详解与代码解读-腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://muyuuuu.github.io/2021/05/04/CW-attack/">对抗攻击篇：CW 攻击算法 | Just for Life. (muyuuuu.github.io)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41466575/article/details/117738731">对抗样本之CW原理&amp;coding_cw对抗样本-CSDN博客</a>（对CW算法的手稿理解，很清晰！！！）</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tangweijqxx/p/10627360.html">5.基于优化的攻击——CW - 机器学习安全小白 - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_55368674/article/details/130242588">CW对抗样本生成算法 torch实现_cw对抗样本生成方法是ifgsm吗-CSDN博客</a>（对置信度k的举例解释）</p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/ffb6a1cc/" title="对抗攻击:CW算法">http://lengnian.github.io/posts/ffb6a1cc/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/a1b31fc5/" rel="next" title="对抗攻击:PGD算法"><span class="post-nav-text">对抗攻击:PGD算法</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
