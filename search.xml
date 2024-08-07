@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2024研究生科研素养提升公益讲座笔记</title>
+    <url>/posts/877ae5d4/</url>
+    <content><![CDATA[<h3 id="科研工具使用"><a href="#科研工具使用" class="headerlink" title="科研工具使用"></a>科研工具使用</h3><h4 id="科研信息检索与利用-–李修波"><a href="#科研信息检索与利用-–李修波" class="headerlink" title="科研信息检索与利用  –李修波"></a>科研信息检索与利用  –李修波</h4><p>科研信息检索与利用可以学知识，思路方法启发，跨学科融合创新。</p>
+<p><strong>科研信息的搜集：</strong> </p>
+<p>中文资源：知网、万方、维普      建议修课：信息检索</p>
+<p>外文资源：Web of Science、Compendex、INSPEC、PubMed</p>
+<img src="/posts/877ae5d4/1.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/2.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/3.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/4.png" class loading="lazy">
+
+<p>如果将危害作为检索词，会降低查全率。</p>
+<p>引文分析要弄清楚影响力评测范围，引文分析工具，检索用词，</p>
+<p>如何扩充关键词？</p>
+<img src="/posts/877ae5d4/5.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/6.png" class loading="lazy">
+
+
+
+<h3 id="学术问题凝练"><a href="#学术问题凝练" class="headerlink" title="学术问题凝练"></a>学术问题凝练</h3><h3 id="文献阅读与写作"><a href="#文献阅读与写作" class="headerlink" title="文献阅读与写作"></a>文献阅读与写作</h3><h3 id="学术规范与心理健康"><a href="#学术规范与心理健康" class="headerlink" title="学术规范与心理健康"></a>学术规范与心理健康</h3><h3 id="生涯规划"><a href="#生涯规划" class="headerlink" title="生涯规划"></a>生涯规划</h3>]]></content>
+      <categories>
+        <category>记笔记</category>
+      </categories>
+      <tags>
+        <tag>科研讲座</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>About me</title>
     <url>/posts/653763f0/</url>
     <content><![CDATA[<h3 id="在代码的诗行里，我与你相遇"><a href="#在代码的诗行里，我与你相遇" class="headerlink" title="在代码的诗行里，我与你相遇"></a>在代码的诗行里，我与你相遇</h3><ul>
@@ -54,7 +86,7 @@
 <li>喜欢乐器，学过七年萨克斯，现在尤其喜欢钢琴，有点后悔当初没有去学钢琴或者没有坚持学下来电子琴（学萨克斯前一直在学电子琴）</li>
 </ul>
 <h4 id="交友原则"><a href="#交友原则" class="headerlink" title="交友原则"></a>交友原则</h4><ul>
-<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#119;&#101;&#x69;&#x73;&#106;&#95;&#108;&#110;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;">&#119;&#101;&#x69;&#x73;&#106;&#95;&#108;&#110;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
+<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#x77;&#101;&#105;&#115;&#x6a;&#x5f;&#108;&#x6e;&#x40;&#x31;&#54;&#51;&#46;&#x63;&#111;&#109;">&#x77;&#101;&#105;&#115;&#x6a;&#x5f;&#108;&#x6e;&#x40;&#x31;&#54;&#51;&#46;&#x63;&#111;&#109;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
 <li>无论是交友或者指正我的错误，希望大家可以开门见山，千万不要发在吗？有时间嘛？等，这些内容看到瘆得慌，我也会直接忽略掉。大家的邮件我看到会及时回复。</li>
 </ul>
 <h4 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h4><p>其实看到别人都在搞一个自己的博客，自己也有点心动，所以也自己搞一个，可以用于自己记录一些内容，喜欢自己可以保持初心，如果在阅读过程发现我有什么写的错误的地方，欢迎指正(可以通过邮件联系我)。</p>
@@ -72,6 +104,239 @@
       </categories>
       <tags>
         <tag>回忆录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GAN对抗网络原理与代码实现</title>
+    <url>/posts/9069b95a/</url>
+    <content><![CDATA[<h4 id="GAN网络"><a href="#GAN网络" class="headerlink" title="GAN网络"></a>GAN网络</h4><p>生成对抗网络（GAN，Generative adversarial network）是一种深度学习网络，他的灵感来自与零和博弈思想。GAN其实是由两个神经网络组成，分别是生成网络Generator（下文简称为G）和判别网络Discriminator（下文简称为D）。</p>
+<p>生成网络G用于生成模拟数据，判别网络D用于判别生成的数据是真是假，通过两个网络的博弈，不断使生成网络的生成数据更加逼真，导致判别网络无法判别真假，使判别网络的判断也要更加准确。这二者相互博弈，所以运用的是零和博弈思想，并且叫做生成对抗网络。</p>
+<p>在一篇文章中看到作者这样比喻GAN网络。将小偷比作生成网络，警察比作判别网络。小偷只有伪装的不像小偷才能不被警察发现。最初小偷伪装的很差，总被警察发现，所以小偷不断提升自己，被警察抓住的几率变小一些，而警察发现小偷伪装技术变强也不断提高自己的业务能力。就这样，小偷和警察不断对抗提升自己，最后成为了伪装技术高超的小偷和抓捕技术高超的警察。</p>
+<h4 id="GAN网络基本结构"><a href="#GAN网络基本结构" class="headerlink" title="GAN网络基本结构"></a>GAN网络基本结构</h4><p>我在网上找到这么一张图片，形象的展示了GAN的架构。</p>
+<img src="/posts/9069b95a/1.png" class loading="lazy">
+
+<p>接下来自己介绍一下生成网络和判别网络。</p>
+<h5 id="生成网络Generator"><a href="#生成网络Generator" class="headerlink" title="生成网络Generator"></a>生成网络Generator</h5><p>生成网络的输入是随机数据（噪声），输出是一幅图像，往往是假图像。生成网络的模型结构可以随意，可以是简单的多层全连接神经网络，也可以是反卷积网络等。我们可以认为生成网络的输入包含着输出所要携带的信息，以MNIST手写数据集为例，输入可以表明了输出的数字为几，模糊程度等内容，因为这里对其具体信息不做要求，只希望能最大程度地骗过判别器，所以输入最好是可以满足常见分布的数据。</p>
+<h5 id="判别网络Discriminator"><a href="#判别网络Discriminator" class="headerlink" title="判别网络Discriminator"></a>判别网络Discriminator</h5><p>判别网络顾名思义其作用就是进行判别。判别网络的输入既有真实图片，也有生成网络生成的假图片。判别网络的输出会是一个概率，来说明输入的图像是真实图片还是假图片，而不是判别输入图像的类别是什么，是一个二分类问题。仍然以MNIST手写数据集为例，判别网络不是判别输入的图像是数字几，而是判定这副图像是不是由生成网络产生。和生成网络一样，判别网络的模型结构可以是多层全连接网络，也可以是卷积神经网络等。</p>
+<h4 id="GAN网络优化"><a href="#GAN网络优化" class="headerlink" title="GAN网络优化"></a>GAN网络优化</h4><p>我们根据上文已经知道了GAN中包含两个网络，这两个网络的作用不同，所以这两个网络的优化目标就不同，自然其损失函数也是不相同的。</p>
+<p>首先看<strong>生成网络的损失函数：</strong></p>
+<div>
+$$
+L_G=H(1,D(G(z))) \tag{1}
+$$
+</div>
+H是指交叉熵损失函数，D是判别网络，G是生成网络，z是输入到生成网络的随机数据，也可以理解为噪声。G(z)代表生成的假图片，D(G(z))就是对生成的假图片的概率判断。1代表是真，0代表假。这里可能会问，明明生成的是假网络，label应该是0，那为什么要和1进行比较呢？我的理解是**生成网络的目标就是要生成可以迷惑判别网络的假图片，所以就要让假图片与真图片非常接近，所以你就要让网络去不断逼近真实图片，所以这里的label是1。如果label是0的话，就要最大化输出概率与0的距离才能达到生成网络的目的，而我们通常使用最小化，所以这里的label就是1**。所以生成网络的损失函数就是要让由随机噪声经过生成网络得到的假图片被判别网络判别为真图片的概率越大。
+
+<p>接下来看<strong>判别网络的损失函数：</strong></p>
+<div>
+$$
+L_D = H(1,D(x))+H(0,D(G(z))) \tag{2}
+$$
+</div>
+判别网络的损失函数由两部分组成。同上，H表示交叉熵损失函数，D是判别网络，G是生成网络，x代表的是真实数据，z表示输入的随机数据。对于判别网络的损失函数，我的理解是**x是真实的图片，对应的label就是1，而G(z)是生成网络的假图片，对应的实际label为0，判别网络就是要将真实图片识别为真实图片，假图片识别为假图片，所以这里就是要最小化真实图片经过判别网络的概率和1之间的距离，以及假图片经过判别网络的概率和0之间的距离。**
+
+<h4 id="GAN网络训练"><a href="#GAN网络训练" class="headerlink" title="GAN网络训练"></a>GAN网络训练</h4><p>知道了GAN网络的优化目标，接下来看一下GAN网络的训练过程。</p>
+<p>GAN网络采用的是交替训练的策略。</p>
+<p>也就是首先固定一个网络，训练另一个网络，两者交替的进行。我们默认真实图片的标签为1，假图片的标签为0。</p>
+<p>对于判别网络的训练，让真实图片和假图片经过判别网络，然后计算和各自对应标签的损失就可以了。</p>
+<p>对于生成网络的训练，令生成网络产生的假图片，并通过判别网络，计算判别网络输出的概率值与<strong>label为1</strong>的距离。</p>
+<h4 id="PyTorch代码"><a href="#PyTorch代码" class="headerlink" title="PyTorch代码"></a>PyTorch代码</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>autograd
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> random
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>autograd <span class="token keyword">import</span> Variable
+<span class="token keyword">from</span> torchvision <span class="token keyword">import</span> transforms
+<span class="token keyword">from</span> torchvision <span class="token keyword">import</span> datasets
+<span class="token keyword">from</span> torchvision<span class="token punctuation">.</span>utils <span class="token keyword">import</span> save_image
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+<span class="token comment"># 定义一个规范化图像的函数</span>
+<span class="token keyword">def</span> <span class="token function">to_img</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    out <span class="token operator">=</span> <span class="token number">0.5</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> x<span class="token punctuation">)</span>
+    out <span class="token operator">=</span> out<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    out <span class="token operator">=</span> out<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> out
+
+<span class="token comment"># 参数设置</span>
+batch_size <span class="token operator">=</span> <span class="token number">128</span>
+num_epoch <span class="token operator">=</span> <span class="token number">150</span>
+z_dimension <span class="token operator">=</span> <span class="token number">100</span>
+
+img_transform <span class="token operator">=</span> transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 加载数据</span>
+mnist <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span>root<span class="token operator">=</span><span class="token string">'./dataset/'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>img_transform<span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+dataloader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>dataset<span class="token operator">=</span>mnist<span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接下来定义判别网络和生成网络，网络主题结构就采用几层全连接层。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 定义判别器Discriminator</span>
+<span class="token keyword">class</span> <span class="token class-name">Discriminator</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>dis <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">784</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Sigmoid<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>dis<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> x <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 定义生成器Generator</span>
+<span class="token keyword">class</span> <span class="token class-name">Generator</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>gen <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">,</span> <span class="token number">512</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">512</span><span class="token punctuation">,</span> <span class="token number">784</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Tanh<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>gen<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">D <span class="token operator">=</span> Discriminator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+G <span class="token operator">=</span> Generator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+device <span class="token operator">=</span> torch<span class="token punctuation">.</span>device<span class="token punctuation">(</span><span class="token string">"cuda"</span> <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">"cpu"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    D <span class="token operator">=</span> D<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+    G <span class="token operator">=</span> G<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+
+<span class="token comment"># 定义损失函数，优化器</span>
+criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>BCELoss<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 二分类的交叉熵</span>
+d_optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>D<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.0003</span><span class="token punctuation">)</span>
+g_optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>G<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.0003</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最后就是对GAN的训练。</p>
+<pre class="line-numbers language-none"><code class="language-none">d_loss_list &#x3D; []
+g_loss_list &#x3D; []
+
+for epoch in range(num_epoch):
+    # 不要图片的标签
+    for i, (img, _) in enumerate(dataloader):
+        # 获取batchsize
+        num_img &#x3D; img.size(0)
+        # 转换为(batchsize, 784)
+        img &#x3D; img.view(num_img, -1)
+
+
+        real_img &#x3D; img.to(device)  # shape:  [128, 784]
+        real_label &#x3D; torch.ones(num_img).to(device)
+        fake_label &#x3D; torch.zeros(num_img).to(device)
+
+        # 判别器Discrimination训练
+        # 真的图片判别为真，假图片判别为假
+        real_out &#x3D; D(real_img)   # shape: [128, 1]
+        real_out &#x3D; real_out.squeeze()  # shape: [128,]
+
+        # 真实图片的Loss
+        d_loss_real &#x3D; criterion(real_out, real_label)
+        # 真实图片的判别值,越接近1越好
+        real_scores &#x3D; real_out
+
+        # 计算假图片的损失
+        # 随机生成一些噪声
+        z &#x3D; torch.randn(num_img, z_dimension).to(device)  # shape: [128, 100]
+        # 将噪声通过生成网络，生成假图片，避免梯度传到G中，因为G不需要更新（此时训练D）
+        fake_img &#x3D; G(z).detach()
+        # 判别器判别假图片
+        fake_out &#x3D; D(fake_img)  # shape: [128, 1]
+        fake_out &#x3D; fake_out.squeeze()  # shape: [128,]
+        # 计算假图片的loss
+        d_loss_fake &#x3D; criterion(fake_out, fake_label)
+        # 假图片的判别值,越接近0越好
+        fake_scores &#x3D; fake_out
+        
+        # 损失函数和优化
+        # 损失包括真损失和假损失
+        d_loss &#x3D; d_loss_fake + d_loss_real
+        # 梯度清零
+        d_optimizer.zero_grad()
+        # 反向传播
+        d_loss.backward()
+        # 前向传播
+        d_optimizer.step()
+
+        # 生成器Generator训练
+        # 希望生成的假的图片被判别器识别为真的图片
+        # 将判别器固定，将假图片传入判别器的结果与真实label对应
+        # 方向传播更新生成网络里的参数
+        z &#x3D; torch.randn(num_img, z_dimension).to(device)
+        # 得到假图片
+        fake_img &#x3D; G(z)
+        # 将假图片经过判别器得到的结果
+        output &#x3D; D(fake_img) # shape: [128, 1]
+        output &#x3D; output.squeeze()
+        # 将假图片与真实图片的label计算loss
+        g_loss&#x3D; criterion(output, real_label)
+
+        g_optimizer.zero_grad()
+        g_loss.backward()
+        g_optimizer.step()
+
+
+    d_loss_list.append(d_loss.data.item())
+    g_loss_list.append(g_loss.data.item())
+        
+    print(&#39;Epoch[&#123;&#125;&#x2F;&#123;&#125;],d_loss:&#123;:.6f&#125;,g_loss:&#123;:.6f&#125; &#39;
+            &#39;D_real_output: &#123;:.6f&#125;,D_fake_output: &#123;:.6f&#125;&#39;.format(
+        epoch+1, num_epoch, d_loss.data.item(), g_loss.data.item(),
+        real_scores.data.mean(), fake_scores.data.mean()  # 打印的是真实图片的损失均值
+    ))
+
+    if epoch &#x3D;&#x3D; 0:
+        real_images &#x3D; to_img(real_img.cpu().data)
+        save_image(real_images, &#39;.&#x2F;img&#x2F;real_images.png&#39;)
+    elif epoch % 10 &#x3D;&#x3D; 0:
+        fake_images &#x3D; to_img(fake_img.cpu().data)
+        save_image(fake_images, &#39;.&#x2F;img&#x2F;fake_images-&#123;&#125;.png&#39;.format(epoch + 1))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由于能力有限，代码参考了参考文献中的第五篇文章。并在其基础中将一些pytorch中已经弃用的函数进行了修改。并在其他地方进行了小部分调整。</p>
+<p>看看生成的图像，这是原图。</p>
+<img src="/posts/9069b95a/2.png" class loading="lazy">
+
+<p>这是训练10轮后的图像</p>
+<img src="/posts/9069b95a/3.png" class loading="lazy">
+
+<p>这是训练50轮后的图像</p>
+<img src="/posts/9069b95a/4.png" class loading="lazy">
+
+<p>这是训练140轮后的图像</p>
+<img src="/posts/9069b95a/5.png" class loading="lazy">
+
+
+
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://easyai.tech/ai-definition/gan/">一文看懂「生成对抗网络 - GAN」基本原理+10种典型算法+13种应用 (easyai.tech)</a></p>
+<p><a href="https://blog.csdn.net/LEEANG121/article/details/104113406">深度学习：GAN 对抗网络原理详细解析（零基础必看）_gan网络-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/Sakura55/article/details/81512600">深度学习—-GAN（生成对抗神经网络）原理解析_gan神经网络-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/DFCED/article/details/105175097">图解 生成对抗网络GAN 原理 超详解_gan原理图-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/jizhidexiaoming/article/details/96485095">pytorch实现GAN-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>生成对抗网络</tag>
       </tags>
   </entry>
   <entry>
@@ -101,7 +366,7 @@ npm <span class="token operator">-</span>v<span aria-hidden="true" class="line-n
 
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"user_email"</span> # user_email填GitHub注册的邮箱<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#115;&#x6a;&#x31;&#49;&#x31;&#50;&#50;&#50;&#64;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x77;&#115;&#x6a;&#x31;&#49;&#x31;&#50;&#50;&#50;&#64;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
+<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#x73;&#106;&#49;&#x31;&#49;&#x32;&#x32;&#x32;&#x40;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x77;&#x73;&#106;&#49;&#x31;&#49;&#x32;&#x32;&#x32;&#x40;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"wsj"</span>
 git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -769,6 +1034,441 @@ odd <span class="token operator">=</span> <span class="token number">0</span>
       </tags>
   </entry>
   <entry>
+    <title>对抗攻击:PGD算法</title>
+    <url>/posts/a1b31fc5/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>之前介绍了FGSM算法还有I-FGSM算法，接下来再看看FGSM算法的拓展PGD算法。</p>
+<h4 id="PGD原理"><a href="#PGD原理" class="headerlink" title="PGD原理"></a>PGD原理</h4><p>PGD算法在论文[<a href="https://arxiv.org/abs/1706.06083">1706.06083] Towards Deep Learning Models Resistant to Adversarial Attacks (arxiv.org)</a>中提出，它既是产生对抗样本的攻击算法，也是对抗训练的防御算法。除此之外，PGD算法也是一阶中的最强攻击（一阶是指利用一阶导数）</p>
+<p>设想目标模型如果是一个线性模型，损失函数对输入的导数一定是一个固定值，一次迭代和多次迭代时扰动的方向都不会发生改变，但是，如果目标模型为非线性，每次迭代之间的方向都有可能会发生变化，这时FGSM的单次迭代效果肯定不如PGD的效果好。FGSM算法通过一步计算，可能达不到最优效果，而PGD算法则是每次走一小步，但是多走几次，如果超过了扰动半径为ε的空间，就重新映射回来。</p>
+<p>下面来看一下PGD算法的公式：</p>
+<div>
+$$
+x^{t+1} = \Pi_{x+S}(x^t+\alpha sgn(\nabla_xL(\theta,x,y))) \tag{1}
+$$
+</div>
+理解了FGSM和I-FGSM以后，这个公式肯定也是非常好理解的。这里主要看一下公式最前面的投影到x+S的意思。
+
+<p>就是通过一系列操作得到对抗样本后，将对抗样本减去原始图像得到了扰动值，然后将扰动值限制在-ε到+ε之间，得到了新的扰动值，原始图像加上新的扰动值就是最终生成的对抗样本。</p>
+<p>关于我对(1)中sgn(L(θ,x,y)’)的理解可以看我在这篇文章中2.1节写的内容。<a href="https://lengnian.github.io/posts/f891610e/#FGSM%E5%8E%9F%E7%90%86">对抗攻击:FGSM和BIM算法 | WeiSJ&amp;HEXO (lengnian.github.io)</a></p>
+<h4 id="Pytorch代码实现"><a href="#Pytorch代码实现" class="headerlink" title="Pytorch代码实现"></a>Pytorch代码实现</h4><p>看看PGD的核心代码：</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># PGD攻击方式,属于FGSM攻击的变体
+def PGD_attack(model, image, label, epsilon&#x3D;0.8, alpha&#x3D;0.1, iters&#x3D;40):
+    image &#x3D; image.to(device)
+    label &#x3D; label.to(device)
+    loss &#x3D; nn.CrossEntropyLoss()
+
+    ori_image &#x3D; image.data
+
+    for i in range(iters):
+        image.requires_grad &#x3D; True
+        output &#x3D; model(image)
+
+        model.zero_grad()
+        cost &#x3D; loss(output, label).to(device)
+        cost.backward()
+
+        # 对抗样本 &#x3D; 原始图像 + 扰动
+        adv_image &#x3D; image + alpha * image.grad.sign()
+        # 限制扰动范围
+        eta &#x3D; torch.clamp(adv_image - ori_image, min&#x3D;-epsilon, max&#x3D;epsilon)
+        # 进行下一轮的对抗样本生成
+        image &#x3D; torch.clamp(ori_image + eta, min&#x3D;0, max&#x3D;1).detach()
+
+    return image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="训练-攻击完整代码"><a href="#训练-攻击完整代码" class="headerlink" title="训练+攻击完整代码"></a>训练+攻击完整代码</h4><p>完整代码是使用自己在MNIST手写数据集上训练的LeNet，使用PGD算法产生对抗样本攻击模型。</p>
+<p>首先是模型搭建</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># 搭建LeNet模型
+class LeNet(nn.Module):
+    def __init__(self):
+        super(LeNet, self).__init__()
+
+        # 卷积层
+        self.conv &#x3D; nn.Sequential(
+            nn.Conv2d(in_channels&#x3D;1, out_channels&#x3D;6, kernel_size&#x3D;5, padding&#x3D;2),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size&#x3D;2, stride&#x3D;2),
+            nn.Conv2d(in_channels&#x3D;6, out_channels&#x3D;16, kernel_size&#x3D;5),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size&#x3D;2, stride&#x3D;2)
+        )
+
+        # 全连接层
+        self.fc &#x3D; nn.Sequential(
+            nn.Linear(in_features&#x3D;16 * 5 * 5, out_features&#x3D;120),
+            nn.ReLU(),
+            nn.Linear(in_features&#x3D;120, out_features&#x3D;84),
+            nn.ReLU(),
+            nn.Linear(in_features&#x3D;84, out_features&#x3D;10)
+        )
+
+    def forward(self, img):
+        img &#x3D; self.conv(img)
+        img &#x3D; img.view(img.size(0), -1)
+        out &#x3D; self.fc(img)
+        return out
+
+
+net &#x3D; LeNet()
+net &#x3D; net.to(device)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">mean <span class="token operator">=</span> <span class="token number">0.1307</span>
+std <span class="token operator">=</span> <span class="token number">0.3801</span>
+
+<span class="token comment"># 对图像变换</span>
+transform <span class="token operator">=</span> transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span>mean<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>std<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+
+device <span class="token operator">=</span> torch<span class="token punctuation">.</span>device<span class="token punctuation">(</span><span class="token string">"cuda"</span> <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">"cpu"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 训练数据集, 测试数据集</span>
+train_dataset <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">'../datasets/MNIST'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transform<span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># len 60000</span>
+test_dataset <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">'../datasets/MNIST'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transform<span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># len 10000</span>
+
+<span class="token comment"># 数据迭代器</span>
+train_dataloader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>train_dataset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>  <span class="token comment"># len 938</span>
+test_dataloader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>test_dataset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># len 157</span>
+
+lr <span class="token operator">=</span> <span class="token number">1e-3</span>
+epochs <span class="token operator">=</span> <span class="token number">30</span>
+optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>net<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span>lr<span class="token punctuation">)</span>
+criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
+scheduler <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>lr_scheduler<span class="token punctuation">.</span>ReduceLROnPlateau<span class="token punctuation">(</span>optimizer<span class="token punctuation">,</span> <span class="token string">'min'</span><span class="token punctuation">,</span> factor<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> patience<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> min_lr<span class="token operator">=</span><span class="token number">0.0000001</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>之后就是进行模型的训练</p>
+<pre class="line-numbers language-none"><code class="language-none">train_loss &#x3D; []
+train_acc &#x3D; []
+val_loss &#x3D; []
+val_acc &#x3D; []
+
+for epoch in tqdm(range(epochs)):
+    train_losses &#x3D; 0
+    train_acces &#x3D; 0
+    val_losses &#x3D; 0
+    val_acces &#x3D; 0
+    
+    for x, y in train_dataloader:
+        x, y &#x3D; x.to(device), y.to(device)
+        output &#x3D; net(x)
+        # 计算loss
+        loss &#x3D; criterion(output, y)
+        # 计算预测值
+        _, pred &#x3D; torch.max(output, axis&#x3D;1)
+        # 计算acc
+        acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
+
+        # 反向传播
+        # 梯度清零
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        train_losses +&#x3D; loss.item()
+        train_acces +&#x3D; acc.item()
+
+    train_loss.append(train_losses &#x2F; len(train_dataloader))
+    train_acc.append(train_acces &#x2F; len(train_dataloader))
+
+    # 模型评估
+    net.eval()
+    with torch.no_grad():
+        for x, y in test_dataloader:
+            x, y &#x3D; x.to(device), y.to(device)
+            output &#x3D; net(x)
+            loss &#x3D; criterion(output, y)
+            scheduler.step(loss)
+            _, pred &#x3D; torch.max(output, axis&#x3D;1)
+            acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
+
+            val_losses +&#x3D; loss.item()
+            val_acces +&#x3D; acc.item()
+        
+        val_loss.append(val_losses &#x2F; len(test_dataloader))
+        val_acc.append(val_acces &#x2F; len(test_dataloader))
+
+    print(f&quot;epoch:&#123;epoch+1&#125;  train_loss:&#123;train_losses &#x2F; len(train_dataloader)&#125;, train_acc:&#123;train_acces &#x2F; len(train_dataloader)&#125;, val_loss:&#123;val_losses &#x2F; len(test_dataloader)&#125;, val_acc:&#123;val_acces &#x2F; len(test_dataloader)&#125;&quot;)
+
+plt.plot(train_loss, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train loss&#39;)
+plt.plot(val_loss, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val loss&#39;)
+plt.legend()
+plt.xlabel(&quot;epoch&quot;)
+plt.ylabel(&quot;loss&quot;)
+plt.show()
+
+
+plt.plot(train_acc, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train acc&#39;)
+plt.plot(val_acc, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val acc&#39;)
+plt.legend()
+plt.xlabel(&quot;epoch&quot;)
+plt.ylabel(&quot;acc&quot;)
+plt.show()
+
+PATH &#x3D; &#39;.&#x2F;pgd_mnist_lenet.pth&#39;
+torch.save(net, PATH)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"> 3%|▎         | 1&#x2F;30 [00:11&lt;05:30, 11.39s&#x2F;it]
+epoch:1  train_loss:0.22698007381932217, train_acc:0.9306369936034116, val_loss:0.06039735894490057, val_acc:0.9801950636942676
+  7%|▋         | 2&#x2F;30 [00:21&lt;05:05, 10.90s&#x2F;it]
+epoch:2  train_loss:0.06332400290375904, train_acc:0.980527052238806, val_loss:0.059576493097694624, val_acc:0.9810907643312102
+ 10%|█         | 3&#x2F;30 [00:32&lt;04:48, 10.70s&#x2F;it]
+epoch:3  train_loss:0.06275213833576612, train_acc:0.9806603144989339, val_loss:0.05885813971328887, val_acc:0.9812898089171974
+ 13%|█▎        | 4&#x2F;30 [00:42&lt;04:27, 10.28s&#x2F;it]
+epoch:4  train_loss:0.0622245114612411, train_acc:0.9808768656716418, val_loss:0.05824386749778441, val_acc:0.9813893312101911
+ 17%|█▋        | 5&#x2F;30 [00:52&lt;04:18, 10.34s&#x2F;it]
+epoch:5  train_loss:0.06163326848739151, train_acc:0.9810267857142857, val_loss:0.05831151023495254, val_acc:0.9815883757961783
+ 20%|██        | 6&#x2F;30 [01:03&lt;04:10, 10.45s&#x2F;it]
+epoch:6  train_loss:0.06115677414128362, train_acc:0.9812766524520256, val_loss:0.05730052098222552, val_acc:0.9822850318471338
+ 23%|██▎       | 7&#x2F;30 [01:14&lt;04:06, 10.71s&#x2F;it]
+epoch:7  train_loss:0.06073849064423077, train_acc:0.9814432302771855, val_loss:0.0568622479387292, val_acc:0.9823845541401274
+ 27%|██▋       | 8&#x2F;30 [01:24&lt;03:52, 10.57s&#x2F;it]
+epoch:8  train_loss:0.060348112858943086, train_acc:0.9815598347547975, val_loss:0.05643120593136283, val_acc:0.9825835987261147
+ 30%|███       | 9&#x2F;30 [01:36&lt;03:53, 11.12s&#x2F;it]
+epoch:9  train_loss:0.06001822312654399, train_acc:0.9816431236673774, val_loss:0.0560989200529067, val_acc:0.9829816878980892
+ 33%|███▎      | 10&#x2F;30 [01:47&lt;03:40, 11.01s&#x2F;it]
+epoch:10  train_loss:0.05972875392924287, train_acc:0.9816264658848614, val_loss:0.055768566766670746, val_acc:0.9828821656050956
+ 37%|███▋      | 11&#x2F;30 [02:00&lt;03:37, 11.44s&#x2F;it]
+epoch:11  train_loss:0.05945397531891714, train_acc:0.9817264125799574, val_loss:0.05558454929880655, val_acc:0.9829816878980892
+ 40%|████      | 12&#x2F;30 [02:10&lt;03:21, 11.21s&#x2F;it]
+epoch:12  train_loss:0.05924657509594695, train_acc:0.9818929904051172, val_loss:0.05523945889465368, val_acc:0.9830812101910829
+ 43%|████▎     | 13&#x2F;30 [02:24&lt;03:22, 11.89s&#x2F;it]
+epoch:13  train_loss:0.05902852281344248, train_acc:0.9819429637526652, val_loss:0.05497432513508032, val_acc:0.9830812101910829
+ 47%|████▋     | 14&#x2F;30 [02:39&lt;03:25, 12.82s&#x2F;it]
+epoch:14  train_loss:0.05884089107651994, train_acc:0.9819929371002132, val_loss:0.05479716256581199, val_acc:0.9829816878980892
+ 50%|█████     | 15&#x2F;30 [02:51&lt;03:09, 12.62s&#x2F;it]
+epoch:15  train_loss:0.05864403824453979, train_acc:0.9820429104477612, val_loss:0.05505548159378302, val_acc:0.9826831210191083
+ 53%|█████▎    | 16&#x2F;30 [03:03&lt;02:54, 12.50s&#x2F;it]
+epoch:16  train_loss:0.05848915197192502, train_acc:0.9820262526652452, val_loss:0.05448126511731345, val_acc:0.9830812101910829
+ 57%|█████▋    | 17&#x2F;30 [03:14&lt;02:35, 11.96s&#x2F;it]
+epoch:17  train_loss:0.05836289135941755, train_acc:0.9820429104477612, val_loss:0.05426665444437201, val_acc:0.9830812101910829
+ 60%|██████    | 18&#x2F;30 [03:26&lt;02:25, 12.09s&#x2F;it]
+epoch:18  train_loss:0.05820710067130895, train_acc:0.9821761727078892, val_loss:0.054053511006377966, val_acc:0.9831807324840764
+ 63%|██████▎   | 19&#x2F;30 [03:38&lt;02:12, 12.01s&#x2F;it]
+epoch:19  train_loss:0.058103710266032706, train_acc:0.9821761727078892, val_loss:0.05439911206745228, val_acc:0.9831807324840764
+ 67%|██████▋   | 20&#x2F;30 [03:49&lt;01:56, 11.64s&#x2F;it]
+epoch:20  train_loss:0.058076391998888935, train_acc:0.9821595149253731, val_loss:0.05379035640181677, val_acc:0.9831807324840764
+ 70%|███████   | 21&#x2F;30 [04:01&lt;01:46, 11.86s&#x2F;it]
+epoch:21  train_loss:0.0578732310768479, train_acc:0.9822261460554371, val_loss:0.05364397724283634, val_acc:0.98328025477707
+ 73%|███████▎  | 22&#x2F;30 [04:12&lt;01:32, 11.57s&#x2F;it]
+epoch:22  train_loss:0.05777005526695901, train_acc:0.9823260927505331, val_loss:0.05357255679510747, val_acc:0.9834792993630573
+ 77%|███████▋  | 23&#x2F;30 [04:25&lt;01:24, 12.03s&#x2F;it]
+epoch:23  train_loss:0.05769451945396597, train_acc:0.982359408315565, val_loss:0.05339814494749543, val_acc:0.9833797770700637
+ 80%|████████  | 24&#x2F;30 [04:38&lt;01:14, 12.38s&#x2F;it]
+epoch:24  train_loss:0.05762437407273863, train_acc:0.982359408315565, val_loss:0.05328276433023939, val_acc:0.9833797770700637
+ 83%|████████▎ | 25&#x2F;30 [04:52&lt;01:03, 12.70s&#x2F;it]
+epoch:25  train_loss:0.057558819814188, train_acc:0.982409381663113, val_loss:0.0532996576148898, val_acc:0.98328025477707
+ 87%|████████▋ | 26&#x2F;30 [05:04&lt;00:50, 12.55s&#x2F;it]
+epoch:26  train_loss:0.05746660577848172, train_acc:0.9823927238805971, val_loss:0.05423711911051469, val_acc:0.9826831210191083
+ 90%|█████████ | 27&#x2F;30 [05:15&lt;00:35, 11.98s&#x2F;it]
+epoch:27  train_loss:0.05736568021470868, train_acc:0.982442697228145, val_loss:0.053538712084139135, val_acc:0.9829816878980892
+ 93%|█████████▎| 28&#x2F;30 [05:25&lt;00:23, 11.61s&#x2F;it]
+epoch:28  train_loss:0.057331098256998066, train_acc:0.9825093283582089, val_loss:0.053118417597120736, val_acc:0.9833797770700637
+ 97%|█████████▋| 29&#x2F;30 [05:36&lt;00:11, 11.26s&#x2F;it]
+epoch:29  train_loss:0.05727743341136716, train_acc:0.982525986140725, val_loss:0.05280723534694985, val_acc:0.9834792993630573
+100%|██████████| 30&#x2F;30 [05:48&lt;00:00, 11.62s&#x2F;it]
+epoch:30  train_loss:0.05723029628682977, train_acc:0.982592617270789, val_loss:0.05286279270294935, val_acc:0.9835788216560509<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/a1b31fc5/1.png" class loading="lazy">
+
+<img src="/posts/a1b31fc5/2.png" class loading="lazy">
+
+<p>为了方便后续的可视化，将测试数据集加载器的bathsize设置为1。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">test_dataloader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>test_dataset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>PGD算法</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># PGD攻击方式,属于FGSM攻击的变体</span>
+<span class="token keyword">def</span> <span class="token function">PGD_attack</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> image<span class="token punctuation">,</span> label<span class="token punctuation">,</span> epsilon<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">,</span> alpha<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">,</span> iters<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    image <span class="token operator">=</span> image<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+    label <span class="token operator">=</span> label<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+    loss <span class="token operator">=</span> nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    ori_image <span class="token operator">=</span> image<span class="token punctuation">.</span>data
+
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>iters<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        image<span class="token punctuation">.</span>requires_grad <span class="token operator">=</span> <span class="token boolean">True</span>
+        output <span class="token operator">=</span> model<span class="token punctuation">(</span>image<span class="token punctuation">)</span>
+
+        model<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        cost <span class="token operator">=</span> loss<span class="token punctuation">(</span>output<span class="token punctuation">,</span> label<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+        cost<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 对抗样本 = 原始图像 + 扰动</span>
+        adv_image <span class="token operator">=</span> image <span class="token operator">+</span> alpha <span class="token operator">*</span> image<span class="token punctuation">.</span>grad<span class="token punctuation">.</span>sign<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment"># 限制扰动范围</span>
+        eta <span class="token operator">=</span> torch<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span>adv_image <span class="token operator">-</span> ori_image<span class="token punctuation">,</span> <span class="token builtin">min</span><span class="token operator">=</span><span class="token operator">-</span>epsilon<span class="token punctuation">,</span> <span class="token builtin">max</span><span class="token operator">=</span>epsilon<span class="token punctuation">)</span>
+        <span class="token comment"># 进行下一轮的对抗样本生成</span>
+        image <span class="token operator">=</span> torch<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span>ori_image <span class="token operator">+</span> eta<span class="token punctuation">,</span> <span class="token builtin">min</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token builtin">max</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>测试函数</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">test_PGD</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_dataloader<span class="token punctuation">,</span> epsilon<span class="token punctuation">,</span> alpha<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    correct <span class="token operator">=</span> <span class="token number">0</span>
+    adv_examples <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    
+    <span class="token keyword">for</span> data<span class="token punctuation">,</span> target <span class="token keyword">in</span> test_dataloader<span class="token punctuation">:</span>
+        data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+        data<span class="token punctuation">.</span>requires_grad <span class="token operator">=</span> <span class="token boolean">True</span>
+
+        output <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        _<span class="token punctuation">,</span> init_pred <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token comment"># print("origin label", init_pred)</span>
+
+        <span class="token comment"># 分类错误就不去扰动图像</span>
+        <span class="token keyword">if</span> init_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> target<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        
+        <span class="token comment"># 使用PGD进行攻击</span>
+        perturbed_image <span class="token operator">=</span> PGD_attack<span class="token punctuation">(</span>model<span class="token punctuation">,</span> data<span class="token punctuation">,</span> target<span class="token punctuation">,</span> epsilon<span class="token operator">=</span>epsilon<span class="token punctuation">,</span> alpha<span class="token operator">=</span>alpha<span class="token punctuation">)</span>
+        output <span class="token operator">=</span> model<span class="token punctuation">(</span>perturbed_image<span class="token punctuation">)</span>
+        _<span class="token punctuation">,</span> attack_pred <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token comment"># print("attack label", attack_pred)</span>
+
+        <span class="token comment"># 扰动后还是分类正确</span>
+        <span class="token keyword">if</span> attack_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            correct <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token comment"># print("classifier failed!")</span>
+            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>adv_examples<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">:</span>
+                adv_ex <span class="token operator">=</span> perturbed_image<span class="token punctuation">.</span>squeeze<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                adv_examples<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>init_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> attack_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> adv_ex<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    
+    attack_acc <span class="token operator">=</span> correct <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_dataloader<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"    Epsilon: &#123;&#125;\tTest Accuracy = &#123;&#125; / &#123;&#125; = &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilon<span class="token punctuation">,</span> correct<span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_dataloader<span class="token punctuation">)</span><span class="token punctuation">,</span> attack_acc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> adv_examples<span class="token punctuation">,</span> attack_acc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用PGD算法生成对抗样本并计算准确率，在这里我使ε和α都发生变化</p>
+<pre class="line-numbers language-none"><code class="language-none">accuracies &#x3D; []
+examples &#x3D; []
+epsilons &#x3D; [0.4, 0.5, 0.6]
+alphas &#x3D; [2&#x2F;255, 2&#x2F;128, 2&#x2F;64, 2&#x2F;32]
+
+for alpha in alphas:
+    print(&quot;Alpha:&#123;:.5f&#125;&quot;.format(alpha))
+    for epsilon in epsilons:
+        ex, acc &#x3D; test_PGD(net, device, test_dataloader, epsilon&#x3D;epsilon, alpha&#x3D;alpha)
+        accuracies.append(acc)
+        examples.append(ex)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"># 测试结果
+Alpha:0.00784
+    Epsilon: 0.4	Test Accuracy &#x3D; 8453 &#x2F; 10000 &#x3D; 0.8453
+    Epsilon: 0.5	Test Accuracy &#x3D; 4201 &#x2F; 10000 &#x3D; 0.4201
+    Epsilon: 0.6	Test Accuracy &#x3D; 1075 &#x2F; 10000 &#x3D; 0.1075
+Alpha:0.01562
+    Epsilon: 0.4	Test Accuracy &#x3D; 8113 &#x2F; 10000 &#x3D; 0.8113
+    Epsilon: 0.5	Test Accuracy &#x3D; 3093 &#x2F; 10000 &#x3D; 0.3093
+    Epsilon: 0.6	Test Accuracy &#x3D; 488 &#x2F; 10000 &#x3D; 0.0488
+Alpha:0.03125
+    Epsilon: 0.4	Test Accuracy &#x3D; 8160 &#x2F; 10000 &#x3D; 0.816
+    Epsilon: 0.5	Test Accuracy &#x3D; 2991 &#x2F; 10000 &#x3D; 0.2991
+    Epsilon: 0.6	Test Accuracy &#x3D; 402 &#x2F; 10000 &#x3D; 0.0402
+Alpha:0.06250
+    Epsilon: 0.4	Test Accuracy &#x3D; 8265 &#x2F; 10000 &#x3D; 0.8265
+    Epsilon: 0.5	Test Accuracy &#x3D; 3098 &#x2F; 10000 &#x3D; 0.3098
+    Epsilon: 0.6	Test Accuracy &#x3D; 406 &#x2F; 10000 &#x3D; 0.0406<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可视化测试结果</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">alpha_1 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
+alpha_2 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">6</span><span class="token punctuation">]</span>
+alpha_3 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">]</span>
+alpha_4 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+
+
+plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_1<span class="token punctuation">,</span> <span class="token string">"b*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">'Alpha=0.0078'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_2<span class="token punctuation">,</span> <span class="token string">"r*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">"Alpha=0.0126"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_3<span class="token punctuation">,</span> <span class="token string">"g*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">"Alpha=0.0312"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_4<span class="token punctuation">,</span> <span class="token string">"*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">"Alpha=0.0625"</span><span class="token punctuation">)</span>
+
+plt<span class="token punctuation">.</span>legend<span class="token punctuation">(</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"Accuracy vs Epsilon and Alpha"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">"Epsilon"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Accuracy"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/a1b31fc5/3.png" class loading="lazy">
+
+<p>可视化不同参数下的对抗样本</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">index <span class="token operator">=</span> <span class="token number">0</span>
+plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        index <span class="token operator">+=</span> <span class="token number">1</span>
+        plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> index<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> j <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> index <span class="token operator">&lt;=</span> <span class="token number">15</span><span class="token punctuation">:</span>
+                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0078</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> index <span class="token operator">></span> <span class="token number">15</span> <span class="token keyword">and</span> index <span class="token operator">&lt;=</span> <span class="token number">30</span><span class="token punctuation">:</span>
+                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0126</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> index <span class="token operator">></span> <span class="token number">30</span> <span class="token keyword">and</span> index <span class="token operator">&lt;=</span> <span class="token number">45</span><span class="token punctuation">:</span>
+                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0312</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0625</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+
+        init_pred<span class="token punctuation">,</span> attack_pred<span class="token punctuation">,</span> example <span class="token operator">=</span> examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+        plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"&#123;&#125; --> &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>init_pred<span class="token punctuation">,</span> attack_pred<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        plt<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span>example<span class="token punctuation">)</span>
+
+plt<span class="token punctuation">.</span>tight_layout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># plt.show()</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/a1b31fc5/4.png" class loading="lazy">
+
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://blog.csdn.net/qq_40176087/article/details/121512229">对抗训练fgm、fgsm和pgd原理和源码分析-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/qq_43381493/article/details/130192453">研究笔记（一）_pgd攻击-CSDN博客</a></p>
+<p><a href="https://www.cnblogs.com/tangweijqxx/p/10617752.html">3.基于梯度的攻击——PGD - 机器学习安全小白 - 博客园 (cnblogs.com)</a></p>
+<p><a href="https://muyuuuu.github.io/2021/04/26/DNN-safe-basic/">对抗攻击篇：FGSM 与 PGD 攻击算法 | Just for Life. (muyuuuu.github.io)</a>(能力有限，核心代码参考该作者)</p>
+]]></content>
+      <categories>
+        <category>写文章</category>
+      </categories>
+      <tags>
+        <tag>对抗样本生成与防御</tag>
+        <tag>对抗攻击</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电影和电视剧</title>
+    <url>/posts/cb44fd80/</url>
+    <content><![CDATA[<p>在这记录一些我想看的电影和电视剧，有些是因为题材去看的，有些是因为演员去看的，还有些是因为某个片段去看的。</p>
+<h4 id="电影"><a href="#电影" class="headerlink" title="电影"></a>电影</h4><ul>
+<li>太平轮上下</li>
+<li>默杀</li>
+<li>抓娃娃</li>
+<li>第二十条</li>
+<li>周处除三害</li>
+<li>东哥闯东北</li>
+<li>来福大酒店</li>
+</ul>
+<h4 id="电视剧"><a href="#电视剧" class="headerlink" title="电视剧"></a>电视剧</h4><ul>
+<li><p>黑暗荣耀 √</p>
+</li>
+<li><p>尘封十三载√</p>
+</li>
+<li><p>大唐狄公案</p>
+</li>
+<li><p>漫长的季节√</p>
+</li>
+<li><p>清明上河图密码</p>
+</li>
+<li><p>玫瑰的故事</p>
+</li>
+<li><p>九部的故事</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>记随笔</category>
+      </categories>
+      <tags>
+        <tag>追剧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>对抗攻击:FGSM和BIM算法</title>
     <url>/posts/f891610e/</url>
     <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>初次接触对抗样本，在这里记录一下自己的学习过程，希望可以帮助自己更好理解，也希望可以帮助到有需要的人。</p>
@@ -1310,404 +2010,6 @@ plt.tight_layout()
       </tags>
   </entry>
   <entry>
-    <title>对抗攻击:PGD算法</title>
-    <url>/posts/a1b31fc5/</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>之前介绍了FGSM算法还有I-FGSM算法，接下来再看看FGSM算法的拓展PGD算法。</p>
-<h4 id="PGD原理"><a href="#PGD原理" class="headerlink" title="PGD原理"></a>PGD原理</h4><p>PGD算法在论文[<a href="https://arxiv.org/abs/1706.06083">1706.06083] Towards Deep Learning Models Resistant to Adversarial Attacks (arxiv.org)</a>中提出，它既是产生对抗样本的攻击算法，也是对抗训练的防御算法。除此之外，PGD算法也是一阶中的最强攻击（一阶是指利用一阶导数）</p>
-<p>设想目标模型如果是一个线性模型，损失函数对输入的导数一定是一个固定值，一次迭代和多次迭代时扰动的方向都不会发生改变，但是，如果目标模型为非线性，每次迭代之间的方向都有可能会发生变化，这时FGSM的单次迭代效果肯定不如PGD的效果好。FGSM算法通过一步计算，可能达不到最优效果，而PGD算法则是每次走一小步，但是多走几次，如果超过了扰动半径为ε的空间，就重新映射回来。</p>
-<p>下面来看一下PGD算法的公式：</p>
-<div>
-$$
-x^{t+1} = \Pi_{x+S}(x^t+\alpha sgn(\nabla_xL(\theta,x,y))) \tag{1}
-$$
-</div>
-理解了FGSM和I-FGSM以后，这个公式肯定也是非常好理解的。这里主要看一下公式最前面的投影到x+S的意思。
-
-<p>就是通过一系列操作得到对抗样本后，将对抗样本减去原始图像得到了扰动值，然后将扰动值限制在-ε到+ε之间，得到了新的扰动值，原始图像加上新的扰动值就是最终生成的对抗样本。</p>
-<p>关于我对(1)中sgn(L(θ,x,y)’)的理解可以看我在这篇文章中2.1节写的内容。<a href="https://lengnian.github.io/posts/f891610e/#FGSM%E5%8E%9F%E7%90%86">对抗攻击:FGSM和BIM算法 | WeiSJ&amp;HEXO (lengnian.github.io)</a></p>
-<h4 id="Pytorch代码实现"><a href="#Pytorch代码实现" class="headerlink" title="Pytorch代码实现"></a>Pytorch代码实现</h4><p>看看PGD的核心代码：</p>
-<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># PGD攻击方式,属于FGSM攻击的变体
-def PGD_attack(model, image, label, epsilon&#x3D;0.8, alpha&#x3D;0.1, iters&#x3D;40):
-    image &#x3D; image.to(device)
-    label &#x3D; label.to(device)
-    loss &#x3D; nn.CrossEntropyLoss()
-
-    ori_image &#x3D; image.data
-
-    for i in range(iters):
-        image.requires_grad &#x3D; True
-        output &#x3D; model(image)
-
-        model.zero_grad()
-        cost &#x3D; loss(output, label).to(device)
-        cost.backward()
-
-        # 对抗样本 &#x3D; 原始图像 + 扰动
-        adv_image &#x3D; image + alpha * image.grad.sign()
-        # 限制扰动范围
-        eta &#x3D; torch.clamp(adv_image - ori_image, min&#x3D;-epsilon, max&#x3D;epsilon)
-        # 进行下一轮的对抗样本生成
-        image &#x3D; torch.clamp(ori_image + eta, min&#x3D;0, max&#x3D;1).detach()
-
-    return image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="训练-攻击完整代码"><a href="#训练-攻击完整代码" class="headerlink" title="训练+攻击完整代码"></a>训练+攻击完整代码</h4><p>完整代码是使用自己在MNIST手写数据集上训练的LeNet，使用PGD算法产生对抗样本攻击模型。</p>
-<p>首先是模型搭建</p>
-<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># 搭建LeNet模型
-class LeNet(nn.Module):
-    def __init__(self):
-        super(LeNet, self).__init__()
-
-        # 卷积层
-        self.conv &#x3D; nn.Sequential(
-            nn.Conv2d(in_channels&#x3D;1, out_channels&#x3D;6, kernel_size&#x3D;5, padding&#x3D;2),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size&#x3D;2, stride&#x3D;2),
-            nn.Conv2d(in_channels&#x3D;6, out_channels&#x3D;16, kernel_size&#x3D;5),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size&#x3D;2, stride&#x3D;2)
-        )
-
-        # 全连接层
-        self.fc &#x3D; nn.Sequential(
-            nn.Linear(in_features&#x3D;16 * 5 * 5, out_features&#x3D;120),
-            nn.ReLU(),
-            nn.Linear(in_features&#x3D;120, out_features&#x3D;84),
-            nn.ReLU(),
-            nn.Linear(in_features&#x3D;84, out_features&#x3D;10)
-        )
-
-    def forward(self, img):
-        img &#x3D; self.conv(img)
-        img &#x3D; img.view(img.size(0), -1)
-        out &#x3D; self.fc(img)
-        return out
-
-
-net &#x3D; LeNet()
-net &#x3D; net.to(device)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">mean <span class="token operator">=</span> <span class="token number">0.1307</span>
-std <span class="token operator">=</span> <span class="token number">0.3801</span>
-
-<span class="token comment"># 对图像变换</span>
-transform <span class="token operator">=</span> transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
-    transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span>mean<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>std<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">]</span>
-<span class="token punctuation">)</span>
-
-device <span class="token operator">=</span> torch<span class="token punctuation">.</span>device<span class="token punctuation">(</span><span class="token string">"cuda"</span> <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">"cpu"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 训练数据集, 测试数据集</span>
-train_dataset <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">'../datasets/MNIST'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transform<span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># len 60000</span>
-test_dataset <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span><span class="token string">'../datasets/MNIST'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transform<span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># len 10000</span>
-
-<span class="token comment"># 数据迭代器</span>
-train_dataloader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>train_dataset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>  <span class="token comment"># len 938</span>
-test_dataloader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>test_dataset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># len 157</span>
-
-lr <span class="token operator">=</span> <span class="token number">1e-3</span>
-epochs <span class="token operator">=</span> <span class="token number">30</span>
-optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>net<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span>lr<span class="token punctuation">)</span>
-criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
-scheduler <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>lr_scheduler<span class="token punctuation">.</span>ReduceLROnPlateau<span class="token punctuation">(</span>optimizer<span class="token punctuation">,</span> <span class="token string">'min'</span><span class="token punctuation">,</span> factor<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> patience<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> min_lr<span class="token operator">=</span><span class="token number">0.0000001</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>之后就是进行模型的训练</p>
-<pre class="line-numbers language-none"><code class="language-none">train_loss &#x3D; []
-train_acc &#x3D; []
-val_loss &#x3D; []
-val_acc &#x3D; []
-
-for epoch in tqdm(range(epochs)):
-    train_losses &#x3D; 0
-    train_acces &#x3D; 0
-    val_losses &#x3D; 0
-    val_acces &#x3D; 0
-    
-    for x, y in train_dataloader:
-        x, y &#x3D; x.to(device), y.to(device)
-        output &#x3D; net(x)
-        # 计算loss
-        loss &#x3D; criterion(output, y)
-        # 计算预测值
-        _, pred &#x3D; torch.max(output, axis&#x3D;1)
-        # 计算acc
-        acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
-
-        # 反向传播
-        # 梯度清零
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-        train_losses +&#x3D; loss.item()
-        train_acces +&#x3D; acc.item()
-
-    train_loss.append(train_losses &#x2F; len(train_dataloader))
-    train_acc.append(train_acces &#x2F; len(train_dataloader))
-
-    # 模型评估
-    net.eval()
-    with torch.no_grad():
-        for x, y in test_dataloader:
-            x, y &#x3D; x.to(device), y.to(device)
-            output &#x3D; net(x)
-            loss &#x3D; criterion(output, y)
-            scheduler.step(loss)
-            _, pred &#x3D; torch.max(output, axis&#x3D;1)
-            acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
-
-            val_losses +&#x3D; loss.item()
-            val_acces +&#x3D; acc.item()
-        
-        val_loss.append(val_losses &#x2F; len(test_dataloader))
-        val_acc.append(val_acces &#x2F; len(test_dataloader))
-
-    print(f&quot;epoch:&#123;epoch+1&#125;  train_loss:&#123;train_losses &#x2F; len(train_dataloader)&#125;, train_acc:&#123;train_acces &#x2F; len(train_dataloader)&#125;, val_loss:&#123;val_losses &#x2F; len(test_dataloader)&#125;, val_acc:&#123;val_acces &#x2F; len(test_dataloader)&#125;&quot;)
-
-plt.plot(train_loss, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train loss&#39;)
-plt.plot(val_loss, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val loss&#39;)
-plt.legend()
-plt.xlabel(&quot;epoch&quot;)
-plt.ylabel(&quot;loss&quot;)
-plt.show()
-
-
-plt.plot(train_acc, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train acc&#39;)
-plt.plot(val_acc, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val acc&#39;)
-plt.legend()
-plt.xlabel(&quot;epoch&quot;)
-plt.ylabel(&quot;acc&quot;)
-plt.show()
-
-PATH &#x3D; &#39;.&#x2F;pgd_mnist_lenet.pth&#39;
-torch.save(net, PATH)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none"> 3%|▎         | 1&#x2F;30 [00:11&lt;05:30, 11.39s&#x2F;it]
-epoch:1  train_loss:0.22698007381932217, train_acc:0.9306369936034116, val_loss:0.06039735894490057, val_acc:0.9801950636942676
-  7%|▋         | 2&#x2F;30 [00:21&lt;05:05, 10.90s&#x2F;it]
-epoch:2  train_loss:0.06332400290375904, train_acc:0.980527052238806, val_loss:0.059576493097694624, val_acc:0.9810907643312102
- 10%|█         | 3&#x2F;30 [00:32&lt;04:48, 10.70s&#x2F;it]
-epoch:3  train_loss:0.06275213833576612, train_acc:0.9806603144989339, val_loss:0.05885813971328887, val_acc:0.9812898089171974
- 13%|█▎        | 4&#x2F;30 [00:42&lt;04:27, 10.28s&#x2F;it]
-epoch:4  train_loss:0.0622245114612411, train_acc:0.9808768656716418, val_loss:0.05824386749778441, val_acc:0.9813893312101911
- 17%|█▋        | 5&#x2F;30 [00:52&lt;04:18, 10.34s&#x2F;it]
-epoch:5  train_loss:0.06163326848739151, train_acc:0.9810267857142857, val_loss:0.05831151023495254, val_acc:0.9815883757961783
- 20%|██        | 6&#x2F;30 [01:03&lt;04:10, 10.45s&#x2F;it]
-epoch:6  train_loss:0.06115677414128362, train_acc:0.9812766524520256, val_loss:0.05730052098222552, val_acc:0.9822850318471338
- 23%|██▎       | 7&#x2F;30 [01:14&lt;04:06, 10.71s&#x2F;it]
-epoch:7  train_loss:0.06073849064423077, train_acc:0.9814432302771855, val_loss:0.0568622479387292, val_acc:0.9823845541401274
- 27%|██▋       | 8&#x2F;30 [01:24&lt;03:52, 10.57s&#x2F;it]
-epoch:8  train_loss:0.060348112858943086, train_acc:0.9815598347547975, val_loss:0.05643120593136283, val_acc:0.9825835987261147
- 30%|███       | 9&#x2F;30 [01:36&lt;03:53, 11.12s&#x2F;it]
-epoch:9  train_loss:0.06001822312654399, train_acc:0.9816431236673774, val_loss:0.0560989200529067, val_acc:0.9829816878980892
- 33%|███▎      | 10&#x2F;30 [01:47&lt;03:40, 11.01s&#x2F;it]
-epoch:10  train_loss:0.05972875392924287, train_acc:0.9816264658848614, val_loss:0.055768566766670746, val_acc:0.9828821656050956
- 37%|███▋      | 11&#x2F;30 [02:00&lt;03:37, 11.44s&#x2F;it]
-epoch:11  train_loss:0.05945397531891714, train_acc:0.9817264125799574, val_loss:0.05558454929880655, val_acc:0.9829816878980892
- 40%|████      | 12&#x2F;30 [02:10&lt;03:21, 11.21s&#x2F;it]
-epoch:12  train_loss:0.05924657509594695, train_acc:0.9818929904051172, val_loss:0.05523945889465368, val_acc:0.9830812101910829
- 43%|████▎     | 13&#x2F;30 [02:24&lt;03:22, 11.89s&#x2F;it]
-epoch:13  train_loss:0.05902852281344248, train_acc:0.9819429637526652, val_loss:0.05497432513508032, val_acc:0.9830812101910829
- 47%|████▋     | 14&#x2F;30 [02:39&lt;03:25, 12.82s&#x2F;it]
-epoch:14  train_loss:0.05884089107651994, train_acc:0.9819929371002132, val_loss:0.05479716256581199, val_acc:0.9829816878980892
- 50%|█████     | 15&#x2F;30 [02:51&lt;03:09, 12.62s&#x2F;it]
-epoch:15  train_loss:0.05864403824453979, train_acc:0.9820429104477612, val_loss:0.05505548159378302, val_acc:0.9826831210191083
- 53%|█████▎    | 16&#x2F;30 [03:03&lt;02:54, 12.50s&#x2F;it]
-epoch:16  train_loss:0.05848915197192502, train_acc:0.9820262526652452, val_loss:0.05448126511731345, val_acc:0.9830812101910829
- 57%|█████▋    | 17&#x2F;30 [03:14&lt;02:35, 11.96s&#x2F;it]
-epoch:17  train_loss:0.05836289135941755, train_acc:0.9820429104477612, val_loss:0.05426665444437201, val_acc:0.9830812101910829
- 60%|██████    | 18&#x2F;30 [03:26&lt;02:25, 12.09s&#x2F;it]
-epoch:18  train_loss:0.05820710067130895, train_acc:0.9821761727078892, val_loss:0.054053511006377966, val_acc:0.9831807324840764
- 63%|██████▎   | 19&#x2F;30 [03:38&lt;02:12, 12.01s&#x2F;it]
-epoch:19  train_loss:0.058103710266032706, train_acc:0.9821761727078892, val_loss:0.05439911206745228, val_acc:0.9831807324840764
- 67%|██████▋   | 20&#x2F;30 [03:49&lt;01:56, 11.64s&#x2F;it]
-epoch:20  train_loss:0.058076391998888935, train_acc:0.9821595149253731, val_loss:0.05379035640181677, val_acc:0.9831807324840764
- 70%|███████   | 21&#x2F;30 [04:01&lt;01:46, 11.86s&#x2F;it]
-epoch:21  train_loss:0.0578732310768479, train_acc:0.9822261460554371, val_loss:0.05364397724283634, val_acc:0.98328025477707
- 73%|███████▎  | 22&#x2F;30 [04:12&lt;01:32, 11.57s&#x2F;it]
-epoch:22  train_loss:0.05777005526695901, train_acc:0.9823260927505331, val_loss:0.05357255679510747, val_acc:0.9834792993630573
- 77%|███████▋  | 23&#x2F;30 [04:25&lt;01:24, 12.03s&#x2F;it]
-epoch:23  train_loss:0.05769451945396597, train_acc:0.982359408315565, val_loss:0.05339814494749543, val_acc:0.9833797770700637
- 80%|████████  | 24&#x2F;30 [04:38&lt;01:14, 12.38s&#x2F;it]
-epoch:24  train_loss:0.05762437407273863, train_acc:0.982359408315565, val_loss:0.05328276433023939, val_acc:0.9833797770700637
- 83%|████████▎ | 25&#x2F;30 [04:52&lt;01:03, 12.70s&#x2F;it]
-epoch:25  train_loss:0.057558819814188, train_acc:0.982409381663113, val_loss:0.0532996576148898, val_acc:0.98328025477707
- 87%|████████▋ | 26&#x2F;30 [05:04&lt;00:50, 12.55s&#x2F;it]
-epoch:26  train_loss:0.05746660577848172, train_acc:0.9823927238805971, val_loss:0.05423711911051469, val_acc:0.9826831210191083
- 90%|█████████ | 27&#x2F;30 [05:15&lt;00:35, 11.98s&#x2F;it]
-epoch:27  train_loss:0.05736568021470868, train_acc:0.982442697228145, val_loss:0.053538712084139135, val_acc:0.9829816878980892
- 93%|█████████▎| 28&#x2F;30 [05:25&lt;00:23, 11.61s&#x2F;it]
-epoch:28  train_loss:0.057331098256998066, train_acc:0.9825093283582089, val_loss:0.053118417597120736, val_acc:0.9833797770700637
- 97%|█████████▋| 29&#x2F;30 [05:36&lt;00:11, 11.26s&#x2F;it]
-epoch:29  train_loss:0.05727743341136716, train_acc:0.982525986140725, val_loss:0.05280723534694985, val_acc:0.9834792993630573
-100%|██████████| 30&#x2F;30 [05:48&lt;00:00, 11.62s&#x2F;it]
-epoch:30  train_loss:0.05723029628682977, train_acc:0.982592617270789, val_loss:0.05286279270294935, val_acc:0.9835788216560509<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<img src="/posts/a1b31fc5/1.png" class loading="lazy">
-
-<img src="/posts/a1b31fc5/2.png" class loading="lazy">
-
-<p>为了方便后续的可视化，将测试数据集加载器的bathsize设置为1。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">test_dataloader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>test_dataset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>PGD算法</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># PGD攻击方式,属于FGSM攻击的变体</span>
-<span class="token keyword">def</span> <span class="token function">PGD_attack</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> image<span class="token punctuation">,</span> label<span class="token punctuation">,</span> epsilon<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">,</span> alpha<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">,</span> iters<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    image <span class="token operator">=</span> image<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
-    label <span class="token operator">=</span> label<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
-    loss <span class="token operator">=</span> nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    ori_image <span class="token operator">=</span> image<span class="token punctuation">.</span>data
-
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>iters<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        image<span class="token punctuation">.</span>requires_grad <span class="token operator">=</span> <span class="token boolean">True</span>
-        output <span class="token operator">=</span> model<span class="token punctuation">(</span>image<span class="token punctuation">)</span>
-
-        model<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        cost <span class="token operator">=</span> loss<span class="token punctuation">(</span>output<span class="token punctuation">,</span> label<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
-        cost<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-        <span class="token comment"># 对抗样本 = 原始图像 + 扰动</span>
-        adv_image <span class="token operator">=</span> image <span class="token operator">+</span> alpha <span class="token operator">*</span> image<span class="token punctuation">.</span>grad<span class="token punctuation">.</span>sign<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token comment"># 限制扰动范围</span>
-        eta <span class="token operator">=</span> torch<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span>adv_image <span class="token operator">-</span> ori_image<span class="token punctuation">,</span> <span class="token builtin">min</span><span class="token operator">=</span><span class="token operator">-</span>epsilon<span class="token punctuation">,</span> <span class="token builtin">max</span><span class="token operator">=</span>epsilon<span class="token punctuation">)</span>
-        <span class="token comment"># 进行下一轮的对抗样本生成</span>
-        image <span class="token operator">=</span> torch<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span>ori_image <span class="token operator">+</span> eta<span class="token punctuation">,</span> <span class="token builtin">min</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token builtin">max</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>测试函数</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">test_PGD</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_dataloader<span class="token punctuation">,</span> epsilon<span class="token punctuation">,</span> alpha<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    correct <span class="token operator">=</span> <span class="token number">0</span>
-    adv_examples <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-    
-    <span class="token keyword">for</span> data<span class="token punctuation">,</span> target <span class="token keyword">in</span> test_dataloader<span class="token punctuation">:</span>
-        data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
-        data<span class="token punctuation">.</span>requires_grad <span class="token operator">=</span> <span class="token boolean">True</span>
-
-        output <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
-        _<span class="token punctuation">,</span> init_pred <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token comment"># print("origin label", init_pred)</span>
-
-        <span class="token comment"># 分类错误就不去扰动图像</span>
-        <span class="token keyword">if</span> init_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> target<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">continue</span>
-        
-        <span class="token comment"># 使用PGD进行攻击</span>
-        perturbed_image <span class="token operator">=</span> PGD_attack<span class="token punctuation">(</span>model<span class="token punctuation">,</span> data<span class="token punctuation">,</span> target<span class="token punctuation">,</span> epsilon<span class="token operator">=</span>epsilon<span class="token punctuation">,</span> alpha<span class="token operator">=</span>alpha<span class="token punctuation">)</span>
-        output <span class="token operator">=</span> model<span class="token punctuation">(</span>perturbed_image<span class="token punctuation">)</span>
-        _<span class="token punctuation">,</span> attack_pred <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token comment"># print("attack label", attack_pred)</span>
-
-        <span class="token comment"># 扰动后还是分类正确</span>
-        <span class="token keyword">if</span> attack_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            correct <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token comment"># print("classifier failed!")</span>
-            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>adv_examples<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">:</span>
-                adv_ex <span class="token operator">=</span> perturbed_image<span class="token punctuation">.</span>squeeze<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
-                adv_examples<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>init_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> attack_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> adv_ex<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    
-    attack_acc <span class="token operator">=</span> correct <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_dataloader<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"    Epsilon: &#123;&#125;\tTest Accuracy = &#123;&#125; / &#123;&#125; = &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilon<span class="token punctuation">,</span> correct<span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_dataloader<span class="token punctuation">)</span><span class="token punctuation">,</span> attack_acc<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> adv_examples<span class="token punctuation">,</span> attack_acc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>使用PGD算法生成对抗样本并计算准确率，在这里我使ε和α都发生变化</p>
-<pre class="line-numbers language-none"><code class="language-none">accuracies &#x3D; []
-examples &#x3D; []
-epsilons &#x3D; [0.4, 0.5, 0.6]
-alphas &#x3D; [2&#x2F;255, 2&#x2F;128, 2&#x2F;64, 2&#x2F;32]
-
-for alpha in alphas:
-    print(&quot;Alpha:&#123;:.5f&#125;&quot;.format(alpha))
-    for epsilon in epsilons:
-        ex, acc &#x3D; test_PGD(net, device, test_dataloader, epsilon&#x3D;epsilon, alpha&#x3D;alpha)
-        accuracies.append(acc)
-        examples.append(ex)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none"># 测试结果
-Alpha:0.00784
-    Epsilon: 0.4	Test Accuracy &#x3D; 8453 &#x2F; 10000 &#x3D; 0.8453
-    Epsilon: 0.5	Test Accuracy &#x3D; 4201 &#x2F; 10000 &#x3D; 0.4201
-    Epsilon: 0.6	Test Accuracy &#x3D; 1075 &#x2F; 10000 &#x3D; 0.1075
-Alpha:0.01562
-    Epsilon: 0.4	Test Accuracy &#x3D; 8113 &#x2F; 10000 &#x3D; 0.8113
-    Epsilon: 0.5	Test Accuracy &#x3D; 3093 &#x2F; 10000 &#x3D; 0.3093
-    Epsilon: 0.6	Test Accuracy &#x3D; 488 &#x2F; 10000 &#x3D; 0.0488
-Alpha:0.03125
-    Epsilon: 0.4	Test Accuracy &#x3D; 8160 &#x2F; 10000 &#x3D; 0.816
-    Epsilon: 0.5	Test Accuracy &#x3D; 2991 &#x2F; 10000 &#x3D; 0.2991
-    Epsilon: 0.6	Test Accuracy &#x3D; 402 &#x2F; 10000 &#x3D; 0.0402
-Alpha:0.06250
-    Epsilon: 0.4	Test Accuracy &#x3D; 8265 &#x2F; 10000 &#x3D; 0.8265
-    Epsilon: 0.5	Test Accuracy &#x3D; 3098 &#x2F; 10000 &#x3D; 0.3098
-    Epsilon: 0.6	Test Accuracy &#x3D; 406 &#x2F; 10000 &#x3D; 0.0406<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可视化测试结果</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">alpha_1 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
-alpha_2 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">6</span><span class="token punctuation">]</span>
-alpha_3 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">]</span>
-alpha_4 <span class="token operator">=</span> accuracies<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-
-
-plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_1<span class="token punctuation">,</span> <span class="token string">"b*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">'Alpha=0.0078'</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_2<span class="token punctuation">,</span> <span class="token string">"r*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">"Alpha=0.0126"</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_3<span class="token punctuation">,</span> <span class="token string">"g*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">"Alpha=0.0312"</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> alpha_4<span class="token punctuation">,</span> <span class="token string">"*-"</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">"Alpha=0.0625"</span><span class="token punctuation">)</span>
-
-plt<span class="token punctuation">.</span>legend<span class="token punctuation">(</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"Accuracy vs Epsilon and Alpha"</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">"Epsilon"</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Accuracy"</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<img src="/posts/a1b31fc5/3.png" class loading="lazy">
-
-<p>可视化不同参数下的对抗样本</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">index <span class="token operator">=</span> <span class="token number">0</span>
-plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        index <span class="token operator">+=</span> <span class="token number">1</span>
-        plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> index<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> j <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> index <span class="token operator">&lt;=</span> <span class="token number">15</span><span class="token punctuation">:</span>
-                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0078</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
-            <span class="token keyword">elif</span> index <span class="token operator">></span> <span class="token number">15</span> <span class="token keyword">and</span> index <span class="token operator">&lt;=</span> <span class="token number">30</span><span class="token punctuation">:</span>
-                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0126</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
-            <span class="token keyword">elif</span> index <span class="token operator">></span> <span class="token number">30</span> <span class="token keyword">and</span> index <span class="token operator">&lt;=</span> <span class="token number">45</span><span class="token punctuation">:</span>
-                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0312</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"Eps:&#123;&#125; Alpha:&#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0625</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
-
-        init_pred<span class="token punctuation">,</span> attack_pred<span class="token punctuation">,</span> example <span class="token operator">=</span> examples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-        plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"&#123;&#125; --> &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>init_pred<span class="token punctuation">,</span> attack_pred<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        plt<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span>example<span class="token punctuation">)</span>
-
-plt<span class="token punctuation">.</span>tight_layout<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment"># plt.show()</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<img src="/posts/a1b31fc5/4.png" class loading="lazy">
-
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://blog.csdn.net/qq_40176087/article/details/121512229">对抗训练fgm、fgsm和pgd原理和源码分析-CSDN博客</a></p>
-<p><a href="https://blog.csdn.net/qq_43381493/article/details/130192453">研究笔记（一）_pgd攻击-CSDN博客</a></p>
-<p><a href="https://www.cnblogs.com/tangweijqxx/p/10617752.html">3.基于梯度的攻击——PGD - 机器学习安全小白 - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://muyuuuu.github.io/2021/04/26/DNN-safe-basic/">对抗攻击篇：FGSM 与 PGD 攻击算法 | Just for Life. (muyuuuu.github.io)</a>(能力有限，核心代码参考该作者)</p>
-]]></content>
-      <categories>
-        <category>写文章</category>
-      </categories>
-      <tags>
-        <tag>对抗样本生成与防御</tag>
-        <tag>对抗攻击</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>我的2023——谨以此纪念我的考研</title>
     <url>/posts/ace8cace/</url>
     <content><![CDATA[<p>很久之前就想写这篇文章了，但是一直拖着没有完成（其实自己就是非常懒）。近期正好没什么事情，而且再不写感觉就要忘记了。</p>
@@ -1739,39 +2041,6 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
       </categories>
       <tags>
         <tag>回忆录</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电影和电视剧</title>
-    <url>/posts/cb44fd80/</url>
-    <content><![CDATA[<p>在这记录一些我想看的电影和电视剧，有些是因为题材去看的，有些是因为演员去看的，还有些是因为某个片段去看的。</p>
-<h4 id="电影"><a href="#电影" class="headerlink" title="电影"></a>电影</h4><ul>
-<li>太平轮上下</li>
-<li>默杀</li>
-<li>抓娃娃</li>
-<li>第二十条</li>
-<li>周处除三害</li>
-<li>东哥闯东北</li>
-<li>来福大酒店</li>
-</ul>
-<h4 id="电视剧"><a href="#电视剧" class="headerlink" title="电视剧"></a>电视剧</h4><ul>
-<li><p>黑暗荣耀 √</p>
-</li>
-<li><p>尘封十三载√</p>
-</li>
-<li><p>大唐狄公案</p>
-</li>
-<li><p>漫长的季节</p>
-</li>
-<li><p>清明上河图密码</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>记随笔</category>
-      </categories>
-      <tags>
-        <tag>追剧</tag>
       </tags>
   </entry>
   <entry>

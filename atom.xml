@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-08-02T08:30:43.647Z</updated>
+  <updated>2024-08-07T09:15:43.501Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2024研究生科研素养提升公益讲座笔记</title>
+    <link href="http://lengnian.github.io/posts/877ae5d4/"/>
+    <id>http://lengnian.github.io/posts/877ae5d4/</id>
+    <published>2024-08-07T05:58:09.000Z</published>
+    <updated>2024-08-07T09:15:43.501Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;科研工具使用&quot;&gt;&lt;a href=&quot;#科研工具使用&quot; class=&quot;headerlink&quot; title=&quot;科研工具使用&quot;&gt;&lt;/a&gt;科研工具使用&lt;/h3&gt;&lt;h4 id=&quot;科研信息检索与利用-–李修波&quot;&gt;&lt;a href=&quot;#科研信息检索与利用-–李修波&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="记笔记" scheme="http://lengnian.github.io/categories/%E8%AE%B0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="科研讲座" scheme="http://lengnian.github.io/tags/%E7%A7%91%E7%A0%94%E8%AE%B2%E5%BA%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GAN对抗网络原理与代码实现</title>
+    <link href="http://lengnian.github.io/posts/9069b95a/"/>
+    <id>http://lengnian.github.io/posts/9069b95a/</id>
+    <published>2024-08-07T02:18:13.000Z</published>
+    <updated>2024-08-07T09:19:04.496Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;GAN网络&quot;&gt;&lt;a href=&quot;#GAN网络&quot; class=&quot;headerlink&quot; title=&quot;GAN网络&quot;&gt;&lt;/a&gt;GAN网络&lt;/h4&gt;&lt;p&gt;生成对抗网络（GAN，Generative adversarial</summary>
+        
+      
+    
+    
+    
+    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="深度学习" scheme="http://lengnian.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="生成对抗网络" scheme="http://lengnian.github.io/tags/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>对抗攻击:CW算法</title>
@@ -104,7 +156,7 @@
     <link href="http://lengnian.github.io/posts/cb44fd80/"/>
     <id>http://lengnian.github.io/posts/cb44fd80/</id>
     <published>2024-07-29T01:34:30.000Z</published>
-    <updated>2024-07-30T01:44:26.156Z</updated>
+    <updated>2024-08-06T05:31:24.979Z</updated>
     
     
       
