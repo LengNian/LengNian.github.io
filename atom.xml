@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-08-08T09:08:43.255Z</updated>
+  <updated>2024-08-18T10:00:46.633Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>对抗攻击:DeepFool算法</title>
+    <link href="http://lengnian.github.io/posts/134187cf/"/>
+    <id>http://lengnian.github.io/posts/134187cf/</id>
+    <published>2024-08-16T12:26:41.000Z</published>
+    <updated>2024-08-18T10:00:46.633Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;DeepFool原理&quot;&gt;&lt;a href=&quot;#DeepFool原理&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="对抗样本生成与防御" scheme="http://lengnian.github.io/tags/%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E4%B8%8E%E9%98%B2%E5%BE%A1/"/>
+    
+    <category term="对抗攻击" scheme="http://lengnian.github.io/tags/%E5%AF%B9%E6%8A%97%E6%94%BB%E5%87%BB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2024研究生科研素养提升公益讲座笔记</title>
     <link href="http://lengnian.github.io/posts/877ae5d4/"/>
     <id>http://lengnian.github.io/posts/877ae5d4/</id>
     <published>2024-08-07T05:58:09.000Z</published>
-    <updated>2024-08-08T09:08:43.255Z</updated>
+    <updated>2024-08-09T09:25:56.746Z</updated>
     
     
       
