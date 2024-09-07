@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-08-18T10:00:46.633Z</updated>
+  <updated>2024-08-18T14:03:01.918Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Markdown数学公式手册</title>
+    <link href="http://lengnian.github.io/posts/fe6b57b2/"/>
+    <id>http://lengnian.github.io/posts/fe6b57b2/</id>
+    <published>2024-08-18T11:49:57.000Z</published>
+    <updated>2024-08-18T14:03:01.918Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="Markdown" scheme="http://lengnian.github.io/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
     <title>对抗攻击:DeepFool算法</title>
     <link href="http://lengnian.github.io/posts/134187cf/"/>
     <id>http://lengnian.github.io/posts/134187cf/</id>
     <published>2024-08-16T12:26:41.000Z</published>
-    <updated>2024-08-18T10:00:46.633Z</updated>
+    <updated>2024-08-18T11:49:34.870Z</updated>
     
     
       
