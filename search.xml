@@ -2854,8 +2854,9 @@ plt<span class="token punctuation">.</span>subplots_adjust<span class="token pun
 <li>清明上河图密码</li>
 <li>玫瑰的故事√</li>
 <li>九部的故事√</li>
-<li>人民的名义</li>
+<li>人民的名义√</li>
 <li>雪迷宫</li>
+<li>迷失的青春</li>
 </ul>
 ]]></content>
       <categories>
@@ -2936,6 +2937,139 @@ plt<span class="token punctuation">.</span>subplots_adjust<span class="token pun
       <tags>
         <tag>目标计数</tag>
         <tag>综述</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MCNN--论文阅读与源码理解</title>
+    <url>/posts/8a129f29/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><em>前言</em></h3><p>最近看了一篇人群计数的论文，并进行了复现，主要是用于自己去了解人群计数的整个流程。<br>本文不是对论文进行翻译，只是对文章进行简略的总结，并对部分内容写出我的理解，主要是将自己阅读和复现过程中遇到的些问题在这里记录一下，希望可以帮助到有需要的人，同时，本文的内容均为个人理解，如若有误，欢迎在评论区或者邮件指正。</p>
+<p>论文原文： <a href="https://ieeexplore.ieee.org/document/7780439">Single-Image Crowd Counting via Multi-Column Convolutional Neural Network | IEEE Conference Publication | IEEE Xplore</a></p>
+<p>源代码 ：<a href="https://gitcode.com/gh_mirrors/cr/crowdcount-mcnn/overview?utm_source=csdn_github_accelerator&isLogin=1">crowdcount-mcnn:Single Image Crowd Counting via MCNN (Unofficial Implementation) - GitCode</a></p>
+<p><a href="https://github.com/svishwa/crowdcount-mcnn">svishwa&#x2F;crowdcount-mcnn: Single Image Crowd Counting via MCNN (Unofficial Implementation) (github.com)</a></p>
+<h3 id="环境调试"><a href="#环境调试" class="headerlink" title="环境调试"></a><em>环境调试</em></h3><p>可以下载作者开源的代码，但是作者当时上传的代码有些老，所以会有很多不兼容的问题需要自己一步一步去调试。<br>在文章[<a href="https://blog.csdn.net/wpw5499/article/details/106231707">MCNN] Crowd Counting 人群计数 复现过程记录_mcnn复现-CSDN博客</a>中对调试的内容写的非常详细，所以本文在此不赘述。<br>我将自己调试好的程序上传到了Github，大家也可以自行下载。</p>
+<h3 id="读论文"><a href="#读论文" class="headerlink" title="读论文"></a><em>读论文</em></h3><p>该论文提出一种简单但是有效的多列卷积神经网络(MCNN)，每列的感受野大小不同，用于提取不同的特征。同时，提出了Shanghai Tech数据集。<br>MCNN输入的是图像，会输出对应的人群密度图，通过对该密度图进行积分，就可以得到对应的人群数量。<br>因为透视失真的问题，简单的来说就是图像中近大远小的问题，会导致图像中人群的头部大小各异，所以使用不同尺度的卷积核才能捕捉到不同尺寸的人群密度特征。MCNN结构图如图所示。</p>
+
+
+<p>作者在训练的时候对数据进行了增强，对于训练集数据，作者使用matlab对每张图片随机裁剪9次，论文中提到对训练样本进行下采样1&#x2F;4，这里要注意的是，是对图像的长宽缩减到原来的1&#x2F;4，而不是面积，面积实际缩减为了原来的1&#x2F;16。如图所示。</p>
+
+
+<p>全篇文章中，到时候最想不明白的就是3.2 Shanghai Tech dataset中的Comparison of different loss functions。这里讲了两种不同的方方式，一种是将图像直接映射到图像中的总人头数(我的理解就是其输出内容就为总人头数)，另一种是将图像映射为密度图(也就是模型的输出就是与输入对应的密度图)。</p>
+<div>
+$$
+L(\Theta) = \frac{1}{2N} \sum_{i=1}^{N}{ \lVert \iint_S F(X_i;\Theta)dxdy - z_i \lVert}^2  \tag{1}
+$$
+</div>
+
+<p>对于公式(1)，F(X，Θ)就是模型所输出的密度图，通过一个二重积分得到的就是该密度图上的总人数，$ z_i$表示的就是第i个图像中的总人数，通过将预测出来的总人数减去实际总人数，并平方等步骤计算损失函数。</p>
+<h3 id="源码理解"><a href="#源码理解" class="headerlink" title="源码理解"></a><em>源码理解</em></h3><p>这部分，我会记录一些我在读源码时一些难理解的点。</p>
+<p>第一处是data_loader.py中对数据预处理的部分，即if self.preload:中的部分</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">if self.gt_downsample:
+    wd_1 &#x3D; wd_1&#x2F;&#x2F;4
+    ht_1 &#x3D; ht_1&#x2F;&#x2F;4
+    den &#x3D; cv2.resize(den,(wd_1,ht_1))                
+    den &#x3D; den * ((wd*ht)&#x2F;(wd_1*ht_1))
+else:
+    den &#x3D; cv2.resize(den,(wd_1,ht_1))
+    den &#x3D; den * ((wd*ht)&#x2F;(wd_1*ht_1))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我当时最不理解的就是 den &#x3D; den * ((wd<em>ht)&#x2F;(wd_1</em>ht_1))这句代码，这里是对密度图的值进行了改变。</p>
+<p><strong>密度图中的每个像素值通常代表了一定区域内的人群密度，对密度图的尺寸修改后，会影响到整个图像所表示的总密度。为了补偿这种影响，需要调整新图像中每个像素的值，使其所代表的总人群密度与原始图像相同，常用方法就是乘一个比例因子，这个比例因子就等于原始图像面积 &#x2F; 新图像面积。</strong></p>
+<p>举个例子，比如有一张图像大小为10 * 10，表示100个人，相当于100个像素表表示100个人，平均下来就是每个像素代表一个人。当对图像缩小2倍，即5 * 5，此时相当于25像素表示100个人，那么平均下来就是一个像素四个人，很明显如果继续按照原来的密度图进行计算，会出错，此时乘一个比例因子，即100&#x2F;25&#x3D;4，25*4&#x3D;100。由此可见通过比例因子的调整，大小修改后的密度图表示的内容与之前是相同的。</p>
+<p>第二处是crowd_count.py中的内容</p>
+<pre class="line-numbers language-none"><code class="language-none">class CrowdCounter(nn.Module):
+    def __init__(self):
+        super(CrowdCounter, self).__init__()        
+        self.DME &#x3D; MCNN()        
+        self.loss_fn &#x3D; nn.MSELoss()
+
+    @property
+    def loss(self):
+        return self.loss_mse
+    
+    def forward(self,  im_data, gt_data&#x3D;None):        
+        im_data &#x3D; src.network.np_to_variable(im_data, is_cuda&#x3D;True, is_training&#x3D;self.training)
+        density_map &#x3D; self.DME(im_data)
+        
+        if self.training:                        
+            gt_data &#x3D; src.network.np_to_variable(gt_data, is_cuda&#x3D;True, is_training&#x3D;self.training)
+            self.loss_mse &#x3D; self.build_loss(density_map, gt_data)
+            
+        return density_map<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里使用了property装饰器, 其装饰的函数的返回值可以直接被调用, 这也是为什么虽然__init__中虽没有定义self.loss_mse, 但是为什么后面可以调用。</p>
+<p>第三处是data_preparation&#x2F;create_training_set_shetch.m中的内容。</p>
+<p>论文中说了对训练集进行增强的过程就是将每张图片随机截取9张原图四分之一的图像作为训练集。在代码中，这里是对长款取了八分之一，我的理解这个八分之一的长宽其实就是属于从中间往左边截八分之一，从中间往右边截八分之一，这样合起来就相当于是截取了四分之一。下图是我所理解的取样四分之一。</p>
+
+
+<p>相应的代码如下</p>
+<pre class="line-numbers language-matlab" data-language="matlab"><code class="language-matlab"><span class="token keyword">for</span> idx <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">:</span>num_images
+    <span class="token number">i</span> <span class="token operator">=</span> <span class="token function">indices</span><span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">mod</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'Processing %3d/%d files\n'</span><span class="token punctuation">,</span> idx<span class="token punctuation">,</span> num_images<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">end</span>
+    <span class="token function">load</span><span class="token punctuation">(</span><span class="token function">strcat</span><span class="token punctuation">(</span>gt_path<span class="token punctuation">,</span> <span class="token string">'GT_IMG_'</span><span class="token punctuation">,</span><span class="token function">num2str</span><span class="token punctuation">(</span><span class="token number">i</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">'.mat'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    input_img_name <span class="token operator">=</span> <span class="token function">strcat</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span><span class="token string">'IMG_'</span><span class="token punctuation">,</span><span class="token function">num2str</span><span class="token punctuation">(</span><span class="token number">i</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">'.jpg'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    im <span class="token operator">=</span> <span class="token function">imread</span><span class="token punctuation">(</span>input_img_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">[</span>h<span class="token punctuation">,</span> w<span class="token punctuation">,</span> c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">size</span><span class="token punctuation">(</span>im<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span>
+        im <span class="token operator">=</span> <span class="token function">rgb2gray</span><span class="token punctuation">(</span>im<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">end</span>
+
+
+    wn2 <span class="token operator">=</span> w<span class="token operator">/</span><span class="token number">8</span><span class="token punctuation">;</span> hn2 <span class="token operator">=</span> h<span class="token operator">/</span><span class="token number">8</span><span class="token punctuation">;</span>
+    wn2 <span class="token operator">=</span><span class="token number">8</span> <span class="token operator">*</span> <span class="token function">floor</span><span class="token punctuation">(</span>wn2<span class="token operator">/</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    hn2 <span class="token operator">=</span><span class="token number">8</span> <span class="token operator">*</span> <span class="token function">floor</span><span class="token punctuation">(</span>hn2<span class="token operator">/</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+    annPoints <span class="token operator">=</span>  image_info<span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">.</span>location<span class="token punctuation">;</span>
+
+
+    <span class="token keyword">if</span><span class="token punctuation">(</span> w <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token operator">*</span>wn2 <span class="token punctuation">)</span>
+        im <span class="token operator">=</span> <span class="token function">imresize</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span><span class="token punctuation">[</span> h<span class="token punctuation">,</span><span class="token number">2</span><span class="token operator">*</span>wn2<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">*</span>wn2<span class="token operator">/</span>w<span class="token punctuation">;</span>
+    <span class="token keyword">end</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span> h <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token operator">*</span>hn2<span class="token punctuation">)</span>
+        im <span class="token operator">=</span> <span class="token function">imresize</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token operator">*</span>hn2<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>w<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">*</span>hn2<span class="token operator">/</span>h<span class="token punctuation">;</span>
+    <span class="token keyword">end</span>
+
+    <span class="token punctuation">[</span>h<span class="token punctuation">,</span> w<span class="token punctuation">,</span> c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">size</span><span class="token punctuation">(</span>im<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    a_w <span class="token operator">=</span> wn2<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> b_w <span class="token operator">=</span> w <span class="token operator">-</span> wn2<span class="token punctuation">;</span>
+    a_h <span class="token operator">=</span> hn2<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> b_h <span class="token operator">=</span> h <span class="token operator">-</span> hn2<span class="token punctuation">;</span>
+    
+    im_density <span class="token operator">=</span> <span class="token function">get_density_map_gaussian</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span>annPoints<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token number">j</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">:</span>N
+ 
+        x <span class="token operator">=</span> <span class="token function">floor</span><span class="token punctuation">(</span><span class="token punctuation">(</span>b_w <span class="token operator">-</span> a_w<span class="token punctuation">)</span> <span class="token operator">*</span> rand <span class="token operator">+</span> a_w<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        y <span class="token operator">=</span> <span class="token function">floor</span><span class="token punctuation">(</span><span class="token punctuation">(</span>b_h <span class="token operator">-</span> a_h<span class="token punctuation">)</span> <span class="token operator">*</span> rand <span class="token operator">+</span> a_h<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        x1 <span class="token operator">=</span> x <span class="token operator">-</span> wn2<span class="token punctuation">;</span> y1 <span class="token operator">=</span> y <span class="token operator">-</span> hn2<span class="token punctuation">;</span>
+        x2 <span class="token operator">=</span> x <span class="token operator">+</span> wn2<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> y2 <span class="token operator">=</span> y <span class="token operator">+</span> hn2<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        
+        
+        im_sampled <span class="token operator">=</span> <span class="token function">im</span><span class="token punctuation">(</span>y1<span class="token operator">:</span>y2<span class="token punctuation">,</span> x1<span class="token operator">:</span>x2<span class="token punctuation">,</span><span class="token operator">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        im_density_sampled <span class="token operator">=</span> <span class="token function">im_density</span><span class="token punctuation">(</span>y1<span class="token operator">:</span>y2<span class="token punctuation">,</span>x1<span class="token operator">:</span>x2<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但是这段代码中我还有一处不理解的就是</p>
+<pre class="line-numbers language-matlab" data-language="matlab"><code class="language-matlab"><span class="token keyword">if</span><span class="token punctuation">(</span> w <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token operator">*</span>wn2 <span class="token punctuation">)</span>
+     im <span class="token operator">=</span> <span class="token function">imresize</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span><span class="token punctuation">[</span> h<span class="token punctuation">,</span><span class="token number">2</span><span class="token operator">*</span>wn2<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">*</span>wn2<span class="token operator">/</span>w<span class="token punctuation">;</span>
+ <span class="token keyword">end</span>
+ <span class="token keyword">if</span><span class="token punctuation">(</span> h <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token operator">*</span>hn2<span class="token punctuation">)</span>
+     im <span class="token operator">=</span> <span class="token function">imresize</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token operator">*</span>hn2<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>w<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">annPoints</span><span class="token punctuation">(</span><span class="token operator">:</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token operator">*</span>hn2<span class="token operator">/</span>h<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>w不应该是恒大于2*wn2的嘛，因为wn2是w&#x2F;8，即使有w特别小的情况，wn2被下取整变为了0，所以我对这里的判断不是很理解。</p>
+<p>以上就是阅读MCNN论文中的一些记录，如果大家发现什么问题欢迎在评论区指正或者发邮件交流。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><em>参考文献</em></h3><p>[<a href="https://blog.csdn.net/wpw5499/article/details/106231707">MCNN] Crowd Counting 人群计数 复现过程记录_mcnn复现-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>人群计数</category>
+        <category>代码复现</category>
+      </categories>
+      <tags>
+        <tag>读论文</tag>
       </tags>
   </entry>
 </search>
