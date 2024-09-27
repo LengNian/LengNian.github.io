@@ -2296,11 +2296,11 @@ $$
 $$
 </div>
 假设此时有
-<>div
+<div>
 $$
 f(x_0) > 0 \tag{3}
 $$
-<>/div
+</div>
 这里的x位于直线的下方。我们希望可以添加扰动r，使分类器出错，即
 <div>
 $$
@@ -3063,6 +3063,7 @@ else:
 <p>w不应该是恒大于2*wn2的嘛，因为wn2是w&#x2F;8，即使有w特别小的情况，wn2被下取整变为了0，所以我对这里的判断不是很理解。</p>
 <p>以上就是阅读MCNN论文中的一些记录，如果大家发现什么问题欢迎在评论区指正或者发邮件交流。</p>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><em>参考文献</em></h3><p>[<a href="https://blog.csdn.net/wpw5499/article/details/106231707">MCNN] Crowd Counting 人群计数 复现过程记录_mcnn复现-CSDN博客</a></p>
+<p><a href="https://www.jianshu.com/p/a1006c4b6fdc">https://www.jianshu.com/p/a1006c4b6fdc</a></p>
 ]]></content>
       <categories>
         <category>人群计数</category>
