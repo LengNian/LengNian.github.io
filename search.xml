@@ -3075,7 +3075,7 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
       </tags>
   </entry>
   <entry>
-    <title>论文阅读与源码理解--CSRNet</title>
+    <title>论文阅读与源码理解CSRNet</title>
     <url>/posts/469af419/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><em>前言</em></h3><p>国庆期间读了CSRNet这篇论文，本文不是对论文进行翻译，只是对文章进行简略的总结，并对部分内容写出我的理解，主要是将自己阅读和复现过程中遇到的些问题在这里记录一下，希望可以帮助到有需要的人，同时，本文的内容均为个人理解，如若有误，欢迎在评论区或者邮件指正。</p>
 <p>论文原文： <a href="https://ieeexplore.ieee.org/document/8578218">CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes | IEEE Conference Publication | IEEE Xplore</a></p>
