@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-10-02T08:26:10.578Z</updated>
+  <updated>2024-10-03T04:25:51.515Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSRNet_论文阅读与源码理解</title>
+    <link href="http://lengnian.github.io/posts/469af419/"/>
+    <id>http://lengnian.github.io/posts/469af419/</id>
+    <published>2024-10-03T04:25:17.000Z</published>
+    <updated>2024-10-03T04:25:51.515Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="人群计数" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/"/>
+    
+    <category term="代码复现" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="读论文" scheme="http://lengnian.github.io/tags/%E8%AF%BB%E8%AE%BA%E6%96%87/"/>
+    
+  </entry>
   
   <entry>
     <title>MCNN--论文阅读与源码理解</title>
