@@ -3078,19 +3078,23 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
     <title>CSRNet-论文阅读与源码理解</title>
     <url>/posts/56e3b13/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><em>前言</em></h3><p>国庆期间读了CSRNet这篇论文，本文不是对论文进行翻译，只是对文章进行简略的总结，并对部分内容写出我的理解，主要是将自己阅读和复现过程中遇到的些问题在这里记录一下，希望可以帮助到有需要的人，同时，本文的内容均为个人理解，如若有误，欢迎在评论区或者邮件指正。</p>
+<p>博客不知道出了什么问题，图像上传一直出问题，所以本文的图麻烦大家自己对照原论文去查看。</p>
 <p>论文原文： <a href="https://ieeexplore.ieee.org/document/8578218">CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes | IEEE Conference Publication | IEEE Xplore</a></p>
 <p>源代码 ：<a href="https://github.com/leeyeehoo/CSRNet-pytorch">leeyeehoo&#x2F;CSRNet-pytorch: CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes (github.com)</a></p>
 <h3 id="环境调试"><a href="#环境调试" class="headerlink" title="环境调试"></a><em>环境调试</em></h3><p>环境调试可以参考文章[<a href="https://blog.csdn.net/wpw5499/article/details/111496715">CSRNet] CSRNet-pytorch 复现过程记录-CSDN博客</a>，这篇文章介绍的很详细，我就不在这里赘述了，可以参考这篇文章的过程完成调试。</p>
 <p>不想调试的也可以去看我调试之后的代码，同时代码中还加上了我自己对代码理解的中文注释。<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CSRNet">PaperRecurrent&#x2F;CSRNet at main · LengNian&#x2F;PaperRecurrent (github.com)</a></p>
 <h3 id="读论文"><a href="#读论文" class="headerlink" title="读论文"></a><em>读论文</em></h3><p>这篇文章提出一个可以应用到高度拥挤场景的卷积神经网络CSRNet。CSRNet是由两部分组成，前置的网络就是有卷积层，池化层等组成，后置网络则是由空洞卷积层组成。值得注意的是，前置的网络，作者直接使用了VGG16的网络结构。</p>
 <p>在这篇论文中，作者通过对MCNN进行测试，如图所示，发现MCNN的三列在不同样本上错误率几乎相同，所以不排除是在同一个地方犯错的可能，这可能说明这三列学习到的特征是几乎相同的，这似乎就违背了作者设计MCNN的初衷，也就是利用有不同感受野的三列去学习不同尺度的特征。</p>
+<p>Fig 1(对应论文中的Figure 2)</p>
 
 
 <p>如果一味的追求网络深度去堆积卷积层和池化层会使图像的尺寸变小，同时也会影响生成密度图的质量，哪么怎样可以不压缩图像大小呢？作者提到，如果使用转置卷积会增加模型的复杂度，并且速度慢，在这里并不合适，而使用空洞卷积既可以扩大感受野，也不会增加参数量和计算量。（比如，使用卷积核大小为k×k的空洞卷积，其尺寸会被放大为k+(k-1)(r-1)，r为步长）。</p>
 <p>作者通过一系列操作验证了空洞卷积比转置卷积更有效，即进行两组实验，一组是使用空洞卷积，另一组是使用卷积+池化+转置卷积，因为第二组的尺寸会变小，为了保持和第一组的大小保持一致，作者对图像进行上采样，对比结果如图所示。很明显可以看到空洞卷积的效果更好。 </p>
+<p>Fig 2(对应论文中的Figure 4)</p>
 
 
 <p>作者提出四种不同的CSRNet架构，通过实验最后使用了B结构。</p>
+<p>Fig 3(对应论文中的Table 3)</p>
 
 
 <p>此外，作者还在论文中提到了数据增强，会生成9张图像，其中前4张是不重叠的原图像的四分之一的图像，后五张是随机裁剪。</p>
@@ -3134,18 +3138,6 @@ random<span class="token punctuation">.</span>shuffle<span class="token punctuat
       </categories>
       <tags>
         <tag>读论文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>笔记</title>
-    <url>/posts/61622d0e/</url>
-    <content><![CDATA[<p>a</p>
-<p>哈哈哈</p>
-<p>是丢和股市大幅卡很久</p>
-
-]]></content>
-      <tags>
-        <tag>写笔记</tag>
       </tags>
   </entry>
 </search>

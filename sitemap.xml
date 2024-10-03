@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://lengnian.github.io/posts/61622d0e/</loc>
-    
-    <lastmod>2024-10-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://lengnian.github.io/posts/56e3b13/</loc>
     
     <lastmod>2024-10-03</lastmod>
@@ -326,13 +317,6 @@
   
   <url>
     <loc>http://lengnian.github.io/tags/%E7%BB%BC%E8%BF%B0/</loc>
-    <lastmod>2024-10-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://lengnian.github.io/tags/%E5%86%99%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2024-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
