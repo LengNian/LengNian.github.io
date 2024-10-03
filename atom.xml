@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-10-03T04:49:09.852Z</updated>
+  <updated>2024-10-03T04:53:37.025Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>笔记</title>
+    <link href="http://lengnian.github.io/posts/61622d0e/"/>
+    <id>http://lengnian.github.io/posts/61622d0e/</id>
+    <published>2024-10-03T04:52:38.000Z</published>
+    <updated>2024-10-03T04:53:37.025Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;a&lt;/p&gt;
+&lt;p&gt;哈哈哈&lt;/p&gt;
+&lt;p&gt;是丢和股市大幅卡很久&lt;/p&gt;
+
+</summary>
+        
+      
+    
+    
+    
+    
+    <category term="写笔记" scheme="http://lengnian.github.io/tags/%E5%86%99%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>CSRNet-论文阅读与源码理解</title>
