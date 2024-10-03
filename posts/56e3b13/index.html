@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <meta property="og:description" content="前言国庆期间读了CSRNet这篇论文，本文不是对论文进行翻译，只是对文章进行简略的总结，并对部分内容写出我的理解，主要是将自己阅读和复现过程中遇到的些问题在这里记录一下，希望可以帮助到有需要的人，同时，本文的内容均为个人理解，如若有误，欢迎在评论区或者邮件指正。 论文原文： CSRNet: Dilated Convolutional Neural Networks for Understandin">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-03T01:02:10.000Z">
-<meta property="article:modified_time" content="2024-10-03T02:42:54.782Z">
+<meta property="article:modified_time" content="2024-10-03T04:08:13.390Z">
 <meta property="article:author" content="魏笙葭">
 <meta property="article:tag" content="读论文">
 <meta name="twitter:card" content="summary"><script>(function() {
@@ -52,7 +52,7 @@ IconifyProviders = {
 
 
 <p>如果一味的追求网络深度去堆积卷积层和池化层会使图像的尺寸变小，同时也会影响生成密度图的质量，哪么怎样可以不压缩图像大小呢？作者提到，如果使用转置卷积会增加模型的复杂度，并且速度慢，在这里并不合适，而使用空洞卷积既可以扩大感受野，也不会增加参数量和计算量。（比如，使用卷积核大小为k×k的空洞卷积，其尺寸会被放大为k+(k-1)(r-1)，r为步长）。</p>
-<p>作者通过一系列操作验证了空洞卷积比转置卷积更有效，即进行两组实验，一组是使用空洞卷积，另一组是使用卷积+池化+转置卷积，因为第二组的尺寸会变小，为了保持和第一组的大小保持一致，作者对图像进行上采样，对比结果如图所示。很明显可以看到空洞卷积的效果更好。</p>
+<p>作者通过一系列操作验证了空洞卷积比转置卷积更有效，即进行两组实验，一组是使用空洞卷积，另一组是使用卷积+池化+转置卷积，因为第二组的尺寸会变小，为了保持和第一组的大小保持一致，作者对图像进行上采样，对比结果如图所示。很明显可以看到空洞卷积的效果更好。 </p>
 
 
 <p>作者提出四种不同的CSRNet架构，通过实验最后使用了B结构。</p>
