@@ -54,7 +54,7 @@
 <li>喜欢乐器，学过七年萨克斯，现在尤其喜欢钢琴，有点后悔当初没有去学钢琴或者没有坚持学下来电子琴（学萨克斯前一直在学电子琴）</li>
 </ul>
 <h4 id="交友原则"><a href="#交友原则" class="headerlink" title="交友原则"></a>交友原则</h4><ul>
-<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#119;&#101;&#x69;&#115;&#x6a;&#95;&#x6c;&#110;&#64;&#x31;&#54;&#51;&#x2e;&#x63;&#111;&#x6d;">&#119;&#101;&#x69;&#115;&#x6a;&#95;&#x6c;&#110;&#64;&#x31;&#54;&#51;&#x2e;&#x63;&#111;&#x6d;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
+<li>喜欢和志同道合的人聊天，如果你想和我交流可以给我发邮件<a href="mailto:&#119;&#119;&#x73;&#115;&#106;&#106;&#50;&#48;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#119;&#119;&#x73;&#115;&#106;&#106;&#50;&#48;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a>或者<a href="mailto:&#x77;&#101;&#x69;&#x73;&#106;&#x5f;&#108;&#110;&#x40;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#109;">&#x77;&#101;&#x69;&#x73;&#106;&#x5f;&#108;&#110;&#x40;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#109;</a>，也可以把你的QQ在邮件中偷偷告诉我，我去加你。正常情况会每隔两三天检查邮箱，如果我回复不及时，可以多发邮件催促我。</li>
 <li>无论是交友或者指正我的错误，希望大家可以开门见山，千万不要发在吗？有时间嘛？等，这些内容看到瘆得慌，我也会直接忽略掉。大家的邮件我看到会及时回复。</li>
 </ul>
 <h4 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h4><p>其实看到别人都在搞一个自己的博客，自己也有点心动，所以也自己搞一个，可以用于自己记录一些内容，喜欢自己可以保持初心，如果在阅读过程发现我有什么写的错误的地方，欢迎指正(可以通过邮件联系我)。</p>
@@ -774,7 +774,7 @@ hexo<span class="token punctuation">.</span>extend<span class="token punctuation
 <p>论文原文： <a href="https://ieeexplore.ieee.org/document/7780439">Single-Image Crowd Counting via Multi-Column Convolutional Neural Network | IEEE Conference Publication | IEEE Xplore</a></p>
 <p>源代码 ：<a href="https://gitcode.com/gh_mirrors/cr/crowdcount-mcnn/overview?utm_source=csdn_github_accelerator&isLogin=1">crowdcount-mcnn:Single Image Crowd Counting via MCNN (Unofficial Implementation) - GitCode</a></p>
 <p><a href="https://github.com/svishwa/crowdcount-mcnn">svishwa&#x2F;crowdcount-mcnn: Single Image Crowd Counting via MCNN (Unofficial Implementation) (github.com)</a></p>
-<h3 id="环境调试"><a href="#环境调试" class="headerlink" title="环境调试"></a><em>环境调试</em></h3><p>可以下载作者开源的代码，但是作者当时上传的代码有些老，所以会有很多不兼容的问题需要自己一步一步去调试。<br>在文章[<a href="https://blog.csdn.net/wpw5499/article/details/106231707">MCNN] Crowd Counting 人群计数 复现过程记录_mcnn复现-CSDN博客</a>中对调试的内容写的非常详细，所以本文在此不赘述。<br>我将自己调试好的程序上传到了Github，大家也可以自行下载。</p>
+<h3 id="环境调试"><a href="#环境调试" class="headerlink" title="环境调试"></a><em>环境调试</em></h3><p>可以下载作者开源的代码，但是作者当时上传的代码有些老，所以会有很多不兼容的问题需要自己一步一步去调试。<br>在文章[<a href="https://blog.csdn.net/wpw5499/article/details/106231707">MCNN] Crowd Counting 人群计数 复现过程记录_mcnn复现-CSDN博客</a>中对调试的内容写的非常详细，所以本文在此不赘述。<br>我将自己调试好的程序上传到了Github，大家也可以自行下载<a href="https://github.com/LengNian/PaperRecurrent/tree/main/crowdcount-mcnn-master">PaperRecurrent&#x2F;crowdcount-mcnn-master at main · LengNian&#x2F;PaperRecurrent (github.com)</a></p>
 <h3 id="读论文"><a href="#读论文" class="headerlink" title="读论文"></a><em>读论文</em></h3><p>该论文提出一种简单但是有效的多列卷积神经网络(MCNN)，每列的感受野大小不同，用于提取不同的特征。同时，提出了Shanghai Tech数据集。<br>MCNN输入的是图像，会输出对应的人群密度图，通过对该密度图进行积分，就可以得到对应的人群数量。<br>因为透视失真的问题，简单的来说就是图像中近大远小的问题，会导致图像中人群的头部大小各异，所以使用不同尺度的卷积核才能捕捉到不同尺寸的人群密度特征。MCNN结构图如图所示。</p>
 <img src="/posts/8a129f29/1.png" class loading="lazy">
 
@@ -2989,8 +2989,9 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
 <li>玫瑰的故事√</li>
 <li>九部的故事√</li>
 <li>人民的名义√</li>
-<li>雪迷宫</li>
-<li>迷失的青春</li>
+<li>雪迷宫√</li>
+<li>迎风的青春</li>
+<li>人民警察</li>
 </ul>
 ]]></content>
       <categories>
@@ -3071,6 +3072,68 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
       <tags>
         <tag>目标计数</tag>
         <tag>综述</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSRNet-论文阅读与源码理解</title>
+    <url>/posts/56e3b13/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><em>前言</em></h3><p>国庆期间读了CSRNet这篇论文，本文不是对论文进行翻译，只是对文章进行简略的总结，并对部分内容写出我的理解，主要是将自己阅读和复现过程中遇到的些问题在这里记录一下，希望可以帮助到有需要的人，同时，本文的内容均为个人理解，如若有误，欢迎在评论区或者邮件指正。</p>
+<p>论文原文： <a href="https://ieeexplore.ieee.org/document/8578218">CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes | IEEE Conference Publication | IEEE Xplore</a></p>
+<p>源代码 ：<a href="https://github.com/leeyeehoo/CSRNet-pytorch">leeyeehoo&#x2F;CSRNet-pytorch: CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes (github.com)</a></p>
+<h3 id="环境调试"><a href="#环境调试" class="headerlink" title="环境调试"></a><em>环境调试</em></h3><p>环境调试可以参考文章[<a href="https://blog.csdn.net/wpw5499/article/details/111496715">CSRNet] CSRNet-pytorch 复现过程记录-CSDN博客</a>，这篇文章介绍的很详细，我就不在这里赘述了，可以参考这篇文章的过程完成调试。</p>
+<p>不想调试的也可以去看我调试之后的代码，同时代码中还加上了我自己对代码理解的中文注释。<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CSRNet">PaperRecurrent&#x2F;CSRNet at main · LengNian&#x2F;PaperRecurrent (github.com)</a></p>
+<h3 id="读论文"><a href="#读论文" class="headerlink" title="读论文"></a><em>读论文</em></h3><p>这篇文章提出一个可以应用到高度拥挤场景的卷积神经网络CSRNet。CSRNet是由两部分组成，前置的网络就是有卷积层，池化层等组成，后置网络则是由空洞卷积层组成。值得注意的是，前置的网络，作者直接使用了VGG16的网络结构。</p>
+<p>在这篇论文中，作者通过对MCNN进行测试，如图所示，发现MCNN的三列在不同样本上错误率几乎相同，所以不排除是在同一个地方犯错的可能，这可能说明这三列学习到的特征是几乎相同的，这似乎就违背了作者设计MCNN的初衷，也就是利用有不同感受野的三列去学习不同尺度的特征。</p>
+
+
+<p>如果一味的追求网络深度去堆积卷积层和池化层会使图像的尺寸变小，同时也会影响生成密度图的质量，哪么怎样可以不压缩图像大小呢？作者提到，如果使用转置卷积会增加模型的复杂度，并且速度慢，在这里并不合适，而使用空洞卷积既可以扩大感受野，也不会增加参数量和计算量。（比如，使用卷积核大小为k×k的空洞卷积，其尺寸会被放大为k+(k-1)(r-1)，r为步长）。</p>
+<p>作者通过一系列操作验证了空洞卷积比转置卷积更有效，即进行两组实验，一组是使用空洞卷积，另一组是使用卷积+池化+转置卷积，因为第二组的尺寸会变小，为了保持和第一组的大小保持一致，作者对图像进行上采样，对比结果如图所示。很明显可以看到空洞卷积的效果更好。</p>
+
+
+<p>作者提出四种不同的CSRNet架构，通过实验最后使用了B结构。</p>
+
+
+<p>此外，作者还在论文中提到了数据增强，会生成9张图像，其中前4张是不重叠的原图像的四分之一的图像，后五张是随机裁剪。</p>
+<h3 id="源码理解"><a href="#源码理解" class="headerlink" title="源码理解"></a><em>源码理解</em></h3><p>感觉这篇文章的代码阅读起来相比MCNN容易一些。</p>
+<p>在train.py中有这么一段代码</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">save_checkpoint(&#123;
+    &#39;epoch&#39;: epoch + 1,
+    &#39;arch&#39;: args.pre,
+    &#39;state_dict&#39;: model.state_dict(),
+    &#39;best_prec1&#39;: best_prec1,
+    &#39;optimizer&#39; : optimizer.state_dict(),
+&#125;, is_best,args.task)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>这里提到了保存优化器的状态，我以前没有注意过这点，上网查阅以后，这通常是一种预防措施，并不会占用太多的存储空间，而且处理起来也相对比较简单。</strong></p>
+<p>在val.py中对图像进行标准化，作者有这么一段代码</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">img<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">=</span>img<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">-</span><span class="token number">92.8207477031</span>
+img<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">=</span>img<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">-</span><span class="token number">95.2757037428</span>
+img<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">=</span>img<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">-</span><span class="token number">104.877445883</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>刚开始减这么一串数字我不太理解，后来在github中看到有人说这些数字可能是每个通道的均值。（但是每幅图的均值应该是不一样的吧，所以这里还是不太明白，如果我说的有错误，欢迎大家给我指正。）</p>
+<p>论文中提到裁剪四分之一的图像，在dataset.py中实现listDataset中提到</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> train<span class="token punctuation">:</span>
+	root <span class="token operator">=</span> root <span class="token operator">*</span><span class="token number">4</span>
+random<span class="token punctuation">.</span>shuffle<span class="token punctuation">(</span>root<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>通过对路径*4，并打乱，完成四个不同四分之一图像的裁剪。</p>
+<p>在image.py中</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> <span class="token boolean">False</span><span class="token punctuation">:</span>
+    crop_size <span class="token operator">=</span> <span class="token punctuation">(</span>img<span class="token punctuation">.</span>size<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">,</span>img<span class="token punctuation">.</span>size<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token operator">&lt;=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>我认为这里的False应该改为train，结合其它地方也可以得出，这里是标记是否要开启数据增强。</p>
+<p>在Shanghai Tech中，数据集的作者给出了.jpg和.mat文件，然后CSRNet的作者在make_dataset.ipynb文件中利用.mat文件生成了.h5文件，.h5文件在image.py中用于作为标签使用。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><em>参考文献</em></h3><p>[<a href="https://blog.csdn.net/wpw5499/article/details/111496715">CSRNet] CSRNet-pytorch 复现过程记录-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/judgechen1997/article/details/100893647">CSRNet浅析_csrnet代码解读-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/m0_46654197/article/details/108849993#:~:text=%E5%9F%BA%E4%BA%8E%E8%BF%99%E5%87%A0%E4%B8%AA%E7%89%B9%E7%82%B9%EF%BC%8CCS">深度学习：人群密度估计CSRNet(cvpr 2018)论文源代码详解_data.py train.py test.py utils.py-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>人群计数</category>
+        <category>代码复现</category>
+      </categories>
+      <tags>
+        <tag>读论文</tag>
       </tags>
   </entry>
 </search>
