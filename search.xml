@@ -358,7 +358,7 @@ random<span class="token punctuation">.</span>shuffle<span class="token punctuat
 ]]></content>
       <categories>
         <category>人群计数</category>
-        <category>代码复现</category>
+        <category>论文复现</category>
       </categories>
       <tags>
         <tag>读论文</tag>
@@ -1000,7 +1000,7 @@ else:
 ]]></content>
       <categories>
         <category>人群计数</category>
-        <category>代码复现</category>
+        <category>论文复现</category>
       </categories>
       <tags>
         <tag>读论文</tag>
@@ -3143,15 +3143,118 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
   <entry>
     <title>LearningToCountEverying论文阅读与源码理解</title>
     <url>/posts/74d83a5b/</url>
-    <content><![CDATA[<p><img src="/LearningToCountEverying%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E4%B8%8E%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/image-20241007091356528.png" alt="image-20241007091356528" loading="lazy"></p>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近读了小样本计数的开山之作Learning To Count Everying，并对代码进行了一下复现，在这里做一个简短的记录。</p>
+<p>原文链接：[<a href="https://arxiv.org/abs/2104.08391">2104.08391] Learning To Count Everything (arxiv.org)</a></p>
+<p>代码链接：<a href="https://github.com/cvlab-stonybrook/LearningToCountEverything">cvlab-stonybrook&#x2F;LearningToCountEverything (github.com)</a></p>
+<p>我对本文代码进行调试，并且增加了注释也就是我的理解，放到了github，可以直接下载查看：[PaperRecurrent&#x2F;FamNet–Learning To Count Everything at main · LengNian&#x2F;PaperRecurrent (github.com)](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/FamNet--Learning">https://github.com/LengNian/PaperRecurrent/tree/main/FamNet--Learning</a> To Count Everything)但是这里需要自己下载数据集和密度图保存才可以运行</p>
+<h3 id="环境调试"><a href="#环境调试" class="headerlink" title="环境调试"></a>环境调试</h3><p>在我印象中，根据readme进行就可以了，只需要修改一下train.py中的</p>
+<pre class="line-numbers language-none"><code class="language-none">parser.add_argument(&quot;-dp&quot;, &quot;--data_path&quot;, type&#x3D;str, default&#x3D;&#39;&#x2F;home&#x2F;hoai&#x2F;DataSets&#x2F;AgnosticCounting&#x2F;FSC147_384_V2&#x2F;&#39;, help&#x3D;&quot;Path to the FSC147 dataset&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
+<p>将其改为</p>
+<pre class="line-numbers language-none"><code class="language-none">parser.add_argument(&quot;-dp&quot;, &quot;--data_path&quot;, type&#x3D;str, default&#x3D;&#39;.&#x2F;data&#x2F;&#39;, help&#x3D;&quot;Path to the FSC147 dataset&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>就可以了，同时要把自己下载的FSC-147数据集放到data文件夹下，也就是</p>
+<p>—data</p>
+<p>​	—image_384_VarV2</p>
+<p>​		—x.jpg(图片)</p>
+<p>​	—其余自带的文件</p>
+<p>数据集可以在readme中的链接下载</p>
+<p>当我们想要测试val和test的结果时可以使用</p>
+<pre class="line-numbers language-none"><code class="language-none">python test.py --test_split val
+python test.py --test_split test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在使用demo自己画框进行测试时，也就是使用</p>
+<pre class="line-numbers language-none"><code class="language-none">python demo.py --input-image orange.jpg<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>进行测试时，按n可以进行画框，按空格或者回车进行保存，按q或者ESC代表画框结束，进行预测。</p>
+<p>可能按q结束时会报错</p>
+<pre class="line-numbers language-none"><code class="language-none">cv2.error: OpenCV(4.10.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window_w32.cpp:1261: error: (-27:Null pointer) NULL window: &#39;Image&#39; in function &#39;cvDestroyWindow&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这时候把demo.py中的</p>
+<pre class="line-numbers language-none"><code class="language-none">cv2.destroyWindow(&quot;Image&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>修改为</p>
+<pre class="line-numbers language-none"><code class="language-none">cv2.destroyWindow(&quot;image&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>因为这篇论文是近年的，所以没有很多版本不兼容的问题。</p>
+<h3 id="读论文"><a href="#读论文" class="headerlink" title="读论文"></a>读论文</h3><p>现有的计数都是针对某一个确定类别的方法进行，比如人群计数，车辆计数等，但是本篇论文提出的方法与类别无关，而是只要给出几个特定类别的示例图像，就可以在图像中对该示例类别进行计数。同时该论文也提出一个小样本计数数据集FSC-147。</p>
+<p>本文提出的FamNet网络，包括两个部分，分别是特征提取模块和密度预测模块。</p>
+<p><strong>本文是通过给定很少的几个样本，从而得到图像中给定样本的数目，比如一副图像中有40个苹果，通过给定3个苹果的边界框，从而可以对图像中的40个苹果计数。这里特别说明给定的3个苹果称为示例图像或者示例类别，苹果则是感兴趣的类别。</strong></p>
+<p><strong>为了更好的介绍之后的工作，这里先对FSC-147数据集进行介绍，该数据分为train、val和test。每张图片作者都有三个示例类别即对其标注了边界框以及对每张图片中感兴趣的类别进行了点注释。</strong></p>
+<p>特征提取模块：结构就是ResNet的前四个块。使用ResNet的前四个块提取特征，然后保存第三和第四个块得到的特征图。</p>
+<p>得到特征图以后会对示例特征与图像特征之间进行操作(我的理解就是进行了卷积操作)，得到相关图。为了解释不同比例下的对象，作者这里使用了三种不同的缩放尺度对示例特征进行缩放，即0.9，1，1.1。也就是会得到这三个不同比例下的示例特征和图像特征的相关图。看到这里可能会不懂到底是怎么操作，别急，只要知道得到了相关图就可以了，请继续往下看。</p>
+<p>密度预测模块：密度预测模块的输入就是上面提到的相关图，会输出密度图。</p>
+<p>下面我介绍一下得到示例特征和图像特征相关图的流程：</p>
+<p><strong>上面提到会保存ResNet中第三和第四个块的特征图。以第三个特征图为例，此时第三个特征图就是图像特征，因为给出了示例图像的边界框，所以根据边界框我们就可以得到给出的示例图像所对应的示例特征，也就是在图像特征图上根据边界框截取对应部分(截取过程中还涉及调整大小以及插值等问题，这里就不赘述，主要讲整个流程)。得到三个边界框对应的示例特征以后，会堆叠起来，此时把堆叠起来的示例特征图的形状就是[3, channel, height, width]，前面那个3就代表三个边界框所堆叠起来。之后怎么得到相关图呢，就是对图像特征进行卷积操作，卷积核就是我们得到的示例特征。然后上面也提到会有不同的缩放尺度，所以这里对特征图进行缩放，缩放比列分别是0.9和1.1。然后再使用缩放后的示例特征对图像特征进行卷积操作，就得到了不同缩放尺度下的相关图。将三个不同尺度下的相关图再次堆叠。此时的相关图形状为[3, 3, height, width]。这就是得到部分相关图的流程，然后重复上述流程对ResNet第四个块中的特征图进行相同的操作，也会得到一个相同形状的相关图，再将这两个相关图堆叠，得到的最终相关图形状就为[3, 6, height, width] (这里还涉及到了交换维度顺序等内容，所以是[3,6,h,w]而不是[6,3,h,w]，详细可见源码)</strong></p>
+<p>这是我认为文中蛮重要一个点，接下来我将解释另一个点Test-time adaptation。</p>
+<p>这里定义几个变量B是边界框的集合，b是单个边界框，Z为密度图，$ Z_b $就是边界框所对应的那块区域的密度图。</p>
+<p>作者提出了两个损失：最小计数损失和扰动损失，分别介绍。</p>
+<p>最小计数损失(Min-Count Loss)：</p>
+<div>
+$$
+\cal {L}_{MinCount} = \sum_{b\in \rm B} max(0, 1-\rVert \rm Z_b \rVert_1) \tag{1}
+$$
+</div>
+作者对数据集进行标注，每个边界框内至少会有一个物体，但是该物体可能与附近物体重叠，所以$ Z_b $的总和总是应该大于等于1。对于上面的式子，如果$Z_b$总和小于1，就会得到一个正的损失值，表示模型预测的密度没有达到最小计数的要求，如果$Z_b$总和大于等于1，损失值就为0，符号最小计数的要求。
+
+<p>扰动损失(Perturbation Loss):</p>
+<div>
+$$
+\cal{L}_{\rm{Per}} = \sum_{b\in \rm{B}} \rVert \rm Z_b - \rm{G}_{h×w} \rVert_2^2 \tag{2}
+$$
+</div>
+在边界框的确切位置应该有较大的相应，而在受扰动位置的响应应较低。这里的$G_{h×w}$应该是理想化的高斯分布。
+
+<p>示例图像周围密度值在理想情况下应该类似于高斯分布，所以通过计算预测密度图与理想情况下的高斯分布的差异。</p>
+<p>The combined adaption Loss，将这两种损失进行结合：</p>
+<div>
+$$
+\cal{L}_{\it Adapt} = \lambda_1 \cal{L}_{\it MinCount} + \lambda_2 \cal {L}_{\it Per} \tag{3}
+$$
+</div>
+这就是测试时使用的最终函数，结合了上述两个损失得到的最终损失。注意，该损失函数只在测试阶段使用。
+
+<p>在测试进行时，使用这种方法能够使网络更适应与当前的目标类别，在测试阶段会进行100次迭代，传递梯度，优化参数，从而使网络能够更适应当前预测的类别。</p>
+<h3 id="源码理解"><a href="#源码理解" class="headerlink" title="源码理解"></a>源码理解</h3><p>代码主要关注utils.py中的内容。</p>
+<p>如果想仔细看源码的理解，可以去参考我的注释[PaperRecurrent&#x2F;FamNet–Learning To Count Everything at main · LengNian&#x2F;PaperRecurrent (github.com)](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/FamNet--Learning">https://github.com/LengNian/PaperRecurrent/tree/main/FamNet--Learning</a> To Count Everything)。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="https://www.cnblogs.com/dxmstudy/p/17241194.html">CVPR论文解读《Learning To Count Everything》 - 同淋雪 - 博客园 (cnblogs.com)</a></p>
+<p><a href="https://blog.csdn.net/qq_35599200/article/details/121373114">2021论文解读：Learning To Count Everything_微小物体计数识别论文-CSDN博客</a></p>
 ]]></content>
       <categories>
         <category>小样本计数</category>
-        <category>代码复现</category>
+        <category>论文复现</category>
       </categories>
       <tags>
         <tag>读论文</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github克隆本地仓库再次上传文件</title>
+    <url>/posts/effa8074/</url>
+    <content><![CDATA[<p>写这个主要是方便自己复现文章以后上传，不需要每次再去找，可以直接在自己的博客中看到。</p>
+<p>也供和我有相同处境的使用。</p>
+<p>1.在本地建立一个空白文件夹，用于克隆仓库</p>
+<p>2.在git中克隆仓库</p>
+<pre class="line-numbers language-Git" data-language="Git"><code class="language-Git">git clone + 仓库地址<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/Github%E5%85%8B%E9%9A%86%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%86%8D%E6%AC%A1%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/image-20241007151658576.png" alt="image-20241007151658576" loading="lazy"></p>
+
+
+<p>3.把要上传的文件夹放到克隆的仓库内</p>
+<p>4.依次使用以下命令</p>
+<pre class="line-numbers language-git" data-language="git"><code class="language-git">cd 仓库名
+git init
+git add .
+git commit -m <span class="token string">"upload messages"</span>
+git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>再次刷新就可以了。</p>
+]]></content>
+      <categories>
+        <category>解问题</category>
+      </categories>
+      <tags>
+        <tag>Github</tag>
       </tags>
   </entry>
 </search>

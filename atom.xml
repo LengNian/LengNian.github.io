@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-10-07T01:14:20.057Z</updated>
+  <updated>2024-10-07T07:23:40.338Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -17,18 +17,47 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Github克隆本地仓库再次上传文件</title>
+    <link href="http://lengnian.github.io/posts/effa8074/"/>
+    <id>http://lengnian.github.io/posts/effa8074/</id>
+    <published>2024-10-07T07:13:20.000Z</published>
+    <updated>2024-10-07T07:23:40.338Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;写这个主要是方便自己复现文章以后上传，不需要每次再去找，可以直接在自己的博客中看到。&lt;/p&gt;
+&lt;p&gt;也供和我有相同处境的使用。&lt;/p&gt;
+&lt;p&gt;1.在本地建立一个空白文件夹，用于克隆仓库&lt;/p&gt;
+&lt;p&gt;2.在git中克隆仓库&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="解问题" scheme="http://lengnian.github.io/categories/%E8%A7%A3%E9%97%AE%E9%A2%98/"/>
+    
+    
+    <category term="Github" scheme="http://lengnian.github.io/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
     <title>LearningToCountEverying论文阅读与源码理解</title>
     <link href="http://lengnian.github.io/posts/74d83a5b/"/>
     <id>http://lengnian.github.io/posts/74d83a5b/</id>
-    <published>2024-10-07T01:01:59.000Z</published>
-    <updated>2024-10-07T01:14:20.057Z</updated>
+    <published>2024-10-07T01:17:26.000Z</published>
+    <updated>2024-10-07T07:24:16.417Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;&lt;img</summary>
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;最近读了小样本计数的开山之作Learning To Count</summary>
         
       
     
@@ -36,7 +65,7 @@
     
     <category term="小样本计数" scheme="http://lengnian.github.io/categories/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%A1%E6%95%B0/"/>
     
-    <category term="代码复现" scheme="http://lengnian.github.io/categories/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%A1%E6%95%B0/%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%8E%B0/"/>
+    <category term="论文复现" scheme="http://lengnian.github.io/categories/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%A1%E6%95%B0/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/"/>
     
     
     <category term="读论文" scheme="http://lengnian.github.io/tags/%E8%AF%BB%E8%AE%BA%E6%96%87/"/>
@@ -48,7 +77,7 @@
     <link href="http://lengnian.github.io/posts/56e3b13/"/>
     <id>http://lengnian.github.io/posts/56e3b13/</id>
     <published>2024-10-03T04:47:26.000Z</published>
-    <updated>2024-10-03T04:57:57.860Z</updated>
+    <updated>2024-10-07T07:24:03.438Z</updated>
     
     
       
@@ -63,7 +92,7 @@
     
     <category term="人群计数" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/"/>
     
-    <category term="代码复现" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%8E%B0/"/>
+    <category term="论文复现" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/"/>
     
     
     <category term="读论文" scheme="http://lengnian.github.io/tags/%E8%AF%BB%E8%AE%BA%E6%96%87/"/>
@@ -75,7 +104,7 @@
     <link href="http://lengnian.github.io/posts/8a129f29/"/>
     <id>http://lengnian.github.io/posts/8a129f29/</id>
     <published>2024-09-27T10:59:58.000Z</published>
-    <updated>2024-10-02T08:26:10.578Z</updated>
+    <updated>2024-10-07T07:23:54.649Z</updated>
     
     
       
@@ -90,7 +119,7 @@
     
     <category term="人群计数" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/"/>
     
-    <category term="代码复现" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%8E%B0/"/>
+    <category term="论文复现" scheme="http://lengnian.github.io/categories/%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/"/>
     
     
     <category term="读论文" scheme="http://lengnian.github.io/tags/%E8%AF%BB%E8%AE%BA%E6%96%87/"/>
