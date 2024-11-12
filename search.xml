@@ -3243,7 +3243,6 @@ $$
 <p>2.在git中克隆仓库</p>
 <pre class="line-numbers language-Git" data-language="Git"><code class="language-Git">git clone + 仓库地址<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="/Github%E5%85%8B%E9%9A%86%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%86%8D%E6%AC%A1%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/image-20241007151658576.png" alt="image-20241007151658576" loading="lazy"></p>
 
 
 <p>3.把要上传的文件夹放到克隆的仓库内</p>
