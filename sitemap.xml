@@ -119,6 +119,15 @@
   </url>
   
   <url>
+    <loc>http://lengnian.github.io/posts/877ae5d4/</loc>
+    
+    <lastmod>2024-08-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://lengnian.github.io/posts/9069b95a/</loc>
     
     <lastmod>2024-08-07</lastmod>
@@ -236,6 +245,13 @@
 
   
   <url>
+    <loc>http://lengnian.github.io/tags/%E7%A7%91%E7%A0%94%E8%AE%B2%E5%BA%A7/</loc>
+    <lastmod>2024-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://lengnian.github.io/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/</loc>
     <lastmod>2024-12-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -348,6 +364,13 @@
   </url>
   
 
+  
+  <url>
+    <loc>http://lengnian.github.io/categories/%E8%AE%B0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2024-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/</loc>

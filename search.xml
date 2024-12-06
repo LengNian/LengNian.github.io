@@ -3047,12 +3047,8 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   <entry>
     <title>Transformer学习记录</title>
     <url>/posts/3b51a2ff/</url>
-    <content><![CDATA[<h3 id="Self-attention"><a href="#Self-attention" class="headerlink" title="Self-attention"></a>Self-attention</h3><p>self-attention可以和fc交替使用，输入几个vector，就会输出几个vector。</p>
-
-
-
-
-<p><img src="/image-20241206131028202.png" alt="image-20241206131028202" loading="lazy"></p>
+    <content><![CDATA[<h3 id="Self-attention"><a href="#Self-attention" class="headerlink" title="Self-attention"></a>Self-attention</h3><h4 id="Personal-understand"><a href="#Personal-understand" class="headerlink" title="Personal understand"></a>Personal understand</h4><p>self-attention可以和fc交替使用，输入几个vector，就会输出几个vector。</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206131028202.png" alt="image-20241206131028202" loading="lazy"></p>
 <p>默认计算注意力的方法使用Dot-product</p>
 <p>假设在a之前还有其它运算，所以命名为 $ a^1, a^2,…$。</p>
 <ul>
@@ -3069,17 +3065,275 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206132747390.png" alt="image-20241206132747390" loading="lazy"></p>
 <p> 上面的两张图是对输入$a^1$进行计算的一个过程。其他的输入也一样。</p>
 <p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133116827.png" alt="image-20241206133116827" loading="lazy"></p>
-<h4 id="以矩阵乘法的形式表示"><a href="#以矩阵乘法的形式表示" class="headerlink" title="以矩阵乘法的形式表示"></a>以矩阵乘法的形式表示</h4><p> <img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133314813.png" alt="image-20241206133314813" loading="lazy"></p>
+<h4 id="Matrix-Multiply-show"><a href="#Matrix-Multiply-show" class="headerlink" title="Matrix Multiply show"></a>Matrix Multiply show</h4><p> <img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133314813.png" alt="image-20241206133314813" loading="lazy"></p>
 <p> <img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133534659.png" alt="image-20241206133534659" loading="lazy"></p>
 <p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133708410.png" alt="image-20241206133708410" loading="lazy"></p>
 <p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133823384.png" alt="image-20241206133823384" loading="lazy"></p>
 <p><strong>在整个self-attention过程中，只有</strong>   $W^k,W^v,W^q$ <strong>是需要通过训练学习的</strong>。</p>
+<h3 id="Multi-head-Self-attention"><a href="#Multi-head-Self-attention" class="headerlink" title="Multi-head Self-attention"></a>Multi-head Self-attention</h3><p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206151609909.png" alt="image-20241206151609909" loading="lazy"></p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206151742513.png" alt="image-20241206151742513" loading="lazy"></p>
+<h3 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h3><p>位置编码通过一种特殊的方式产生，不一定要通过sin&#x2F;cos产生，也可以通过网络学习产生。</p>
+<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h3><p>self-attention就是复杂的CNN</p>
+<p>普通的RNN只考虑了左边最近的一个词，而且无法并行处理，而self-attention可以并行处理，并且考虑了所有词之间的关系。</p>
+<h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><h4 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h4><p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155029432.png" alt="image-20241206155029432" loading="lazy"><br>Encoder可以简化成这种结构 ，里面包含</p>
+<ul>
+<li><p>residual connection </p>
+</li>
+<li><p>layer norm</p>
+</li>
+<li><p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155823308.png" alt="image-20241206155823308" loading="lazy"></p>
+</li>
+</ul>
+<p>每个block的结构又如下图所示<br><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155316616.png" alt="image-20241206155316616" loading="lazy"></p>
+<p> <img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155536850.png" alt="image-20241206155536850" loading="lazy"></p>
+<h4 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h4><h5 id="Input-Output"><a href="#Input-Output" class="headerlink" title="Input &amp; Output"></a>Input &amp; Output</h5><p> voc_size:就是可能输出的单词总数，比如26个字母，或者2000个汉字</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206161249953.png" alt="image-20241206161249953" loading="lazy"></p>
+<p>这里的distribution经过一个softmax，加起来的总和是1，选择一个概率最大的，作为decoder的下一个输入，Decoder看到的输入其实就是自己上一次的输出，所以是可能看到错误的。</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206161453825.png" alt="image-20241206161453825" loading="lazy"></p>
+<h5 id="Masked-multi-head-attention"><a href="#Masked-multi-head-attention" class="headerlink" title="Masked multi-head-attention"></a>Masked multi-head-attention</h5><p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206161732336.png" alt="image-20241206161732336" loading="lazy"></p>
+<p>可以注意到Decoder中有一个Masked Multi-Head Attention，这里的masked的意思就是看不到在输入之后的内容</p>
+<p>比如处理 $a^1$时，只能和$a^1自己计算得到b^1$,处理$a^2时，只能和a^1,a^2进行计算得到b^2,在处理a^4时，则是和a^1,a^2,a^3,a^4进行计算得到b^4$。</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206161950727.png" alt="image-20241206161950727" loading="lazy"></p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206162515398.png" alt="image-20241206162515398" loading="lazy"></p>
+<p><strong>为什么要用masked？</strong></p>
+<p>本文刚开始提到的self-attention的输入是一次性给进去的，所以计算注意力时可以使用后面的，而transformer中的输出其实是一步一步产生，也就是处理$a1$时，并不知道$a^2$的值，处理$a^2时，只能用a^2,a^1,而并不知道a^3,a^4$。所以这里就要用masked。</p>
+<p>这里要有特殊符号，BEGIN和END，用于开始开始和结束。 </p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206163352894.png" alt="image-20241206163352894" loading="lazy"></p>
+<h5 id="Cross-attention"><a href="#Cross-attention" class="headerlink" title="Cross attention"></a>Cross attention</h5><p>Decoder提供一个query，Encoder提供key和value，使用q和k计算注意力分数以后，再和c相乘，就是交叉注意力机制的过程。</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206164332001.png" alt="image-20241206164332001" loading="lazy"></p>
+<h4 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h4><p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206165024419.png" alt="image-20241206165024419" loading="lazy"></p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206165109208.png" alt="image-20241206165109208" loading="lazy"></p>
+<p>Decoder每一个输出都有一个cross entropy，希望cross entropy的总和最少，同时模型还要能够输出结束标记END。</p>
 ]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
       <tags>
         <tag>写总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2024研究生科研素养提升公益讲座笔记</title>
+    <url>/posts/877ae5d4/</url>
+    <content><![CDATA[<h3 id="科研信息检索与利用-–李修波"><a href="#科研信息检索与利用-–李修波" class="headerlink" title="科研信息检索与利用  –李修波"></a>科研信息检索与利用  –李修波</h3><p>科研信息检索与利用可以学知识，思路方法启发，跨学科融合创新。</p>
+<p><strong>科研信息的搜集：</strong> </p>
+<p>中文资源：知网、万方、维普      建议修课：信息检索</p>
+<p>外文资源：Web of Science、Compendex、INSPEC、PubMed</p>
+
+
+<img src="/posts/877ae5d4/2.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/3.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/4.png" class loading="lazy">
+
+<p>如果将危害作为检索词，会降低查全率。</p>
+<p>引文分析要弄清楚影响力评测范围，引文分析工具，检索用词，</p>
+<p>如何扩充关键词？</p>
+<img src="/posts/877ae5d4/5.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/6.png" class loading="lazy">
+
+
+
+<h3 id="科技论文选题-–李垚"><a href="#科技论文选题-–李垚" class="headerlink" title="科技论文选题  –李垚"></a>科技论文选题  –李垚</h3><p>高阶专业知识(前沿科技动态，多学科交叉只是)，科学思维能力(发现<strong>问题意识</strong>与能力，辨证批判思维)，成果展示能力(选题，文字，表述，学术论文与学位论文)</p>
+<img src="/posts/877ae5d4/7.png" class loading="lazy">
+
+<p><strong>找准科学问题和凝练选题直接关系到研究的深度、广度、创新性和最终成果的价值</strong></p>
+<p><strong>问题意识</strong> ：发现知识缺口，人们在认识活动中，实践中遇到的一些疑难困惑的现实或理论问题及深入思考、积极探究的心理活动。</p>
+<ul>
+<li>有什么新问题需要被回答？</li>
+<li>已有的回答，是否可以被继续深化？</li>
+<li>已有的回答，是否可以被覆盖？</li>
+</ul>
+<img src="/posts/877ae5d4/8.png" class loading="lazy">
+
+<p>找准科学问题途径：</p>
+<ul>
+<li><p>保持好奇心与敏锐洞察力</p>
+</li>
+<li><p>在经典文献细读中发现科学问题</p>
+<ul>
+<li><p>中文文献以摘要为主，储备知识</p>
+</li>
+<li><p>英文文献细致掌握最新研究动态，寻找研究空白、</p>
+</li>
+<li><p>学术报告掌握最新问题</p>
+</li>
+</ul>
+</li>
+<li><p>批判性思维深挖问题</p>
+</li>
+</ul>
+<img src="/posts/877ae5d4/9.png" class loading="lazy">
+<ul>
+<li><p>与导师和同行讨论中发现科学问题</p>
+</li>
+<li><p>跨学科交流合作中发现科学问题</p>
+</li>
+<li><p>将实际应用需求转化为科学问题的思考</p>
+</li>
+</ul>
+
+
+<p>选题原则：</p>
+<ul>
+<li><p>兴趣与热情</p>
+</li>
+<li><p>重要性和意义</p>
+</li>
+<li><p>知识空白和研究需求</p>
+</li>
+<li><p>可行性和可操作性</p>
+</li>
+<li><p>可复制性和可验证性</p>
+</li>
+<li><p>独创性和创新性</p>
+</li>
+<li><p>可发表性和学术影响</p>
+</li>
+</ul>
+ 
+
+ 
+
+ 
+
+<h3 id="文献阅读与论文写作-–杨军"><a href="#文献阅读与论文写作-–杨军" class="headerlink" title="文献阅读与论文写作  –杨军"></a>文献阅读与论文写作  –杨军</h3><img src="/posts/877ae5d4/15.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/16.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/17.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/18.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/19.png" class loading="lazy"> 
+
+<p><strong>论文前言一定要读</strong></p>
+<img src="/posts/877ae5d4/20.png" class loading="lazy"> 
+
+<p>只有和自己研究非常相近才需要仔细读。</p>
+<p>自己的实验记录(<strong>及时用本记录</strong>)-材料、过程、现象、步骤、总结(只是记录，不要额外添加其他内容)</p>
+<p>自己的研究计划–短期的，根据今天的实验结果，去想一下明天应该怎么做(实验内容、材料方法、特殊情况和对策、预期结果，没达到预期的情况、数据整理)。</p>
+<img src="/posts/877ae5d4/21.png" class loading="lazy"> 
+
+<p>带着思考读文献，<strong>有思路随手记一下，有时间看看是否需要做实验验证</strong></p>
+<img src="/posts/877ae5d4/22.png" class loading="lazy"> 
+
+<p>某种方法尝试能否进行拓展，不要急于发表，如果无法扩展再发表也不迟。</p>
+<img src="/posts/877ae5d4/23.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/24.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/25.png" class loading="lazy"> 
+
+<p><strong>把最重要的贡献体现在题目中</strong></p>
+<img src="/posts/877ae5d4/26.png" class loading="lazy"> 
+
+<p><strong>注意摘要和题目的一致性，摘要第一句话至少应该出现题目中三分之一的关键词，摘要是你要做，还没做的，摘要的时态是现在进行时</strong></p>
+<img src="/posts/877ae5d4/27.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/28.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/29.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/30.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/31.png" class loading="lazy"> 
+
+<p><strong>前言总结的问题就是正文要讨论的问题</strong></p>
+<img src="/posts/877ae5d4/32.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/33.png" class loading="lazy"> 
+
+<p><strong>结果讨论唯一目的就是让审稿人信服</strong></p>
+<img src="/posts/877ae5d4/34.png" class loading="lazy"> 
+
+<p>结论和摘要内容相近，但要注意时态，结论通常为现在完成时。</p>
+<p>参考文献反应论文趋势。</p>
+<img src="/posts/877ae5d4/35.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/36.png" class loading="lazy"> 
+
+<p>选择熟悉的稿件格式，写完再去改格式也不迟。</p>
+<h3 id="研究生学术生涯七个方面-–吴子牛"><a href="#研究生学术生涯七个方面-–吴子牛" class="headerlink" title="研究生学术生涯七个方面 –吴子牛"></a>研究生学术生涯七个方面 –吴子牛</h3><img src="/posts/877ae5d4/38.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/37.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/39.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/40.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/41.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/42.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/43.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/44.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/45.png" class loading="lazy"> 
+
+
+
+<h3 id="SCI写作与投稿-–任驰"><a href="#SCI写作与投稿-–任驰" class="headerlink" title="SCI写作与投稿 –任驰"></a>SCI写作与投稿 –任驰</h3><p><strong>SCI写作步骤：</strong></p>
+<img src="/posts/877ae5d4/46.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/47.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/48.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/49.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/50.png" class loading="lazy"> 
+
+<img src="/posts/877ae5d4/51.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/52.png" class loading="lazy">  
+
+<img src="/posts/877ae5d4/53.png" class loading="lazy">  
+
+<img src="/posts/877ae5d4/54.png" class loading="lazy">
+
+<p>养成实验记录习惯，避免忘记细节</p>
+<img src="/posts/877ae5d4/55.png" class loading="lazy">
+
+<p><strong>投稿前工作：</strong></p>
+<img src="/posts/877ae5d4/56.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/57.png" class loading="lazy">
+
+<p>结果和讨论是一篇文章中原创的内容</p>
+<p><strong>投稿流程：</strong></p>
+<img src="/posts/877ae5d4/58.png" class loading="lazy">
+
+
+
+<h3 id="立足工程需求，矢志科研创新-–孙俊杰"><a href="#立足工程需求，矢志科研创新-–孙俊杰" class="headerlink" title="立足工程需求，矢志科研创新 –孙俊杰"></a>立足工程需求，矢志科研创新 –孙俊杰</h3><img src="/posts/877ae5d4/59.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/60.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/61.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/62.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/63.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/64.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/65.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/66.png" class loading="lazy">
+
+<img src="/posts/877ae5d4/67.png" class loading="lazy">
+
+<p>自己多尝试，多和导师，师兄师姐沟通，才能确定自己到底适合什么。</p>
+]]></content>
+      <categories>
+        <category>记笔记</category>
+      </categories>
+      <tags>
+        <tag>科研讲座</tag>
       </tags>
   </entry>
 </search>
