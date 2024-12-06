@@ -3052,7 +3052,7 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 
 
 
-<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.png" alt="image-20241206131028202" loading="lazy"></p>
+<p><img src="/image-20241206131028202.png" alt="image-20241206131028202" loading="lazy"></p>
 <p>默认计算注意力的方法使用Dot-product</p>
 <p>假设在a之前还有其它运算，所以命名为 $ a^1, a^2,…$。</p>
 <ul>
