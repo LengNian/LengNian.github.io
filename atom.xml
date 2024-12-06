@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-11-12T13:49:45.484Z</updated>
+  <updated>2024-12-06T05:00:42.795Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Transformer学习记录</title>
+    <link href="http://lengnian.github.io/posts/3b51a2ff/"/>
+    <id>http://lengnian.github.io/posts/3b51a2ff/</id>
+    <published>2024-12-06T04:57:27.000Z</published>
+    <updated>2024-12-06T05:00:42.795Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206125954200.png&quot; alt=&quot;image-20241206125954200&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="http://lengnian.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="写总结" scheme="http://lengnian.github.io/tags/%E5%86%99%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Github克隆本地仓库再次上传文件</title>
     <link href="http://lengnian.github.io/posts/effa8074/"/>
     <id>http://lengnian.github.io/posts/effa8074/</id>
     <published>2024-10-07T07:13:20.000Z</published>
-    <updated>2024-11-12T13:49:45.484Z</updated>
+    <updated>2024-11-12T13:53:38.619Z</updated>
     
     
       
@@ -346,7 +371,7 @@
     <link href="http://lengnian.github.io/posts/cb44fd80/"/>
     <id>http://lengnian.github.io/posts/cb44fd80/</id>
     <published>2024-07-29T01:34:30.000Z</published>
-    <updated>2024-11-10T12:56:17.761Z</updated>
+    <updated>2024-12-05T09:58:59.170Z</updated>
     
     
       

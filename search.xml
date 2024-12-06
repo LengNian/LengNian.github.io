@@ -3010,11 +3010,13 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
 <li>第二十条</li>
 <li>周处除三害</li>
 <li>东哥闯东北</li>
-<li>来福大酒店</li>
+<li>来福大酒店√</li>
 <li>西施新传√</li>
 <li>宠爱</li>
 <li>欲火之路</li>
 <li>出入平安</li>
+<li>焚城</li>
+<li>守阙者</li>
 </ul>
 <h4 id="电视剧"><a href="#电视剧" class="headerlink" title="电视剧"></a>电视剧</h4><ul>
 <li>黑暗荣耀 √</li>
@@ -3028,8 +3030,14 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
 <li>迎风的青春</li>
 <li>人民警察</li>
 <li>隐瞒之事</li>
-<li>冰雪谣</li>
-<li>亢奋</li>
+<li>冰雪谣√</li>
+<li>亢奋√</li>
+<li>宿敌√</li>
+<li>好团圆√</li>
+<li>太阳星辰</li>
+<li>念念勿忘</li>
+<li>黑白诀√</li>
+<li>我是刑警</li>
 </ul>
 ]]></content>
       <categories>
@@ -3243,8 +3251,6 @@ $$
 <p>2.在git中克隆仓库</p>
 <pre class="line-numbers language-Git" data-language="Git"><code class="language-Git">git clone + 仓库地址<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-
-
 <p>3.把要上传的文件夹放到克隆的仓库内</p>
 <p>4.依次使用以下命令</p>
 <pre class="line-numbers language-git" data-language="git"><code class="language-git">cd 仓库名
@@ -3260,6 +3266,19 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       </categories>
       <tags>
         <tag>Github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Transformer学习记录</title>
+    <url>/posts/3b51a2ff/</url>
+    <content><![CDATA[<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206125954200.png" alt="image-20241206125954200" loading="lazy"></p>
+
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>写总结</tag>
       </tags>
   </entry>
 </search>
