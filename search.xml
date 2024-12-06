@@ -3050,6 +3050,8 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
     <content><![CDATA[<h3 id="Self-attention"><a href="#Self-attention" class="headerlink" title="Self-attention"></a>Self-attention</h3><p>self-attention可以和fc交替使用，输入几个vector，就会输出几个vector。</p>
 
 
+
+
 <p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.png" alt="image-20241206131028202" loading="lazy"></p>
 <p>默认计算注意力的方法使用Dot-product</p>
 <p>假设在a之前还有其它运算，所以命名为 $ a^1, a^2,…$。</p>
