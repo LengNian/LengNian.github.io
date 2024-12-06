@@ -3271,8 +3271,29 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   <entry>
     <title>Transformer学习记录</title>
     <url>/posts/3b51a2ff/</url>
-    <content><![CDATA[<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.png" alt="image-20241206125954200" loading="lazy"></p>
-
+    <content><![CDATA[<h3 id="Self-attention"><a href="#Self-attention" class="headerlink" title="Self-attention"></a>Self-attention</h3><p>self-attention可以和fc交替使用，输入几个vector，就会输出几个vector。</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206131028202.png" alt="image-20241206131028202" loading="lazy"></p>
+<p>默认计算注意力的方法使用Dot-product</p>
+<p>假设在a之前还有其它运算，所以命名为 $ a^1, a^2,…$。</p>
+<ul>
+<li><p>如图，query，key，value是如何产生的？</p>
+<p>有一个$ W^q $矩阵,通过和输入$a^i$相乘,就能得到$q^i$,也就是query。</p>
+<p>同理。也存在一个$W^k, W^v$矩阵，和输入$a^i$相乘，就得到 $k^i, k^v$,也就是key, value。</p>
+<p>$query和key进行一个dot product就得到了注意力分数也就是图中所示的\alpha$</p>
+<p>以$a^1$为例，$q^1$ dot product  $k^1以后得到了\alpha_{1,1}, q^1和k^2得到了\alpha_{1,2}…$</p>
+<p>**我的理解就是$\alpha_{1,j}$就是特征1和特征1、特诊2…特征j之间的注意力分数，为了更好运算，将这些进行一个softmax，统一到(0, 1)之间，得到了 **${\alpha _{1, j}}^{‘}$。</p>
+</li>
+</ul>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206131316164.png" alt="image-20241206131316164" loading="lazy"></p>
+<p>之后将$\alpha^{‘}_{1,j}和对应的v^j相乘，就得到了b^1$。</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206132747390.png" alt="image-20241206132747390" loading="lazy"></p>
+<p> 上面的两张图是对输入$a^1$进行计算的一个过程。其他的输入也一样。</p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133116827.png" alt="image-20241206133116827" loading="lazy"></p>
+<h4 id="以矩阵乘法的形式表示"><a href="#以矩阵乘法的形式表示" class="headerlink" title="以矩阵乘法的形式表示"></a>以矩阵乘法的形式表示</h4><p> <img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133314813.png" alt="image-20241206133314813" loading="lazy"></p>
+<p> <img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133534659.png" alt="image-20241206133534659" loading="lazy"></p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133708410.png" alt="image-20241206133708410" loading="lazy"></p>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206133823384.png" alt="image-20241206133823384" loading="lazy"></p>
+<p><strong>在整个self-attention过程中，只有</strong>   $W^k,W^v,W^q$ <strong>是需要通过训练学习的</strong>。</p>
 ]]></content>
       <categories>
         <category>深度学习</category>
