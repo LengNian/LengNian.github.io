@@ -135,6 +135,7 @@ random<span class="token punctuation">.</span>shuffle<span class="token punctuat
       <categories>
         <category>人群计数</category>
         <category>论文复现</category>
+        <category>目标计数</category>
       </categories>
       <tags>
         <tag>读论文</tag>
@@ -777,6 +778,7 @@ else:
       <categories>
         <category>人群计数</category>
         <category>论文复现</category>
+        <category>目标计数</category>
       </categories>
       <tags>
         <tag>读论文</tag>
@@ -2779,6 +2781,9 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
     <title>电影和电视剧</title>
     <url>/posts/cb44fd80/</url>
     <content><![CDATA[<p>在这记录一些我想看的电影和电视剧，有些是因为题材去看的，有些是因为演员去看的，还有些是因为某个片段去看的。</p>
+<h4 id="综艺-看综艺很少"><a href="#综艺-看综艺很少" class="headerlink" title="综艺(看综艺很少)"></a>综艺(看综艺很少)</h4><ul>
+<li>心动的信号6(完全是为了磕cp)</li>
+</ul>
 <h4 id="电影"><a href="#电影" class="headerlink" title="电影"></a>电影</h4><ul>
 <li>太平轮上下</li>
 <li>默杀√</li>
@@ -2793,6 +2798,7 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
 <li>出入平安</li>
 <li>焚城</li>
 <li>守阙者</li>
+<li>风平浪静</li>
 </ul>
 <h4 id="电视剧"><a href="#电视剧" class="headerlink" title="电视剧"></a>电视剧</h4><ul>
 <li>黑暗荣耀 √</li>
@@ -2814,6 +2820,7 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
 <li>念念勿忘</li>
 <li>黑白诀√</li>
 <li>我是刑警</li>
+<li>隐身的名字</li>
 </ul>
 ]]></content>
       <categories>
@@ -3013,6 +3020,7 @@ $$
       <categories>
         <category>小样本计数</category>
         <category>论文复现</category>
+        <category>目标计数</category>
       </categories>
       <tags>
         <tag>读论文</tag>
@@ -3106,10 +3114,10 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <p>Decoder每一个输出都有一个cross entropy，希望cross entropy的总和最少，同时模型还要能够输出结束标记END。</p>
 ]]></content>
       <categories>
-        <category>深度学习</category>
+        <category>写笔记</category>
       </categories>
       <tags>
-        <tag>写总结</tag>
+        <tag>Transformer</tag>
       </tags>
   </entry>
   <entry>
@@ -3334,6 +3342,42 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       </categories>
       <tags>
         <tag>科研讲座</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CounTR-论文阅读与源码理解</title>
+    <url>/posts/6c13436b/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这篇论文很久之前就看过一次，但当时也没有看太懂，正好最近在看Transformer的相关内容，所以就翻出来再读一遍。对部分内容做一个记录。本文内容为个人理解，如有错误，欢迎指正。</p>
+<p>原文链接：[<a href="https://arxiv.org/abs/2208.13721">2208.13721] CounTR: Transformer-based Generalised Visual Counting</a></p>
+<p>代码链接：<a href="https://github.com/Verg-Avesta/CounTR">Verg-Avesta&#x2F;CounTR: CounTR: Transformer-based Generalised Visual Counting</a></p>
+<p>我对论文进行了复现，然后代码中有些可能与现版本不兼容的内容进行了修改，同时对源码增加了中文注释，放在github，链接为：[PaperRecurrent&#x2F;CounTR–Transformer-based Generalised Visual Counting at main · LengNian&#x2F;PaperRecurrent](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting)</p>
+<p>本文需要用到的权重文件，可以在作者的Readme文件中找到。</p>
+<h3 id="论文内容"><a href="#论文内容" class="headerlink" title="论文内容"></a>论文内容</h3><h4 id="两阶段训练"><a href="#两阶段训练" class="headerlink" title="两阶段训练"></a>两阶段训练</h4><p>本文采用一种两阶段的训练方式，即现在FSC147训练集上进行预训练，然后在下游任务上进行微调。</p>
+<h5 id="预训练"><a href="#预训练" class="headerlink" title="预训练"></a>预训练</h5><p>预训练过程中使用MAE自监督训练，首先将输入图像分成不重叠的patch作为模型的输入，加入位置编码以后进行一个随机掩码，用于遮挡输入图像并送入编码器，然后通过解码器图像，得到对patch的恢复。然后通过计算恢复图像和原始图像的损失，来调整参数优化模型。</p>
+<h5 id="微调阶段"><a href="#微调阶段" class="headerlink" title="微调阶段"></a>微调阶段</h5><p>在微调阶段，会用预训练的权重初始化图像的编码器，然后对模型再进行微调。该阶段使用的模型如图所示。</p>
+
+
+<p><img src="/CounTR-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E4%B8%8E%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/1.png" alt="image-20241211192338128" loading="lazy"></p>
+<p>作者将查询图像和示例图像都进行编码，查询图像编码器采用12层Transformer中的编码层$ \Phi_{VIT-ENC}$，该编码器采用Cross VIT网络。示例图像的编码器$ \Phi_{CNN-ENC}$用卷积层和全局池化层的组合。经过编码器后将查询图像编码后的的向量作为Query，示例图像编码后的向量作为Key和value送入到特征交互模块$\Phi_{FIM}$。特征交互模块由TYransformer的解码层构成。</p>
+<p>解码器$\Phi_{DECODER}$使用一种渐进的上采样设计方法，一工会经过四次上采样，上采样操作包含了卷积层和2$\times$双线性插值组成。最后得到输出密度图。</p>
+<p>在这个阶段，损失计算的是预测人数和实际人数之间的损失(与预训练阶段不同)。</p>
+<h4 id="Mosaic图像增强"><a href="#Mosaic图像增强" class="headerlink" title="Mosaic图像增强"></a>Mosaic图像增强</h4><p>**为了解决长尾问题(重要的示例无法多次出现)**，所以提出了Mosaic图像增强，分为两个步骤，拼接和混合。</p>
+<h5 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h5><p>拼接是从图像中裁剪出正方形区域，然后统一大小后，拼接起来，同时更新对应的密度图。文章提到了两种不同的拼接方式，分别是使用四张图或一张图(根据这幅图像的点注释来判断)，如果大于某个阈值，就用一张图，即将图像重复四次，否则使用四张图像，使用四张图像会用一张原图中裁剪出来的图像，其余从训练集中选择，如果类别一致就继续拼接，调整密度图，否则就只拼贴，密度图设置为全0。</p>
+<h5 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h5><p>因为直接拼贴无法完美合成，所以会有一个混合宽度，就是用比拼接图像块固定尺寸稍微大一些，多出来的部分用于通道混合，使拼贴得到的图像更加逼真。</p>
+<h4 id="测试时归一化"><a href="#测试时归一化" class="headerlink" title="测试时归一化"></a>测试时归一化</h4><p>在测试时，会使用测试时归一化。通过这种方法可以校准输出的密度图。</p>
+<p>滑动窗口预测，如果边界框长宽都小于10像素，将会图像分成9块，每块是原图的九分之一，通过滑动窗口累计每个小块的计数和，计数和就是最终的计数结果。否则，直接利用滑动窗口预测。</p>
+<h3 id="源码理解"><a href="#源码理解" class="headerlink" title="源码理解"></a>源码理解</h3><p>我对作者提供的代码中对FSC147数据集进行处理的内容以及模型文件做了注释。包括预训练、微调和测试部分。</p>
+<p>具体内容可以看[PaperRecurrent&#x2F;CounTR–Transformer-based Generalised Visual Counting at main · LengNian&#x2F;PaperRecurrent](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting)</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://0809zheng.github.io/2023/05/10/countr.html">CounTR: Transformer-based Generalised Visual Counting - 郑之杰的个人网站</a></p>
+<p><a href="https://blog.csdn.net/qq_46981910/article/details/141871648">《CounTR: Transformer-based Generalised Visual Counting》CVPR2023-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>小样本计数</category>
+        <category>目标计数</category>
+        <category>论文复现</category>
+      </categories>
+      <tags>
+        <tag>读论文</tag>
       </tags>
   </entry>
 </search>
