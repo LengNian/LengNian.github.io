@@ -3367,7 +3367,8 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <h4 id="测试时归一化"><a href="#测试时归一化" class="headerlink" title="测试时归一化"></a>测试时归一化</h4><p>在测试时，会使用测试时归一化。通过这种方法可以校准输出的密度图。</p>
 <p>滑动窗口预测，如果边界框长宽都小于10像素，将会图像分成9块，每块是原图的九分之一，通过滑动窗口累计每个小块的计数和，计数和就是最终的计数结果。否则，直接利用滑动窗口预测。</p>
 <h3 id="源码理解"><a href="#源码理解" class="headerlink" title="源码理解"></a>源码理解</h3><p>我对作者提供的代码中对FSC147数据集进行处理的内容以及模型文件做了注释。包括预训练、微调和测试部分。</p>
-<p>具体内容可以看[PaperRecurrent&#x2F;CounTR–Transformer-based Generalised Visual Counting at main · LengNian&#x2F;PaperRecurrent](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting)</p>
+<p>具体内容可以看</p>
+<p>[PaperRecurrent&#x2F;CounTR–Transformer-based Generalised Visual Counting at main · LengNian&#x2F;PaperRecurrent](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting)</p>
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://0809zheng.github.io/2023/05/10/countr.html">CounTR: Transformer-based Generalised Visual Counting - 郑之杰的个人网站</a></p>
 <p><a href="https://blog.csdn.net/qq_46981910/article/details/141871648">《CounTR: Transformer-based Generalised Visual Counting》CVPR2023-CSDN博客</a></p>
 ]]></content>
