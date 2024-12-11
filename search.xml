@@ -3350,7 +3350,7 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这篇论文很久之前就看过一次，但当时也没有看太懂，正好最近在看Transformer的相关内容，所以就翻出来再读一遍。对部分内容做一个记录。本文内容为个人理解，如有错误，欢迎指正。</p>
 <p>原文链接：[<a href="https://arxiv.org/abs/2208.13721">2208.13721] CounTR: Transformer-based Generalised Visual Counting</a></p>
 <p>代码链接：<a href="https://github.com/Verg-Avesta/CounTR">Verg-Avesta&#x2F;CounTR: CounTR: Transformer-based Generalised Visual Counting</a></p>
-<p>我对论文进行了复现，然后代码中有些可能与现版本不兼容的内容进行了修改，同时对源码增加了中文注释，放在github，链接为：[PaperRecurrent&#x2F;CounTR–Transformer-based Generalised Visual Counting at main · LengNian&#x2F;PaperRecurrent](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting)</p>
+<p>我对论文进行了复现，然后代码中有些可能与现版本不兼容的内容进行了修改，同时对源码增加了中文注释，放在github，链接为：<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting(不要点链接，复制到浏览器)</p>
 <p>本文需要用到的权重文件，可以在作者的Readme文件中找到。</p>
 <h3 id="论文内容"><a href="#论文内容" class="headerlink" title="论文内容"></a>论文内容</h3><h4 id="两阶段训练"><a href="#两阶段训练" class="headerlink" title="两阶段训练"></a>两阶段训练</h4><p>本文采用一种两阶段的训练方式，即现在FSC147训练集上进行预训练，然后在下游任务上进行微调。</p>
 <h5 id="预训练"><a href="#预训练" class="headerlink" title="预训练"></a>预训练</h5><p>预训练过程中使用MAE自监督训练，首先将输入图像分成不重叠的patch作为模型的输入，加入位置编码以后进行一个随机掩码，用于遮挡输入图像并送入编码器，然后通过解码器图像，得到对patch的恢复。然后通过计算恢复图像和原始图像的损失，来调整参数优化模型。</p>
@@ -3368,7 +3368,7 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <p>滑动窗口预测，如果边界框长宽都小于10像素，将会图像分成9块，每块是原图的九分之一，通过滑动窗口累计每个小块的计数和，计数和就是最终的计数结果。否则，直接利用滑动窗口预测。</p>
 <h3 id="源码理解"><a href="#源码理解" class="headerlink" title="源码理解"></a>源码理解</h3><p>我对作者提供的代码中对FSC147数据集进行处理的内容以及模型文件做了注释。包括预训练、微调和测试部分。</p>
 <p>具体内容可以看</p>
-<p>[PaperRecurrent&#x2F;CounTR–Transformer-based Generalised Visual Counting at main · LengNian&#x2F;PaperRecurrent](<a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting)</p>
+<p><a href="https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based">https://github.com/LengNian/PaperRecurrent/tree/main/CounTR--Transformer-based</a> Generalised Visual Counting(不要点链接，复制到浏览器)</p>
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://0809zheng.github.io/2023/05/10/countr.html">CounTR: Transformer-based Generalised Visual Counting - 郑之杰的个人网站</a></p>
 <p><a href="https://blog.csdn.net/qq_46981910/article/details/141871648">《CounTR: Transformer-based Generalised Visual Counting》CVPR2023-CSDN博客</a></p>
 ]]></content>
