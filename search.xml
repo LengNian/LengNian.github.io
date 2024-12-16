@@ -3055,7 +3055,8 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   <entry>
     <title>Transformer学习记录</title>
     <url>/posts/3b51a2ff/</url>
-    <content><![CDATA[<h3 id="Self-attention"><a href="#Self-attention" class="headerlink" title="Self-attention"></a>Self-attention</h3><h4 id="Personal-understand"><a href="#Personal-understand" class="headerlink" title="Personal understand"></a>Personal understand</h4><p>self-attention可以和fc交替使用，输入几个vector，就会输出几个vector。</p>
+    <content><![CDATA[<p>本文用于记录自己在学习Transformer中理解，方便日后复习，文章中所使用图片全部来自于参考文章中所列文章或视频，仅用于个人学习使用。</p>
+<h3 id="Self-attention"><a href="#Self-attention" class="headerlink" title="Self-attention"></a>Self-attention</h3><h4 id="Personal-understand"><a href="#Personal-understand" class="headerlink" title="Personal understand"></a>Personal understand</h4><p>self-attention可以和fc交替使用，输入几个vector，就会输出几个vector。</p>
 <p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206131028202.png" alt="image-20241206131028202" loading="lazy"></p>
 <p>默认计算注意力的方法使用Dot-product</p>
 <p>假设在a之前还有其它运算，所以命名为 $ a^1, a^2,…$。</p>
@@ -3388,7 +3389,8 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   <entry>
     <title>SwinTransformer学习记录</title>
     <url>/posts/1defb2fa/</url>
-    <content><![CDATA[<h3 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h3><h4 id="Compare-Vit-and-Swin-Transformer"><a href="#Compare-Vit-and-Swin-Transformer" class="headerlink" title="Compare Vit and Swin-Transformer"></a>Compare Vit and Swin-Transformer</h4><ul>
+    <content><![CDATA[<p>本文用于记录自己在学习Swin Transformer中理解，方便日后复习，文章中所使用图片全部来自于参考文章中所列文章或视频，仅用于个人学习使用。</p>
+<h3 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h3><h4 id="Compare-Vit-and-Swin-Transformer"><a href="#Compare-Vit-and-Swin-Transformer" class="headerlink" title="Compare Vit and Swin-Transformer"></a>Compare Vit and Swin-Transformer</h4><ul>
 <li><p>Swin-Transformer具有层次性，随着层次加深，高宽减小，而Transformer是直接下采样16倍，之后保持不变；</p>
 </li>
 <li><p>Swin-Transformer是将特征图分割，并且没有重叠，而transformer中没有分割(可以降低参数量 )；</p>
@@ -3432,6 +3434,8 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <p>相对位置索引是为了在相对位置偏执中取参数，训练过程中真正训练的是relative position bias table中的内容。</p>
 <h3 id="参考文章-视频"><a href="#参考文章-视频" class="headerlink" title="参考文章(视频)"></a>参考文章(视频)</h3><p><a href="https://www.bilibili.com/video/BV1pL4y1v7jC/?spm_id_from=333.337.search-card.all.click&vd_source=ce2ba30706a07f3300142a42d4e3023f">12.1 Swin-Transformer网络结构详解_哔哩哔哩_bilibili</a></p>
 <p><a href="https://blog.csdn.net/qq_37541097/article/details/121119988?spm=1001.2014.3001.5501">Swin-Transformer网络结构详解_swin transformer-CSDN博客</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/367111046">图解Swin Transformer - 知乎</a></p>
+<p><a href="https://www.bilibili.com/video/BV1AL411W7dT?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">11.2 使用pytorch搭建Vision Transformer(vit)模型_哔哩哔哩_bilibili</a></p>
 ]]></content>
       <categories>
         <category>写笔记</category>
@@ -3443,6 +3447,31 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   <entry>
     <title>VisionTransformer学习记录</title>
     <url>/posts/2d942648/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>本文用于记录自己在学习Vision Transformer中理解，方便日后复习，文章中所使用图片全部来自于参考文章中所列文章或视频，仅用于个人学习使用。</p>
+<h3 id="Vision-Transformer"><a href="#Vision-Transformer" class="headerlink" title="Vision Transformer"></a>Vision Transformer</h3><p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216115355450.png" alt="image-20241216115355450" loading="lazy"></p>
+<p>这里的输入把图像分成大小为16*16的patch，然后将每个patch输入到Linear Projection of Flattened Patches(Embedding层)，就能得到token。在这些token之前会再增加一个class token，并且加入位置编码Position Embedding。再输入到Transformer Encoder中，最后用MLP Head进行分类。</p>
+<h4 id="Embedding层"><a href="#Embedding层" class="headerlink" title="Embedding层"></a>Embedding层</h4><p>对于标准的Transformer模块，输入应该是token序列，[num_token, token_dim]。</p>
+<p>实际操作中，Linear Projection of Flattened Patches是直接通过一个卷积层来实现的。，以ViT-B&#x2F;16为例，使用卷积核大小为16*16，stride为16，卷积核个数为768，这里的768就是token_dim。</p>
+<p>图像尺寸的变化就是[224, 224, 3] –&gt; [14, 14, 768] –&gt; [196, 768]，先通过卷积层，再把长宽摊平。(14 &#x3D; 224&#x2F;16, 196&#x3D;14*14)</p>
+<p>在输入到Transformer Encoder之前需要加上class token以及position Embedding(这些都是可训练参数)</p>
+<p>拼接class token： Cat([1, 768], [196, 768]) –&gt; ([197, 768])</p>
+<p>叠加Position Embedding: [197, 768] -&gt; [197, 768] (加数值，所以维度没有发生变化)</p>
+<p>位置编码的余弦相似度：</p>
+<p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216124045127.png" alt="image-20241216124045127" loading="lazy"></p>
+<h4 id="Transformer-Encoder"><a href="#Transformer-Encoder" class="headerlink" title="Transformer Encoder"></a>Transformer Encoder</h4><p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216130617836.png" alt="image-20241216130617836" loading="lazy"></p>
+<h4 id="MLP-Head"><a href="#MLP-Head" class="headerlink" title="MLP Head"></a>MLP Head</h4><p> MLP Head可以简单理解为就是一个Linear层。</p>
+<p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216131240947.png" alt="image-20241216131240947" loading="lazy"></p>
+<h3 id="ViT-B-16结构"><a href="#ViT-B-16结构" class="headerlink" title="ViT-B&#x2F;16结构"></a>ViT-B&#x2F;16结构</h3><p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/721d65bffe3543a7e87b970a4a15eb54.png" alt="img" loading="lazy"></p>
+<h3 id="参考文章-视频"><a href="#参考文章-视频" class="headerlink" title="参考文章(视频)"></a>参考文章(视频)</h3><p><a href="https://www.bilibili.com/video/BV1Jh411Y7WQ?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">11.1 Vision Transformer(vit)网络详解_哔哩哔哩_bilibili</a></p>
+<p><a href="https://www.bilibili.com/video/BV1AL411W7dT?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">11.2 使用pytorch搭建Vision Transformer(vit)模型_哔哩哔哩_bilibili</a></p>
+<p><a href="https://blog.csdn.net/qq_37541097/article/details/118242600">Vision Transformer详解-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/weixin_42392454/article/details/122667271">狗都能看懂的Vision Transformer的讲解和代码实现_vision transformer代码-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>写笔记</category>
+      </categories>
+      <tags>
+        <tag>Vision Transformer</tag>
+      </tags>
   </entry>
 </search>

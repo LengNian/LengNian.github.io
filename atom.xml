@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-12-16T03:42:50.650Z</updated>
+  <updated>2024-12-16T05:26:09.772Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -21,14 +21,15 @@
     <link href="http://lengnian.github.io/posts/1defb2fa/"/>
     <id>http://lengnian.github.io/posts/1defb2fa/</id>
     <published>2024-12-16T02:01:30.000Z</published>
-    <updated>2024-12-16T03:42:50.650Z</updated>
+    <updated>2024-12-16T05:26:09.772Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;Swin-Transformer&quot;&gt;&lt;a href=&quot;#Swin-Transformer&quot; class=&quot;headerlink&quot; title=&quot;Swin Transformer&quot;&gt;&lt;/a&gt;Swin Transformer&lt;/h3&gt;&lt;h4</summary>
+    <summary type="html">&lt;p&gt;本文用于记录自己在学习Swin Transformer中理解，方便日后复习，文章中所使用图片全部来自于参考文章中所列文章或视频，仅用于个人学习使用。&lt;/p&gt;
+&lt;h3 id=&quot;Swin-Transformer&quot;&gt;&lt;a href=&quot;#Swin-Transformer&quot;</summary>
         
       
     
@@ -46,11 +47,24 @@
     <link href="http://lengnian.github.io/posts/2d942648/"/>
     <id>http://lengnian.github.io/posts/2d942648/</id>
     <published>2024-12-16T02:01:06.000Z</published>
-    <updated>2024-12-16T02:01:06.126Z</updated>
+    <updated>2024-12-16T05:19:49.456Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本文用于记录自己在学习Vision Transformer中理解，方便日后复习，文章中所使用图片全部来自于参考文章中所列文章或视频，仅用于个人学习使用。&lt;/p&gt;
+&lt;h3 id=&quot;Vision-Transformer&quot;&gt;&lt;a</summary>
+        
+      
     
     
     
+    <category term="写笔记" scheme="http://lengnian.github.io/categories/%E5%86%99%E7%AC%94%E8%AE%B0/"/>
     
+    
+    <category term="Vision Transformer" scheme="http://lengnian.github.io/tags/Vision-Transformer/"/>
     
   </entry>
   
@@ -88,14 +102,15 @@
     <link href="http://lengnian.github.io/posts/3b51a2ff/"/>
     <id>http://lengnian.github.io/posts/3b51a2ff/</id>
     <published>2024-12-06T04:57:27.000Z</published>
-    <updated>2024-12-16T02:08:22.071Z</updated>
+    <updated>2024-12-16T05:23:01.963Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;Self-attention&quot;&gt;&lt;a href=&quot;#Self-attention&quot; class=&quot;headerlink&quot; title=&quot;Self-attention&quot;&gt;&lt;/a&gt;Self-attention&lt;/h3&gt;&lt;h4</summary>
+    <summary type="html">&lt;p&gt;本文用于记录自己在学习Transformer中理解，方便日后复习，文章中所使用图片全部来自于参考文章中所列文章或视频，仅用于个人学习使用。&lt;/p&gt;
+&lt;h3 id=&quot;Self-attention&quot;&gt;&lt;a href=&quot;#Self-attention&quot;</summary>
         
       
     
