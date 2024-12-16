@@ -2816,7 +2816,7 @@ plt<span class="token punctuation">.</span>tight_layout<span class="token punctu
 <li>亢奋√</li>
 <li>宿敌√</li>
 <li>好团圆√</li>
-<li>太阳星辰</li>
+<li>太阳星辰√</li>
 <li>念念勿忘</li>
 <li>黑白诀√</li>
 <li>我是刑警</li>
@@ -3089,9 +3089,8 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 </li>
 <li><p>layer norm</p>
 </li>
-<li><p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155823308.png" alt="image-20241206155823308" loading="lazy"></p>
-</li>
 </ul>
+<p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155823308.png" alt="image-20241206155823308" loading="lazy"></p>
 <p>每个block的结构又如下图所示<br><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155316616.png" alt="image-20241206155316616" loading="lazy"></p>
 <p> <img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206155536850.png" alt="image-20241206155536850" loading="lazy"></p>
 <h4 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h4><h5 id="Input-Output"><a href="#Input-Output" class="headerlink" title="Input &amp; Output"></a>Input &amp; Output</h5><p> voc_size:就是可能输出的单词总数，比如26个字母，或者2000个汉字</p>
@@ -3112,6 +3111,11 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <h4 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h4><p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206165024419.png" alt="image-20241206165024419" loading="lazy"></p>
 <p><img src="/Transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241206165109208.png" alt="image-20241206165109208" loading="lazy"></p>
 <p>Decoder每一个输出都有一个cross entropy，希望cross entropy的总和最少，同时模型还要能够输出结束标记END。</p>
+<h3 id="参考文章-视频"><a href="#参考文章-视频" class="headerlink" title="参考文章(视频)"></a>参考文章(视频)</h3><p><a href="https://www.bilibili.com/video/BV1o2421A7Dr/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=ce2ba30706a07f3300142a42d4e3023f">【研1基本功 （真的很简单）注意力机制】手写多头注意力机制_哔哩哔哩_bilibili</a></p>
+<p><a href="https://www.bilibili.com/video/BV1cV411X7XN/?spm_id_from=333.337.search-card.all.click&vd_source=dff3ad76ed17ff6ff5fee17de98f73c5">Transformer终于有拿得出手得教程了！ 台大李宏毅自注意力机制和Transformer详解！通俗易懂，草履虫都学的会！_哔哩哔哩_bilibili</a></p>
+<p><a href="https://www.bilibili.com/video/BV13z421U7cs/?spm_id_from=333.337.search-card.all.click&vd_source=ce2ba30706a07f3300142a42d4e3023f">【官方双语】GPT是什么？直观解释Transformer | 深度学习第5章_哔哩哔哩_bilibili</a></p>
+<p><a href="https://www.bilibili.com/video/BV1XH4y1T76e/?spm_id_from=333.337.search-card.all.click&vd_source=ce2ba30706a07f3300142a42d4e3023f">从编解码和词嵌入开始，一步一步理解Transformer，注意力机制(Attention)的本质是卷积神经网络(CNN)_哔哩哔哩_bilibili</a></p>
+<p> <a href="https://www.bilibili.com/video/BV1pu411o7BE?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">Transformer论文逐段精读【论文精读】_哔哩哔哩_bilibili</a></p>
 ]]></content>
       <categories>
         <category>写笔记</category>
@@ -3380,5 +3384,65 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       <tags>
         <tag>读论文</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>SwinTransformer学习记录</title>
+    <url>/posts/1defb2fa/</url>
+    <content><![CDATA[<h3 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h3><h4 id="Compare-Vit-and-Swin-Transformer"><a href="#Compare-Vit-and-Swin-Transformer" class="headerlink" title="Compare Vit and Swin-Transformer"></a>Compare Vit and Swin-Transformer</h4><ul>
+<li><p>Swin-Transformer具有层次性，随着层次加深，高宽减小，而Transformer是直接下采样16倍，之后保持不变；</p>
+</li>
+<li><p>Swin-Transformer是将特征图分割，并且没有重叠，而transformer中没有分割(可以降低参数量 )；</p>
+</li>
+</ul>
+<p> <img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215223036660.png" alt="image-20241215223036660" loading="lazy"></p>
+<h4 id="Swin-transformer-network"><a href="#Swin-transformer-network" class="headerlink" title="Swin transformer network"></a>Swin transformer network</h4><p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215223210273.png" alt="image-20241215223210273" loading="lazy"></p>
+<p>每经过一个stage，宽和高下采样两倍，但是channel也会扩大两倍。</p>
+<p>Patch Partition和Linear Embedding(包含Layer Norm)都可以通过卷积层完成</p>
+<p>每个Swin Transformer Block都是重复偶数次，因为每个Swin Transformer Block中都是右侧两个Block重复使用(将多头自注意力MSA替换为W-MAS和SW-MAS。</p>
+<h4 id="Patch-Partition"><a href="#Patch-Partition" class="headerlink" title="Patch Partition"></a>Patch Partition</h4><p>将一个通道上的内容，用patch_size为4*4进行分割，然后在通道维再进行展平，</p>
+<p>Patch Partition和Linear Embedding(包含Layer Norm)都可以通过卷积层完成。</p>
+<h4 id="Patch-Merging"><a href="#Patch-Merging" class="headerlink" title="Patch Merging"></a>Patch Merging</h4><p>以4 * 4 * 1图像为例，窗口大小为2 * 2，会将每个窗口的第i个元素取出来，然后在通道方向堆叠。并在通道方向进行layer nrom。相比输入，长宽缩小二倍，通道扩大二倍。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215224801017.png" alt="image-20241215224801017" loading="lazy"></p>
+<h4 id="W-MSA"><a href="#W-MSA" class="headerlink" title="W-MSA"></a>W-MSA</h4><p> MSA是对特征图中的每个像素计算与其它像素之间的QKV，而W-MS A是对每个窗口中的每个像素计算QKV,而窗口和窗口之间没有任何交互。窗口之间无法进行交互会导致感受野变小，无法看到全局视野。 </p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215225126960.png" alt="image-20241215225126960" loading="lazy"></p>
+<h4 id="Shifted-Windows-MSA"><a href="#Shifted-Windows-MSA" class="headerlink" title="Shifted Windows MSA"></a>Shifted Windows MSA</h4><p>实现不同窗口之间的信息交互，如果layeri用的MSA，那么layeri+1就要用SW-MSA。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215230713869.png" alt="image-20241215230713869" loading="lazy"></p>
+<p>其实就是将每个window向右、向下移动两个像素，这样再次划分的窗口就会不同。  </p>
+<p>移动像素之后对新的特征图再次划分窗口，可以看到划分以后的新的特征图中窗口数变多，并且尺寸不同，如果想要进行并行计算，就必须把小于4*4的窗口重现填充为，这样就相当于计算9个windows，计算量又增加。</p>
+<p>所以，作者提出一种高效的方法。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232051146.png" alt="image-20241215232051146" loading="lazy"></p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232130757.png" alt="image-20241215232130757" loading="lazy"></p>
+<p>对划分window后的区域重新分类，如上面第一张图，然后把1，2合并起来称为C，把3，6合并起来称为B。最后吧第一行移动到最下面，再把最左边一行移动到最右面，就是上面第二张图的效果。此时，将3，5合并，8，6，2，0合并，1，7合并就是四个4*4的window。这样子的计算量就和之前一样。</p>
+<p>但是又有新的问题，以3，5为例，这里把3，5强行看成一个区域，原本这两个区域就不是相邻的，直接计算QKV是有问题的。 所以作者引入mask去解决这个问题。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232720343.png" alt="image-20241215232720343" loading="lazy"></p>
+<p>先依次计算q，可以看到 $ \alpha_{0，2}，\alpha_{0，3}，…$等是5和3之间不需要的内容，这里对他们的值-100，之后再通过softmax对应位置的值就会变为0，这样就达到了同时只计算5区域和3区域内的Q，其它区域同理。注意，计算完之后还要把对应数据还原。</p>
+<h4 id="Relative-position-bias"><a href="#Relative-position-bias" class="headerlink" title="Relative position bias"></a>Relative position bias</h4><p>$ Attention(Q,K,V) &#x3D; SoftMax(QK^{T}&#x2F;\sqrt{d}+B)V$</p>
+<h5 id="Relative-position-index"><a href="#Relative-position-index" class="headerlink" title="Relative position index"></a>Relative position index</h5><p> 在此之前先要介绍一下相对位置索引</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094122036.png" alt="image-20241216094122036" loading="lazy"></p>
+<p>以window_size&#x3D;2为例，绝对位置索引就是用行，列代表，而相对位置索引就是用当前匹配的像素位置索引为参考点，减去其它像素的位置索引，如上图所示。然后将其在行方向上展平。</p>
+<p>但是这里使用的是二维坐标，而作者在原论文中使用的是一维坐标。如果只是简单的行列相加，就会令(0，-1)和(-1，0)原本不是同一位置的地方取到相同的值。作者是这样做的：(M代表窗口大小)</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094627443.png" alt="image-20241216094627443" loading="lazy"></p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094655799.png" alt="image-20241216094655799" loading="lazy"></p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094709682.png" alt="image-20241216094709682" loading="lazy"> </p>
+<p> 经过这样的操作，可以看到原本位置相同仍然可以取到相同的索引，位置不同但行列和相同的取到了不同的坐标。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216095309203.png" alt="image-20241216095309203" loading="lazy"> </p>
+<p>然后就可以根据relative position index从中取到bias。</p>
+<p>为什么 relative position bias table的长度是(2M-1)*(2M-1)呢？</p>
+<p>对于window_size&#x3D;M，能取到的索引点的最大位置就是[-M+1， M-1],所以，行&#x2F;列索引可取到的数就有2M-1种可能，所以最后relative position bias table的长度就是(2M-1)*(2M-1)。</p>
+<p>相对位置索引是为了在相对位置偏执中取参数，训练过程中真正训练的是relative position bias table中的内容。</p>
+<h3 id="参考文章-视频"><a href="#参考文章-视频" class="headerlink" title="参考文章(视频)"></a>参考文章(视频)</h3><p><a href="https://www.bilibili.com/video/BV1pL4y1v7jC/?spm_id_from=333.337.search-card.all.click&vd_source=ce2ba30706a07f3300142a42d4e3023f">12.1 Swin-Transformer网络结构详解_哔哩哔哩_bilibili</a></p>
+<p><a href="https://blog.csdn.net/qq_37541097/article/details/121119988?spm=1001.2014.3001.5501">Swin-Transformer网络结构详解_swin transformer-CSDN博客</a></p>
+]]></content>
+      <categories>
+        <category>写笔记</category>
+      </categories>
+      <tags>
+        <tag>Swin-Transformer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VisionTransformer学习记录</title>
+    <url>/posts/2d942648/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>

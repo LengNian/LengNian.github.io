@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>SwinTransformer学习记录 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="Swin TransformerCompare Vit and Swin-Transformer Swin-Transformer具有层次性，随着层次加深，高宽减小，而Transformer是直接下采样16倍，之后保持不变；  Swin-Transformer是将特征图分割，并且没有重叠，而transformer中没有分割(可以降低参数量 )；     Swin transformer netwo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwinTransformer学习记录">
+<meta property="og:url" content="http://lengnian.github.io/posts/1defb2fa/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="Swin TransformerCompare Vit and Swin-Transformer Swin-Transformer具有层次性，随着层次加深，高宽减小，而Transformer是直接下采样16倍，之后保持不变；  Swin-Transformer是将特征图分割，并且没有重叠，而transformer中没有分割(可以降低参数量 )；     Swin transformer netwo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215223036660.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215223210273.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215224801017.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215225126960.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215230713869.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232051146.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232130757.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232720343.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094122036.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094627443.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094655799.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094709682.png">
+<meta property="og:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216095309203.png">
+<meta property="article:published_time" content="2024-12-16T02:01:30.000Z">
+<meta property="article:modified_time" content="2024-12-16T03:42:50.650Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="Swin-Transformer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lengnian.github.io/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215223036660.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">23</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">18</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">1.</span> <span class="toc-text">Swin Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Compare-Vit-and-Swin-Transformer"><span class="toc-number">1.1.</span> <span class="toc-text">Compare Vit and Swin-Transformer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Swin-transformer-network"><span class="toc-number">1.2.</span> <span class="toc-text">Swin transformer network</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Patch-Partition"><span class="toc-number">1.3.</span> <span class="toc-text">Patch Partition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Patch-Merging"><span class="toc-number">1.4.</span> <span class="toc-text">Patch Merging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#W-MSA"><span class="toc-number">1.5.</span> <span class="toc-text">W-MSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Shifted-Windows-MSA"><span class="toc-number">1.6.</span> <span class="toc-text">Shifted Windows MSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Relative-position-bias"><span class="toc-number">1.7.</span> <span class="toc-text">Relative position bias</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Relative-position-index"><span class="toc-number">1.7.1.</span> <span class="toc-text">Relative position index</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-%E8%A7%86%E9%A2%91"><span class="toc-number">2.</span> <span class="toc-text">参考文章(视频)</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/1defb2fa/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">SwinTransformer学习记录</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-12-16 10:01:30" itemprop="dateCreated datePublished" datetime="2024-12-16T10:01:30+08:00">2024-12-16</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">1.2k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">4m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E7%AC%94%E8%AE%B0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写笔记</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Swin-Transformer/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">Swin-Transformer</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h3 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h3><h4 id="Compare-Vit-and-Swin-Transformer"><a href="#Compare-Vit-and-Swin-Transformer" class="headerlink" title="Compare Vit and Swin-Transformer"></a>Compare Vit and Swin-Transformer</h4><ul>
+<li><p>Swin-Transformer具有层次性，随着层次加深，高宽减小，而Transformer是直接下采样16倍，之后保持不变；</p>
+</li>
+<li><p>Swin-Transformer是将特征图分割，并且没有重叠，而transformer中没有分割(可以降低参数量 )；</p>
+</li>
+</ul>
+<p> <img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215223036660.png" alt="image-20241215223036660" loading="lazy"></p>
+<h4 id="Swin-transformer-network"><a href="#Swin-transformer-network" class="headerlink" title="Swin transformer network"></a>Swin transformer network</h4><p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215223210273.png" alt="image-20241215223210273" loading="lazy"></p>
+<p>每经过一个stage，宽和高下采样两倍，但是channel也会扩大两倍。</p>
+<p>Patch Partition和Linear Embedding(包含Layer Norm)都可以通过卷积层完成</p>
+<p>每个Swin Transformer Block都是重复偶数次，因为每个Swin Transformer Block中都是右侧两个Block重复使用(将多头自注意力MSA替换为W-MAS和SW-MAS。</p>
+<h4 id="Patch-Partition"><a href="#Patch-Partition" class="headerlink" title="Patch Partition"></a>Patch Partition</h4><p>将一个通道上的内容，用patch_size为4*4进行分割，然后在通道维再进行展平，</p>
+<p>Patch Partition和Linear Embedding(包含Layer Norm)都可以通过卷积层完成。</p>
+<h4 id="Patch-Merging"><a href="#Patch-Merging" class="headerlink" title="Patch Merging"></a>Patch Merging</h4><p>以4 * 4 * 1图像为例，窗口大小为2 * 2，会将每个窗口的第i个元素取出来，然后在通道方向堆叠。并在通道方向进行layer nrom。相比输入，长宽缩小二倍，通道扩大二倍。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215224801017.png" alt="image-20241215224801017" loading="lazy"></p>
+<h4 id="W-MSA"><a href="#W-MSA" class="headerlink" title="W-MSA"></a>W-MSA</h4><p> MSA是对特征图中的每个像素计算与其它像素之间的QKV，而W-MS A是对每个窗口中的每个像素计算QKV,而窗口和窗口之间没有任何交互。窗口之间无法进行交互会导致感受野变小，无法看到全局视野。 </p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215225126960.png" alt="image-20241215225126960" loading="lazy"></p>
+<h4 id="Shifted-Windows-MSA"><a href="#Shifted-Windows-MSA" class="headerlink" title="Shifted Windows MSA"></a>Shifted Windows MSA</h4><p>实现不同窗口之间的信息交互，如果layeri用的MSA，那么layeri+1就要用SW-MSA。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215230713869.png" alt="image-20241215230713869" loading="lazy"></p>
+<p>其实就是将每个window向右、向下移动两个像素，这样再次划分的窗口就会不同。  </p>
+<p>移动像素之后对新的特征图再次划分窗口，可以看到划分以后的新的特征图中窗口数变多，并且尺寸不同，如果想要进行并行计算，就必须把小于4*4的窗口重现填充为，这样就相当于计算9个windows，计算量又增加。</p>
+<p>所以，作者提出一种高效的方法。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232051146.png" alt="image-20241215232051146" loading="lazy"></p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232130757.png" alt="image-20241215232130757" loading="lazy"></p>
+<p>对划分window后的区域重新分类，如上面第一张图，然后把1，2合并起来称为C，把3，6合并起来称为B。最后吧第一行移动到最下面，再把最左边一行移动到最右面，就是上面第二张图的效果。此时，将3，5合并，8，6，2，0合并，1，7合并就是四个4*4的window。这样子的计算量就和之前一样。</p>
+<p>但是又有新的问题，以3，5为例，这里把3，5强行看成一个区域，原本这两个区域就不是相邻的，直接计算QKV是有问题的。 所以作者引入mask去解决这个问题。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241215232720343.png" alt="image-20241215232720343" loading="lazy"></p>
+<p>先依次计算q，可以看到 $ \alpha_{0，2}，\alpha_{0，3}，…$等是5和3之间不需要的内容，这里对他们的值-100，之后再通过softmax对应位置的值就会变为0，这样就达到了同时只计算5区域和3区域内的Q，其它区域同理。注意，计算完之后还要把对应数据还原。</p>
+<h4 id="Relative-position-bias"><a href="#Relative-position-bias" class="headerlink" title="Relative position bias"></a>Relative position bias</h4><p>$ Attention(Q,K,V) &#x3D; SoftMax(QK^{T}&#x2F;\sqrt{d}+B)V$</p>
+<h5 id="Relative-position-index"><a href="#Relative-position-index" class="headerlink" title="Relative position index"></a>Relative position index</h5><p> 在此之前先要介绍一下相对位置索引</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094122036.png" alt="image-20241216094122036" loading="lazy"></p>
+<p>以window_size&#x3D;2为例，绝对位置索引就是用行，列代表，而相对位置索引就是用当前匹配的像素位置索引为参考点，减去其它像素的位置索引，如上图所示。然后将其在行方向上展平。</p>
+<p>但是这里使用的是二维坐标，而作者在原论文中使用的是一维坐标。如果只是简单的行列相加，就会令(0，-1)和(-1，0)原本不是同一位置的地方取到相同的值。作者是这样做的：(M代表窗口大小)</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094627443.png" alt="image-20241216094627443" loading="lazy"></p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094655799.png" alt="image-20241216094655799" loading="lazy"></p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216094709682.png" alt="image-20241216094709682" loading="lazy"> </p>
+<p> 经过这样的操作，可以看到原本位置相同仍然可以取到相同的索引，位置不同但行列和相同的取到了不同的坐标。</p>
+<p><img src="/SwinTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216095309203.png" alt="image-20241216095309203" loading="lazy"> </p>
+<p>然后就可以根据relative position index从中取到bias。</p>
+<p>为什么 relative position bias table的长度是(2M-1)*(2M-1)呢？</p>
+<p>对于window_size&#x3D;M，能取到的索引点的最大位置就是[-M+1， M-1],所以，行&#x2F;列索引可取到的数就有2M-1种可能，所以最后relative position bias table的长度就是(2M-1)*(2M-1)。</p>
+<p>相对位置索引是为了在相对位置偏执中取参数，训练过程中真正训练的是relative position bias table中的内容。</p>
+<h3 id="参考文章-视频"><a href="#参考文章-视频" class="headerlink" title="参考文章(视频)"></a>参考文章(视频)</h3><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pL4y1v7jC/?spm_id_from=333.337.search-card.all.click&vd_source=ce2ba30706a07f3300142a42d4e3023f">12.1 Swin-Transformer网络结构详解_哔哩哔哩_bilibili</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/121119988?spm=1001.2014.3001.5501">Swin-Transformer网络结构详解_swin transformer-CSDN博客</a></p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/1defb2fa/" title="SwinTransformer学习记录">http://lengnian.github.io/posts/1defb2fa/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/2d942648/" rel="next" title="VisionTransformer学习记录"><span class="post-nav-text">VisionTransformer学习记录</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
