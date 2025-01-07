@@ -3467,6 +3467,7 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <h4 id="MLP-Head"><a href="#MLP-Head" class="headerlink" title="MLP Head"></a>MLP Head</h4><p> MLP Head可以简单理解为就是一个Linear层。</p>
 <p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216131240947.png" alt="image-20241216131240947" loading="lazy"></p>
 <h3 id="ViT-B-16结构"><a href="#ViT-B-16结构" class="headerlink" title="ViT-B&#x2F;16结构"></a>ViT-B&#x2F;16结构</h3><p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/721d65bffe3543a7e87b970a4a15eb54.png" alt="img" loading="lazy"></p>
+<p>测试</p>
 
 
 
