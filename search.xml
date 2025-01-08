@@ -3482,7 +3482,7 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   <entry>
     <title>hexo上传文章时图片文件夹被随意截断问题</title>
     <url>/posts/4522cfbc/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对于自己的博客，上传图片都是通过hexo-asset-image插件进行上传，然后在文章中使用固定格式 skjhdjhkd 就可以上传了，当时具体的解决步骤在这里<a href="https://lengnian.github.io/posts/95fa3d73/">Hexo-GitHub Pages解决上传文章图片不显示的问题 | WeiSJ&amp;HEXO</a>，感兴趣的可以去看一下。</p>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对于自己的博客，上传图片都是通过hexo-asset-image插件进行上传，然后在文章中使用固定格式 <img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108214823646.png" alt="image-20250108214823646" loading="lazy"> 就可以上传了，当时具体的解决步骤在这里<a href="https://lengnian.github.io/posts/95fa3d73/">Hexo-GitHub Pages解决上传文章图片不显示的问题 | WeiSJ&amp;HEXO</a>，感兴趣的可以去看一下。</p>
 <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>但是用了两个月以后，就出现了仍然按照之前的方法，但是部署的时候就会看到图片的上传路径明显出现问题。比如我的文章名为visionTransformer学习记录。那么按照我上面链接中的方法，在文件夹中会有这样的格式</p>
 <pre class="line-numbers language-none"><code class="language-none">_posts
 |--visionTransformer学习记录.md  # 文章编辑
@@ -3507,7 +3507,7 @@ cp -r source&#x2F;_post&#x2F;*&#x2F; public&#x2F;
 hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>cp -r source&#x2F;_posts&#x2F;*&#x2F; public&#x2F;（代码框里的source有问题，直接复制这里的。）</p>
-<p>再次部署，图片成功上传，并且这种方法不需要使用这种固定格式，可以直接把图片黏贴到markdown文件中，如下。</p>
+<p>再次部署，图片成功上传，并且这种方法不需要使用这种固定格式<img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108214837054.png" alt="image-20250108214837054" loading="lazy">，可以直接把图片黏贴到markdown文件中，如下。</p>
 <p><img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108212801193.png" alt="image-20250108212801193" loading="lazy"></p>
 <p>但是，这样部署以后图片文件夹全部跑到了github仓库中首页而不是post下对应的文件夹中。</p>
 <p>虽然还是有点瑕疵，但总归解决了问题。之后如果有新的问题再去看看其它的解决方法。</p>
