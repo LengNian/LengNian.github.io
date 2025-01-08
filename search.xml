@@ -3498,7 +3498,7 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <p>最初我以为是使用主题的问题，后来，我试着更换了主题，然后上传时还是这样的问题，也可能是插件的问题，我又卸载插件重新安装等一系列方法，都是不行。</p>
 <h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>后来我无意看到一种方法，这种方法将 source&#x2F;_posts&#x2F; 目录下的所有子目录中的 img 文件夹复制到 public&#x2F; 目录中。</p>
 <pre class="line-numbers language-hexo" data-language="hexo"><code class="language-hexo">hexo g
-cp -r source&#x2F;_post&#x2F;*&#x2F;img public&#x2F;
+cp -r source&#x2F;_posts&#x2F;*&#x2F; public&#x2F;
 hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>根据我的存放结果修改为</p>
@@ -3506,6 +3506,7 @@ hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
 cp -r source&#x2F;_post&#x2F;*&#x2F; public&#x2F;
 hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
+<p>cp -r source&#x2F;_posts&#x2F;*&#x2F; public&#x2F;（代码框里的source有问题，直接复制这里的。）</p>
 <p>再次部署，图片成功上传，并且这种方法不需要使用这种固定格式，可以直接把图片黏贴到markdown文件中，如下。</p>
 <p><img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108212801193.png" alt="image-20250108212801193" loading="lazy"></p>
 <p>但是，这样部署以后图片文件夹全部跑到了github仓库中首页而不是post下对应的文件夹中。</p>
