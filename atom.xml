@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2024-12-16T05:26:09.772Z</updated>
+  <updated>2025-01-08T13:40:34.151Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo上传文章时图片文件夹被随意截断问题</title>
+    <link href="http://lengnian.github.io/posts/4522cfbc/"/>
+    <id>http://lengnian.github.io/posts/4522cfbc/</id>
+    <published>2025-01-08T12:47:43.000Z</published>
+    <updated>2025-01-08T13:40:34.151Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;对于自己的博客，上传图片都是通过hexo-asset-image插件进行上传，然后在文章中使用固定格式 skjhdjhkd</summary>
+        
+      
+    
+    
+    
+    <category term="解问题" scheme="http://lengnian.github.io/categories/%E8%A7%A3%E9%97%AE%E9%A2%98/"/>
+    
+    
+    <category term="Hexo" scheme="http://lengnian.github.io/tags/Hexo/"/>
+    
+    <category term="Github Pages" scheme="http://lengnian.github.io/tags/Github-Pages/"/>
+    
+  </entry>
   
   <entry>
     <title>SwinTransformer学习记录</title>
@@ -47,7 +74,7 @@
     <link href="http://lengnian.github.io/posts/2d942648/"/>
     <id>http://lengnian.github.io/posts/2d942648/</id>
     <published>2024-12-16T02:01:06.000Z</published>
-    <updated>2025-01-08T12:37:42.545Z</updated>
+    <updated>2025-01-08T12:46:33.828Z</updated>
     
     
       
@@ -531,32 +558,6 @@
     <category term="Hexo" scheme="http://lengnian.github.io/tags/Hexo/"/>
     
     <category term="GitHub Pages" scheme="http://lengnian.github.io/tags/GitHub-Pages/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的2023——谨以此纪念我的考研</title>
-    <link href="http://lengnian.github.io/posts/ace8cace/"/>
-    <id>http://lengnian.github.io/posts/ace8cace/</id>
-    <published>2024-07-24T13:16:27.000Z</published>
-    <updated>2024-07-26T03:24:41.495Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;很久之前就想写这篇文章了，但是一直拖着没有完成（其实自己就是非常懒）。近期正好没什么事情，而且再不写感觉就要忘记了。&lt;/p&gt;
-&lt;p&gt;我本身就不是一个聪明的人，甚至有些迟钝，很多问题别人感觉轻而易举就可以拿下，但我总要反应一阵子。我一贯认为，天赋决定上限，而努力可以决定下限，</summary>
-        
-      
-    
-    
-    
-    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
-    
-    
-    <category term="回忆录" scheme="http://lengnian.github.io/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/"/>
     
   </entry>
   

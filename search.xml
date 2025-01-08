@@ -3467,8 +3467,6 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <h4 id="MLP-Head"><a href="#MLP-Head" class="headerlink" title="MLP Head"></a>MLP Head</h4><p> MLP Head可以简单理解为就是一个Linear层。</p>
 <p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20241216131240947.png" alt="image-20241216131240947" loading="lazy"></p>
 <h3 id="ViT-B-16结构"><a href="#ViT-B-16结构" class="headerlink" title="ViT-B&#x2F;16结构"></a>ViT-B&#x2F;16结构</h3><p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/721d65bffe3543a7e87b970a4a15eb54.png" alt="img" loading="lazy"></p>
-<p>测试</p>
-<p><img src="/VisionTransformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250108203733156.png" alt="image-20250108203733156" loading="lazy"></p>
 <h3 id="参考文章-视频"><a href="#参考文章-视频" class="headerlink" title="参考文章(视频)"></a>参考文章(视频)</h3><p><a href="https://www.bilibili.com/video/BV1Jh411Y7WQ?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">11.1 Vision Transformer(vit)网络详解_哔哩哔哩_bilibili</a></p>
 <p><a href="https://www.bilibili.com/video/BV1AL411W7dT?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">11.2 使用pytorch搭建Vision Transformer(vit)模型_哔哩哔哩_bilibili</a></p>
 <p><a href="https://blog.csdn.net/qq_37541097/article/details/118242600">Vision Transformer详解-CSDN博客</a></p>
@@ -3479,6 +3477,46 @@ git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       </categories>
       <tags>
         <tag>Vision Transformer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo上传文章时图片文件夹被随意截断问题</title>
+    <url>/posts/4522cfbc/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对于自己的博客，上传图片都是通过hexo-asset-image插件进行上传，然后在文章中使用固定格式 skjhdjhkd 就可以上传了，当时具体的解决步骤在这里<a href="https://lengnian.github.io/posts/95fa3d73/">Hexo-GitHub Pages解决上传文章图片不显示的问题 | WeiSJ&amp;HEXO</a>，感兴趣的可以去看一下。</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>但是用了两个月以后，就出现了仍然按照之前的方法，但是部署的时候就会看到图片的上传路径明显出现问题。比如我的文章名为visionTransformer学习记录。那么按照我上面链接中的方法，在文件夹中会有这样的格式</p>
+<pre class="line-numbers language-none"><code class="language-none">_posts
+|--visionTransformer学习记录.md  # 文章编辑
+|--visionTransformer学习记录  # 存放文章编辑中用到的图片<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>然后正常上传以后，在github的仓库中这篇文章下就是有一个index.html和用到的图片，如下</p>
+<p><img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108210548851.png" alt="image-20250108210548851" loading="lazy"></p>
+<p>而现在呢，只会有包含文章的index.html，图片会被随意上传到某个文件夹，比如这个样子:</p>
+<p><img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108210757998.png" alt="image-20250108210757998" loading="lazy"></p>
+<p>部署时可以看到这样的东西(马赛克遮住了我发表在CSDN上的问题)：</p>
+<p><img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108211334687.png" alt="image-20250108211334687" loading="lazy"> </p>
+<p>可以看到生成时文件夹就出现了问题，然后后面也是一连串的问题。</p>
+<p>最初我以为是使用主题的问题，后来，我试着更换了主题，然后上传时还是这样的问题，也可能是插件的问题，我又卸载插件重新安装等一系列方法，都是不行。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>后来我无意看到一种方法，这种方法将 source&#x2F;_posts&#x2F; 目录下的所有子目录中的 img 文件夹复制到 public&#x2F; 目录中。</p>
+<pre class="line-numbers language-hexo" data-language="hexo"><code class="language-hexo">hexo g
+cp -r source&#x2F;_post&#x2F;*&#x2F;img public&#x2F;
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>根据我的存放结果修改为</p>
+<pre class="line-numbers language-none"><code class="language-none">hexo g
+cp -r source&#x2F;_post&#x2F;*&#x2F; public&#x2F;
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>再次部署，图片成功上传，并且这种方法不需要使用这种固定格式，可以直接把图片黏贴到markdown文件中，如下。</p>
+<p><img src="/hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E7%AB%A0%E6%97%B6%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9%E8%A2%AB%E9%9A%8F%E6%84%8F%E6%88%AA%E6%96%AD%E9%97%AE%E9%A2%98/image-20250108212801193.png" alt="image-20250108212801193" loading="lazy"></p>
+<p>但是，这样部署以后图片文件夹全部跑到了github仓库中首页而不是post下对应的文件夹中。</p>
+<p>虽然还是有点瑕疵，但总归解决了问题。之后如果有新的问题再去看看其它的解决方法。</p>
+]]></content>
+      <categories>
+        <category>解问题</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Github Pages</tag>
       </tags>
   </entry>
 </search>
