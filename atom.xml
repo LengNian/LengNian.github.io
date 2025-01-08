@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2025-01-08T13:48:40.511Z</updated>
+  <updated>2025-01-08T13:53:21.909Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://lengnian.github.io/posts/4522cfbc/"/>
     <id>http://lengnian.github.io/posts/4522cfbc/</id>
     <published>2025-01-08T12:47:43.000Z</published>
-    <updated>2025-01-08T13:48:40.511Z</updated>
+    <updated>2025-01-08T13:53:21.909Z</updated>
     
     
       
@@ -40,6 +40,32 @@
     <category term="Hexo" scheme="http://lengnian.github.io/tags/Hexo/"/>
     
     <category term="Github Pages" scheme="http://lengnian.github.io/tags/Github-Pages/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《小小的我》观后感</title>
+    <link href="http://lengnian.github.io/posts/90f0037e/"/>
+    <id>http://lengnian.github.io/posts/90f0037e/</id>
+    <published>2025-01-06T14:13:35.000Z</published>
+    <updated>2025-01-08T14:53:52.274Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天去看了电影《小小的我》，自己很久没有这么冲动的想去看一部电影。但是因为最近有很多事情，一直拖到了6号才去看。2号有几门蛮重要的考试，然后3，4，5号自己最好的朋友来找我玩，6号早上考完试，中午就买了票下午就去了电影院。&lt;/p&gt;
+&lt;p&gt;为什么会特别想要去看这部电影呢？因为</summary>
+        
+      
+    
+    
+    
+    <category term="记随笔" scheme="http://lengnian.github.io/categories/%E8%AE%B0%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="电影" scheme="http://lengnian.github.io/tags/%E7%94%B5%E5%BD%B1/"/>
     
   </entry>
   
@@ -531,33 +557,6 @@
     <category term="目标计数" scheme="http://lengnian.github.io/tags/%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0/"/>
     
     <category term="综述" scheme="http://lengnian.github.io/tags/%E7%BB%BC%E8%BF%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo-GitHub Pages解决上传文章图片不显示的问题</title>
-    <link href="http://lengnian.github.io/posts/95fa3d73/"/>
-    <id>http://lengnian.github.io/posts/95fa3d73/</id>
-    <published>2024-07-24T15:25:02.000Z</published>
-    <updated>2024-07-24T16:18:12.802Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="解问题" scheme="http://lengnian.github.io/categories/%E8%A7%A3%E9%97%AE%E9%A2%98/"/>
-    
-    
-    <category term="Hexo" scheme="http://lengnian.github.io/tags/Hexo/"/>
-    
-    <category term="GitHub Pages" scheme="http://lengnian.github.io/tags/GitHub-Pages/"/>
     
   </entry>
   
