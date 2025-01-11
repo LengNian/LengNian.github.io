@@ -6,7 +6,7 @@
   <link href="http://lengnian.github.io/atom.xml" rel="self"/>
   
   <link href="http://lengnian.github.io/"/>
-  <updated>2025-01-08T13:53:21.909Z</updated>
+  <updated>2025-01-11T13:43:40.119Z</updated>
   <id>http://lengnian.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LOCA论文阅读与源码理解</title>
+    <link href="http://lengnian.github.io/posts/9bf517d2/"/>
+    <id>http://lengnian.github.io/posts/9bf517d2/</id>
+    <published>2025-01-11T07:21:29.000Z</published>
+    <updated>2025-01-11T13:43:40.119Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="小样本计数" scheme="http://lengnian.github.io/categories/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%A1%E6%95%B0/"/>
+    
+    <category term="论文复现" scheme="http://lengnian.github.io/categories/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%A1%E6%95%B0/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/"/>
+    
+    <category term="目标计数" scheme="http://lengnian.github.io/categories/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E8%AE%A1%E6%95%B0/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0/"/>
+    
+    
+    <category term="读论文" scheme="http://lengnian.github.io/tags/%E8%AF%BB%E8%AE%BA%E6%96%87/"/>
+    
+  </entry>
   
   <entry>
     <title>hexo上传文章时图片文件夹被随意截断问题</title>
@@ -530,33 +559,6 @@
     
     
     <category term="追剧" scheme="http://lengnian.github.io/tags/%E8%BF%BD%E5%89%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>目标计数简洁框架</title>
-    <link href="http://lengnian.github.io/posts/9ec2453a/"/>
-    <id>http://lengnian.github.io/posts/9ec2453a/</id>
-    <published>2024-07-26T09:05:41.000Z</published>
-    <updated>2024-07-26T09:39:32.718Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="写文章" scheme="http://lengnian.github.io/categories/%E5%86%99%E6%96%87%E7%AB%A0/"/>
-    
-    
-    <category term="目标计数" scheme="http://lengnian.github.io/tags/%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0/"/>
-    
-    <category term="综述" scheme="http://lengnian.github.io/tags/%E7%BB%BC%E8%BF%B0/"/>
     
   </entry>
   
