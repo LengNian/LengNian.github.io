@@ -3642,4 +3642,67 @@ hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
         <tag>回忆录</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Mamba学习记录</title>
+    <url>/posts/e0dc302e/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近我想使用Mamba去代替一下Transformer，所以在b站看了耿直哥老师的讲解视频，本文所有内容几乎全部来自视频内容。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="https://www.bilibili.com/video/BV1Xn4y1o7TE?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">AI大讲堂：革了Transformer的小命？专业拆解【Mamba模型】_哔哩哔哩_bilibili</a></p>
+<p> <a href="https://www.maartengrootendorst.com/blog/mamba/">A Visual Guide to Mamba and State Space Models - Maarten Grootendorst</a></p>
+<p><a href="https://blog.csdn.net/weixin_44162361/article/details/144591024">图文并茂【Mamba模型】详解-CSDN博客</a></p>
+<p>关于安装mamba_ssm我主要参考了这几篇文章</p>
+<p><a href="https://jishuzhan.net/article/1808857327386759169">Ubuntu和Windows系统之Mamba_ssm安装 - 技术栈</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/686355774">配置mamba-ssm环境的乱七八糟的可能有用的操作 - 知乎</a></p>
+<p><a href="https://blog.csdn.net/m0_55684014/article/details/145939814">mamba_ssm和causal-conv1d详细安装教程_causal-conv1d离线安装包-CSDN博客</a></p>
+<h3 id="Transformer缺点"><a href="#Transformer缺点" class="headerlink" title="Transformer缺点"></a>Transformer缺点</h3><p>  位置编码：把时序内容空间化   </p>
+<p>对于transformer来说，其中的自注意力机制存在一个天然的缺陷，就是其自注意力机制的计算范围仅仅局限在了窗口内，而忽略了窗口外的元素，这就造成了视野狭窄，缺乏了全局观。如果增加窗口的长度，那么计算量会呈平方增长。</p>
+<p><strong>本质上说，Transformer就是通过位置编码，将序列数据空间化，然后通过计算空间相关度方向建模时序相关度，这个过程忽视了数据内在结构的关联关系。</strong> (我的理解就是对于输入数据，无论其是否冗余或者是否重要，都统一进行位置编码，然后将其空间化，计算其空间相关度)。但是这种做法是在当年为了充分利用GPU的并行能力，SSM类模型(时序状态空间模型SSM)就是让长序列数据建模回归传统，这是其思考问题的初衷和视角。</p>
+<h3 id="时序状态空间模型SSM"><a href="#时序状态空间模型SSM" class="headerlink" title="时序状态空间模型SSM"></a>时序状态空间模型SSM</h3><h4 id="连续空间的时序建模"><a href="#连续空间的时序建模" class="headerlink" title="连续空间的时序建模"></a>连续空间的时序建模</h4><p>Mamba是基于结构化状态空间序列模型(SSMs),对应论文[<a href="https://arxiv.org/abs/2110.13985">2110.13985] Combining Recurrent, Convolutional, and Continuous-time Models with Linear State-Space Layers</a></p>
+<p> 上面这篇论文本质也是RNN模型。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320151906758.png" alt="image-20250320151906758" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320152156279.png" alt="image-20250320152156279" loading="lazy"></p>
+<p>这一段其实就是解释了上图中Continuous-time所对应的内容。绝大部分情况下，都是时变的，是动态的，而非时不变的。</p>
+<h4 id="时序离散化与RNN"><a href="#时序离散化与RNN" class="headerlink" title="时序离散化与RNN"></a>时序离散化与RNN</h4><p>其对应Recurrent这部分。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320153231028.png" alt="image-20250320153231028" loading="lazy"></p>
+<p>所谓离散化就是上图中连续的数据变成了离散化的数据</p>
+<p>而零阶保持则是变成离散化以后，将数据变化变成了阶跃式的，保持当前当前时间的状态。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320153315530.png" alt="image-20250320153315530" loading="lazy"></p>
+<h4 id="并行化处理与CNN"><a href="#并行化处理与CNN" class="headerlink" title="并行化处理与CNN"></a>并行化处理与CNN</h4><p> 对应于最上面图中的Convolutional， 对于SSM而言，就是通过卷积实现了并行化。<strong>其核心思想就是使用CNN对时序数据进行建模，借助不同尺度的卷积核，从不同时间尺度上捕获时序特征。</strong></p>
+<p> <img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320162416870.png" alt="image-20250320162416870" loading="lazy"></p>
+<p>k可以理解为一个伸缩窗口，当前状态可以用之前输出的加权和来表征，再把 $ h_t$代入到输出的式子，与卷积的公式进行对比。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320162222937.png" alt="image-20250320162222937" loading="lazy"></p>
+<p>在实际问题中，会对上述的AB矩阵进一步简化，会将其设置为对角阵，这就是结构化SSM，S4模型。</p>
+<p>对于SSM模型，要记住，这里有两个强假设：<strong>线性+时不变</strong>，这两个假设极大的限制了其应用范围。而Mamba本质上就是对SSM模型的改进，其不再考虑这两个约束。</p>
+<h3 id="Mamba"><a href="#Mamba" class="headerlink" title="Mamba"></a>Mamba</h3><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320163937323.png" alt="image-20250320163937323" loading="lazy"></p>
+<p>Mamba的设计机制让状态空间具备了选择性，同时在序列长度上实现了线性扩展。  </p>
+<p>看这幅图的中间部分，BC都变成为了带有t的时变参数，A虽然没有加t，但其实也是时变的，因为会将Δt加入到A中，这里的Δt是一个非线性的，</p>
+<p>Δt可以看作一个总开关，$B_t,C_t$就是旋钮。总开关 + 若干个旋钮 &#x3D; 非线性时变系统</p>
+<h4 id="要解决的问题"><a href="#要解决的问题" class="headerlink" title="要解决的问题"></a>要解决的问题</h4><p>序列建模的核心就是研究如何将长序列的上下文信息压缩到一个较小的状态中。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320170719312.png" alt="image-20250320170719312" loading="lazy"> </p>
+<p>作者希望可以关注两种能力：</p>
+<p>1.选择性复制任务(抓重点的能力)</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320171055772.png" alt="image-20250320171055772" loading="lazy"></p>
+<p>2.诱导头任务(上下文推理能力)</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320171115823.png" alt="image-20250320171115823" loading="lazy"></p>
+<h4 id="怎么增加选择性？"><a href="#怎么增加选择性？" class="headerlink" title="怎么增加选择性？"></a>怎么增加选择性？</h4><p>让B和C由原来固定的变为了可变的，根据$x_t$和其压缩投影学习可变参数。上图中蓝色部分(包括投影和连线)就是所谓的选择机制。<strong>目的是根据输入内容选择性地记忆和处理信息，从而提高对复杂序列数据的适应能力。</strong></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320174904901.png" alt="image-20250320174904901" loading="lazy"></p>
+<p>这里面的Δ是前面离散化计算时的参数，投影出来的三条蓝线其实就是$s_B,s_C和s_Δ三个选择函数$，共享一个投影模块(project)，主要是为了实现参数共享和计算效率。</p>
+<p>B：batch size，L：Sequence length，N：Feature dimension，D：input feature dimension。</p>
+<p> <img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320175824740.png" alt="image-20250320175824740" loading="lazy"></p>
+<p>上述所提到的$s_B(x)&#x3D;Linear_N(x), s_C(x)&#x3D;Linear_N(x), s_Δ(x)&#x3D;Broadcast_D(Linear_1(x)), \tau_Δ&#x3D;softplus$</p>
+<p>这样设计的效果如图所示：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320180310474.png" alt="image-20250320180310474" loading="lazy"></p>
+<p> 这也达到了注意力的效果。</p>
+<h4 id="核心原理"><a href="#核心原理" class="headerlink" title="核心原理"></a>核心原理</h4><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320180647275.png" alt="image-20250320180647275" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181221559.png" alt="image-20250320181221559" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181254994.png" alt="image-20250320181254994" loading="lazy"></p>
+<h4 id="Mamba结构"><a href="#Mamba结构" class="headerlink" title="Mamba结构"></a>Mamba结构</h4><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181852261.png" alt="image-20250320181852261" loading="lazy"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320183146006.png" alt="image-20250320183146006" loading="lazy"></p>
+]]></content>
+      <categories>
+        <category>写笔记</category>
+      </categories>
+      <tags>
+        <tag>Mamba</tag>
+      </tags>
+  </entry>
 </search>
