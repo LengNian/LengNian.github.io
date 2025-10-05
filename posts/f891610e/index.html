@@ -1,0 +1,636 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>对抗攻击:FGSM和BIM算法 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="前言初次接触对抗样本，在这里记录一下自己的学习过程，希望可以帮助自己更好理解，也希望可以帮助到有需要的人。 FGSMFGSM原理FGSM，即Fast Gradient Sign Method，这是一种用于生成对抗性样本的算法。在论文Explaining and Harnessing Adversarial Examples中被提到。它是一种基于梯度生成的算法，属于无目标攻击（不要求指定生成的对抗样">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对抗攻击:FGSM和BIM算法">
+<meta property="og:url" content="http://lengnian.github.io/posts/f891610e/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="前言初次接触对抗样本，在这里记录一下自己的学习过程，希望可以帮助自己更好理解，也希望可以帮助到有需要的人。 FGSMFGSM原理FGSM，即Fast Gradient Sign Method，这是一种用于生成对抗性样本的算法。在论文Explaining and Harnessing Adversarial Examples中被提到。它是一种基于梯度生成的算法，属于无目标攻击（不要求指定生成的对抗样">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/1.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/2.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/3.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/4.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/5.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/6.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/7.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/f891610e/8.png">
+<meta property="article:published_time" content="2024-07-29T01:39:09.000Z">
+<meta property="article:modified_time" content="2024-07-30T09:11:01.680Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="对抗样本生成与防御">
+<meta property="article:tag" content="对抗攻击">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lengnian.github.io/posts/f891610e/1.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">30</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">22</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FGSM"><span class="toc-number">2.</span> <span class="toc-text">FGSM</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#FGSM%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">FGSM原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pytorch%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">Pytorch代码实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83-%E6%94%BB%E5%87%BB%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">2.3.</span> <span class="toc-text">训练+攻击完整代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">2.4.</span> <span class="toc-text">参考文献</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BIM-I-FGSM"><span class="toc-number">3.</span> <span class="toc-text">BIM(I-FGSM)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#I-FGSM%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">I-FGSM原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pytorch%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">3.2.</span> <span class="toc-text">Pytorch代码实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.3.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE-1"><span class="toc-number">3.4.</span> <span class="toc-text">参考文献</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/f891610e/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">对抗攻击:FGSM和BIM算法</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-07-29 09:39:09" itemprop="dateCreated datePublished" datetime="2024-07-29T09:39:09+08:00">2024-07-29</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-30 17:11:01" itemprop="dateModified" datetime="2024-07-30T17:11:01+08:00">2024-07-30</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">5.1k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">23m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E6%96%87%E7%AB%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写文章</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E4%B8%8E%E9%98%B2%E5%BE%A1/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">对抗样本生成与防御</span></a><a class="tag-item" href="/tags/%E5%AF%B9%E6%8A%97%E6%94%BB%E5%87%BB/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">对抗攻击</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>初次接触对抗样本，在这里记录一下自己的学习过程，希望可以帮助自己更好理解，也希望可以帮助到有需要的人。</p>
+<h4 id="FGSM"><a href="#FGSM" class="headerlink" title="FGSM"></a><strong>FGSM</strong></h4><h5 id="FGSM原理"><a href="#FGSM原理" class="headerlink" title="FGSM原理"></a>FGSM原理</h5><p>FGSM，即Fast Gradient Sign Method，这是一种用于生成对抗性样本的算法。在论文<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1412.6572">Explaining and Harnessing Adversarial Examples</a>中被提到。它是一种基于梯度生成的算法，属于无目标攻击（不要求指定生成的对抗样本的类别，只要求生成的对抗样本不是正确的那个类别即可）</p>
+<img src="/posts/f891610e/1.png" class loading="lazy">
+
+<p>在这幅图最左侧是输入图像x，他的正确分类标签y为”panda”，我们将中间这幅图所表达的意思用μ来代替，即μ&#x3D;0.07*(sign(J(θ,x,y)‘))，其中sign是符号函数，J(θ,x,y)是训练网络的损失函数，J(θ,x,y)’表示损失函数J对x的导数。用x’代表生成的对抗样本，即x‘&#x3D;x+μ。从图中可以看到x’的分类标签y’成为了”gibbon“。说明对抗样本成功骗过了模型，使模型的分类错误。</p>
+<p>在神经网络中使用梯度下降算法，使梯度降低，从而不断最小化损失值以达到提高准确率的目的。其公式如下：</p>
+<div>
+$$
+\alpha = \alpha - \delta\times\frac{\partial L}{\partial \alpha} \tag{1}
+$$
+</div>
+
+<p>如果把梯度下降中的后一项看成μ，即</p>
+<div>
+$$
+\eta = \delta\times\frac{\partial L}{\partial \alpha} \tag{2}
+$$
+</div>
+那么，梯度下降的公式就可以写为:
+<div>
+$$
+\alpha = \alpha - \eta \tag{3}
+$$
+</div>
+这与FGSM中x'=x+μ的公式非常像，为什么这么像呢？
+
+<p>梯度代表函数值增加最快的方向，在神经网络中我们要通过反向传播不断降低损失值来达到提高准确率的目的，所i有要减去梯度，而在fgsm中，为了让分类错误，要让损失增大也就是梯度上升，所以这里只需要改为加号就可以了。所以这两个公式是非常像的。</p>
+<p><strong>我再写一下我对损失增大的理解，我们直到损失函数是度量真实值与预测值之间的差距的，当损失值越小，说明预测值和真实值越接近，而我们这里是要让分类错误，就是预测值和真实值不同，所以要让这个度量指标变大，其越大说明预测值和真实值之间的差距越大，也就说明模型的分类是错误的。</strong></p>
+<p>接下来我们介绍一下FGSM算法中的μ，公式如下：</p>
+<div>
+$$
+\mu = \epsilon sign(\nabla_xJ(\boldsymbol{\theta},\boldsymbol{x},y)) \tag{4}
+$$
+</div>
+在这个公式中，x是输入的原始图像，θ是模型的参数，y是原始图像x的真实类别，J是损失函数，∇x 表示对 x 求偏导，sign是符号函数。我们在这里看一下符号函数的公式。
+<div>
+$$
+\text{sign}(x) = 
+  \begin{cases} 
+   -1 & \text{if } x < 0, \\
+   0 & \text{if } x = 0, \\
+   1 & \text{if } x > 0.
+  \end{cases} 
+  \tag{5}
+$$
+</div>
+在FGSM中引入符号函数可以确定对抗扰动的方向。在FGSM中不需要关心具体的梯度大小，只需要知道方向即可通过确定对抗扰动的方向。（**这里我的理解是，FGSM要寻找一个可以使模型分类错误的有效扰动，而不是最优的扰动的大小，所以只关心梯度方向，具体扰动大小则由epsilon确定，初次之外，有资料中说，对抗性扰动的泛化性因不同的模型和数据集，具体的梯度大小会有所不同，而梯度方向包含了导致模型判断错误的关键信息，所以更注重梯度的方向。对于使用符号函数的相关原因，欢迎大家一起讨论。**）
+
+<p>这里的ε控制着扰动的大小。ε较小，对抗扰动不易被察觉，如果过大，扰动会很明显，容易被识别出来。</p>
+<h5 id="Pytorch代码实现"><a href="#Pytorch代码实现" class="headerlink" title="Pytorch代码实现"></a>Pytorch代码实现</h5><p>FGSM的代码在Pytorch已经实现(<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/fgsm_tutorial.html?highlight=fgsm">Adversarial Example Generation — PyTorch Tutorials 2.4.0+cu124 documentation</a>)</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">FGSM_attack</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> epsilons<span class="token punctuation">,</span> data_grad<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 符号函数</span>
+    sign_data_grad <span class="token operator">=</span> data_grad<span class="token punctuation">.</span>sign<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># 实现上述(5)公式</span>
+    perturbed_image <span class="token operator">=</span> image <span class="token operator">+</span> epsilons <span class="token operator">*</span> sign_data_grad
+    <span class="token comment"># 限制元素值在指定的范围内</span>
+    perturbed_image <span class="token operator">=</span> torch<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span>perturbed_image<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> perturbed_image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="训练-攻击完整代码"><a href="#训练-攻击完整代码" class="headerlink" title="训练+攻击完整代码"></a>训练+攻击完整代码</h5><p>这部分自己搭建一个LeNet神经网络，并在MNIST手写数据集上进行训练，之后使用FGSM方法去生成对抗样本，测试训练的网络的分类准确率。</p>
+<p>搭建LeNet模型</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 搭建LeNet模型</span>
+<span class="token keyword">class</span> <span class="token class-name">LeNet</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>LeNet<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 卷积层</span>
+        self<span class="token punctuation">.</span>conv <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>
+            nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span>in_channels<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> out_channels<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">,</span> kernel_size<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> padding<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>MaxPool2d<span class="token punctuation">(</span>kernel_size<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> stride<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span>in_channels<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">,</span> out_channels<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">,</span> kernel_size<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>MaxPool2d<span class="token punctuation">(</span>kernel_size<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> stride<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+
+        <span class="token comment"># 全连接层</span>
+        self<span class="token punctuation">.</span>fc <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>in_features<span class="token operator">=</span><span class="token number">16</span> <span class="token operator">*</span> <span class="token number">5</span> <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">,</span> out_features<span class="token operator">=</span><span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>in_features<span class="token operator">=</span><span class="token number">120</span><span class="token punctuation">,</span> out_features<span class="token operator">=</span><span class="token number">84</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>in_features<span class="token operator">=</span><span class="token number">84</span><span class="token punctuation">,</span> out_features<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> img<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        img <span class="token operator">=</span> self<span class="token punctuation">.</span>conv<span class="token punctuation">(</span>img<span class="token punctuation">)</span>
+        img <span class="token operator">=</span> img<span class="token punctuation">.</span>view<span class="token punctuation">(</span>img<span class="token punctuation">.</span>size<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        out <span class="token operator">=</span> self<span class="token punctuation">.</span>fc<span class="token punctuation">(</span>img<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> out
+    
+net <span class="token operator">=</span> LeNet<span class="token punctuation">(</span><span class="token punctuation">)</span>
+net <span class="token operator">=</span> net<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># 使用设备
+device &#x3D; torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)
+
+mean &#x3D; 0.1307
+std &#x3D; 0.3801
+
+# 对图像变换
+transform &#x3D; transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((mean,), (std,))
+]
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># 训练数据集, 测试数据集
+train_dataset &#x3D; datasets.MNIST(&#39;..&#x2F;datasets&#x2F;MNIST&#39;, train&#x3D;True, transform&#x3D;transform, download&#x3D;True) # len 60000
+test_dataset &#x3D; datasets.MNIST(&#39;..&#x2F;datasets&#x2F;MNIST&#39;, train&#x3D;False, transform&#x3D;transform, download&#x3D;True) # len 10000
+
+# 数据迭代器
+train_dataloader &#x3D; DataLoader(train_dataset, batch_size&#x3D;64, shuffle&#x3D;True)  # len 938
+test_dataloader &#x3D; DataLoader(test_dataset, batch_size&#x3D;64, shuffle&#x3D;True) # len 157<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">lr <span class="token operator">=</span> <span class="token number">1e-3</span>
+epochs <span class="token operator">=</span> <span class="token number">30</span>
+optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>net<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span>lr<span class="token punctuation">)</span>
+criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
+scheduler <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>lr_scheduler<span class="token punctuation">.</span>ReduceLROnPlateau<span class="token punctuation">(</span>optimizer<span class="token punctuation">,</span> <span class="token string">'min'</span><span class="token punctuation">,</span> factor<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> patience<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> min_lr<span class="token operator">=</span><span class="token number">0.0000001</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以上都是为训练模型进行准备，下面开始对模型进行训练。</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">train_loss &#x3D; []
+train_acc &#x3D; []
+val_loss &#x3D; []
+val_acc &#x3D; []
+
+for epoch in tqdm(range(epochs)):
+    train_losses &#x3D; 0
+    train_acces &#x3D; 0
+    val_losses &#x3D; 0
+    val_acces &#x3D; 0
+    
+    for x, y in train_dataloader:
+        x, y &#x3D; x.to(device), y.to(device)
+        output &#x3D; net(x)
+        # 计算loss
+        loss &#x3D; criterion(output, y)
+        # 计算预测值
+        _, pred &#x3D; torch.max(output, axis&#x3D;1)
+        # 计算acc
+        acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
+
+        # 反向传播
+        # 梯度清零
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        train_losses +&#x3D; loss.item()
+        train_acces +&#x3D; acc.item()
+
+    train_loss.append(train_losses &#x2F; len(train_dataloader))
+    train_acc.append(train_acces &#x2F; len(train_dataloader))
+
+    # 模型评估，这里就使用测试集进行验证了，实际应该再划分验证集
+    net.eval()
+    with torch.no_grad():
+        for x, y in test_dataloader:
+            x, y &#x3D; x.to(device), y.to(device)
+            output &#x3D; net(x)
+            loss &#x3D; criterion(output, y)
+            scheduler.step(loss)
+            _, pred &#x3D; torch.max(output, axis&#x3D;1)
+            acc &#x3D; torch.sum(y &#x3D;&#x3D; pred) &#x2F; output.shape[0]
+
+            val_losses +&#x3D; loss.item()
+            val_acces +&#x3D; acc.item()
+        
+        val_loss.append(val_losses &#x2F; len(test_dataloader))
+        val_acc.append(val_acces &#x2F; len(test_dataloader))
+
+    print(f&quot;epoch:&#123;epoch+1&#125;  train_loss:&#123;train_losses &#x2F; len(train_dataloader)&#125;, train_acc:&#123;train_acces &#x2F; len(train_dataloader)&#125;, val_loss:&#123;val_losses &#x2F; len(test_dataloader)&#125;, val_acc:&#123;val_acces &#x2F; len(test_dataloader)&#125;&quot;)
+
+plt.plot(train_loss, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train loss&#39;)
+plt.plot(val_loss, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val loss&#39;)
+plt.legend()
+plt.xlabel(&quot;epoch&quot;)
+plt.ylabel(&quot;loss&quot;)
+plt.show()
+
+
+plt.plot(train_acc, color&#x3D;&#39;green&#39;, label&#x3D;&#39;train acc&#39;)
+plt.plot(val_acc, color&#x3D;&#39;blue&#39;, label&#x3D;&#39;val acc&#39;)
+plt.legend()
+plt.xlabel(&quot;epoch&quot;)
+plt.ylabel(&quot;acc&quot;)
+plt.show()
+
+# 保存训练好的模型
+PATH &#x3D; &#39;.&#x2F;fgsm_mnist_lenet.pth&#39;
+torch.save(net, PATH)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"> <span class="token number">3</span><span class="token operator">%</span><span class="token operator">|</span>▎         <span class="token operator">|</span> <span class="token number">1</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">09</span><span class="token operator">&lt;</span><span class="token number">04</span><span class="token punctuation">:</span><span class="token number">37</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>58s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">1</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.23495538183736173</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9266890991471215</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.06610820889117042</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9808917197452229</span>
+  <span class="token number">7</span><span class="token operator">%</span><span class="token operator">|</span>▋         <span class="token operator">|</span> <span class="token number">2</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">18</span><span class="token operator">&lt;</span><span class="token number">04</span><span class="token punctuation">:</span><span class="token number">22</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>37s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">2</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.0733803818781755</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9775286513859275</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.06484267477741003</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.981687898089172</span>
+ <span class="token number">10</span><span class="token operator">%</span><span class="token operator">|</span>█         <span class="token operator">|</span> <span class="token number">3</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">27</span><span class="token operator">&lt;</span><span class="token number">04</span><span class="token punctuation">:</span><span class="token number">10</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>26s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">3</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.07191201691368797</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9779784115138592</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.0649121593102623</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9818869426751592</span>
+ <span class="token number">13</span><span class="token operator">%</span><span class="token operator">|</span>█▎        <span class="token operator">|</span> <span class="token number">4</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">36</span><span class="token operator">&lt;</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">56</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>08s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">4</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.07054272936885433</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9782949093816631</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.06256632373674186</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9819864649681529</span>
+ <span class="token number">17</span><span class="token operator">%</span><span class="token operator">|</span>█▋        <span class="token operator">|</span> <span class="token number">5</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">45</span><span class="token operator">&lt;</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">45</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>00s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">5</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06927903689968307</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9787446695095949</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.06133736597943553</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9821855095541401</span>
+ <span class="token number">20</span><span class="token operator">%</span><span class="token operator">|</span>██        <span class="token operator">|</span> <span class="token number">6</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">54</span><span class="token operator">&lt;</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">31</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>80s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">6</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06818971440974456</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9791611140724946</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.06043949323130926</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.982484076433121</span>
+ <span class="token number">23</span><span class="token operator">%</span><span class="token operator">|</span>██▎       <span class="token operator">|</span> <span class="token number">7</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">03</span><span class="token operator">&lt;</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">27</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>01s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">7</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06716231363557422</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9793943230277186</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.06052255801631102</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9821855095541401</span>
+ <span class="token number">27</span><span class="token operator">%</span><span class="token operator">|</span>██▋       <span class="token operator">|</span> <span class="token number">8</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token operator">&lt;</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">19</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>06s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">8</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.0663046940549541</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9796108742004265</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05889693624933197</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9826831210191083</span>
+ <span class="token number">30</span><span class="token operator">%</span><span class="token operator">|</span>███       <span class="token operator">|</span> <span class="token number">9</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">20</span><span class="token operator">&lt;</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">05</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>85s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">9</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06548984157693967</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9798773987206824</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05827412447613326</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.982484076433121</span>
+ <span class="token number">33</span><span class="token operator">%</span><span class="token operator">|</span>███▎      <span class="token operator">|</span> <span class="token number">10</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">30</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">59</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>97s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">10</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.0647883117283339</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9800106609808102</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.058015704478261765</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9823845541401274</span>
+ <span class="token number">37</span><span class="token operator">%</span><span class="token operator">|</span>███▋      <span class="token operator">|</span> <span class="token number">11</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">38</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">47</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>83s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">11</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06416832418121429</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9802105543710021</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.0571870897817989</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.982484076433121</span>
+ <span class="token number">40</span><span class="token operator">%</span><span class="token operator">|</span>████      <span class="token operator">|</span> <span class="token number">12</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">47</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">38</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>82s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">12</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06361952270947095</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.980410447761194</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05745712512582066</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9821855095541401</span>
+ <span class="token number">43</span><span class="token operator">%</span><span class="token operator">|</span>████▎     <span class="token operator">|</span> <span class="token number">13</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">56</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">30</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>86s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">13</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06314356109725117</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.980577025586354</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.056493567623150574</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9826831210191083</span>
+ <span class="token number">47</span><span class="token operator">%</span><span class="token operator">|</span>████▋     <span class="token operator">|</span> <span class="token number">14</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">06</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>07s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">14</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06276988985686144</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9806603144989339</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05619345570078037</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9825835987261147</span>
+ <span class="token number">50</span><span class="token operator">%</span><span class="token operator">|</span>█████     <span class="token operator">|</span> <span class="token number">15</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">15</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">19</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>28s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">15</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.0624012095647167</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9807769189765458</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05572936845836556</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9825835987261147</span>
+ <span class="token number">53</span><span class="token operator">%</span><span class="token operator">|</span>█████▎    <span class="token operator">|</span> <span class="token number">16</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">11</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>42s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">16</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06199908992553602</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9808268923240938</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.055503922487923484</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9827826433121019</span>
+ <span class="token number">57</span><span class="token operator">%</span><span class="token operator">|</span>█████▋    <span class="token operator">|</span> <span class="token number">17</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">35</span><span class="token operator">&lt;</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">04</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>58s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">17</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06172961615838174</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9809101812366737</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05556283311052307</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9825835987261147</span>
+ <span class="token number">60</span><span class="token operator">%</span><span class="token operator">|</span>██████    <span class="token operator">|</span> <span class="token number">18</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">45</span><span class="token operator">&lt;</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">57</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>77s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">18</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06138933949651065</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9810934168443497</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.054954844592198446</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.982484076433121</span>
+ <span class="token number">63</span><span class="token operator">%</span><span class="token operator">|</span>██████▎   <span class="token operator">|</span> <span class="token number">19</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">02</span><span class="token punctuation">:</span><span class="token number">54</span><span class="token operator">&lt;</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">43</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>43s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">19</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06114780887026094</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9812599946695096</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.054730413220585535</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.982484076433121</span>
+ <span class="token number">67</span><span class="token operator">%</span><span class="token operator">|</span>██████▋   <span class="token operator">|</span> <span class="token number">20</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">03</span><span class="token operator">&lt;</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">33</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>36s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">20</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.060946285610458555</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9813266257995735</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.0545463676187714</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.982484076433121</span>
+ <span class="token number">70</span><span class="token operator">%</span><span class="token operator">|</span>███████   <span class="token operator">|</span> <span class="token number">21</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">13</span><span class="token operator">&lt;</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>45s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">21</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06072342605652736</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9813266257995735</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05441298720776845</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9826831210191083</span>
+ <span class="token number">73</span><span class="token operator">%</span><span class="token operator">|</span>███████▎  <span class="token operator">|</span> <span class="token number">22</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">22</span><span class="token operator">&lt;</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">15</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>47s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">22</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.060515265972383304</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9814598880597015</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.054409430030092694</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9827826433121019</span>
+ <span class="token number">77</span><span class="token operator">%</span><span class="token operator">|</span>███████▋  <span class="token operator">|</span> <span class="token number">23</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">31</span><span class="token operator">&lt;</span><span class="token number">01</span><span class="token punctuation">:</span><span class="token number">04</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>28s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">23</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.060337386706641426</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9815265191897654</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05422507992287161</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9827826433121019</span>
+ <span class="token number">80</span><span class="token operator">%</span><span class="token operator">|</span>████████  <span class="token operator">|</span> <span class="token number">24</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">39</span><span class="token operator">&lt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">53</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>98s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">24</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.0602028726938683</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9815931503198294</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.055592933979632844</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9822850318471338</span>
+ <span class="token number">83</span><span class="token operator">%</span><span class="token operator">|</span>████████▎ <span class="token operator">|</span> <span class="token number">25</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">48</span><span class="token operator">&lt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">44</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>93s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">25</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.06003174935030674</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9816098081023454</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05382291597438751</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9830812101910829</span>
+ <span class="token number">87</span><span class="token operator">%</span><span class="token operator">|</span>████████▋ <span class="token operator">|</span> <span class="token number">26</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">03</span><span class="token punctuation">:</span><span class="token number">58</span><span class="token operator">&lt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">36</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>08s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">26</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.05991259947724974</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9816597814498934</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05371515328586576</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9831807324840764</span>
+ <span class="token number">90</span><span class="token operator">%</span><span class="token operator">|</span>█████████ <span class="token operator">|</span> <span class="token number">27</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">04</span><span class="token punctuation">:</span><span class="token number">06</span><span class="token operator">&lt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">26</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">.</span>91s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">27</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.059782677139443505</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9816930970149254</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.05411682381727703</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9826831210191083</span>
+ <span class="token number">93</span><span class="token operator">%</span><span class="token operator">|</span>█████████▎<span class="token operator">|</span> <span class="token number">28</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">04</span><span class="token punctuation">:</span><span class="token number">16</span><span class="token operator">&lt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">18</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>08s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">28</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.05965107033448194</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9817097547974414</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.053595036425432015</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9829816878980892</span>
+ <span class="token number">97</span><span class="token operator">%</span><span class="token operator">|</span>█████████▋<span class="token operator">|</span> <span class="token number">29</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">04</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token operator">&lt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">09</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>30s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">29</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.059546736687092164</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9816930970149254</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.0533999552309608</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9830812101910829</span>
+<span class="token number">100</span><span class="token operator">%</span><span class="token operator">|</span>██████████<span class="token operator">|</span> <span class="token number">30</span><span class="token operator">/</span><span class="token number">30</span> <span class="token punctuation">[</span><span class="token number">04</span><span class="token punctuation">:</span><span class="token number">35</span><span class="token operator">&lt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">00</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">.</span>19s<span class="token operator">/</span>it<span class="token punctuation">]</span>
+epoch<span class="token punctuation">:</span><span class="token number">30</span>  train_loss<span class="token punctuation">:</span><span class="token number">0.05946045447769426</span><span class="token punctuation">,</span> train_acc<span class="token punctuation">:</span><span class="token number">0.9817097547974414</span><span class="token punctuation">,</span> val_loss<span class="token punctuation">:</span><span class="token number">0.053309381550925364</span><span class="token punctuation">,</span> val_acc<span class="token punctuation">:</span><span class="token number">0.9829816878980892</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>经过30轮的训练，模型的再训练集和验证集上的准确率大概达到了98%。</p>
+<p>因为训练轮数很少，所以这条曲线看起来并不平滑，但基本收敛，实际应用时，可以将训练轮数增加。</p>
+<img src="/posts/f891610e/2.png" class loading="lazy">
+
+<img src="/posts/f891610e/3.png" class loading="lazy">
+
+<p>如果已经有训练好的模型，可以使用以下代码进行加载：</p>
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># 自己根据实际情况修改模型存储路径
+PATH &#x3D; &#39;.&#x2F;fgsm_mnist_lenet.pth&#39;
+
+net &#x3D; torch.load(PATH)
+net &#x3D; net.to(device)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为了方便之后的操作，这里修改一下batch_size的大小，修改为1。</p>
+<pre class="line-numbers language-none"><code class="language-none">test_dataloader &#x3D; DataLoader(test_dataset, batch_size&#x3D;1, shuffle&#x3D;True) <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>对对抗样本测试的函数</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 测试函数  FGSM</span>
+<span class="token keyword">def</span> <span class="token function">test_FGSM</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_dataloader<span class="token punctuation">,</span> epsilons<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    correct <span class="token operator">=</span> <span class="token number">0</span>
+    adv_examples <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">for</span> data<span class="token punctuation">,</span> target <span class="token keyword">in</span> test_dataloader<span class="token punctuation">:</span>
+        data<span class="token punctuation">,</span> target <span class="token operator">=</span> data<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span><span class="token punctuation">,</span> target<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+        <span class="token comment"># 设置张量的属性，对于攻击十分关键</span>
+        data<span class="token punctuation">.</span>requires_grad <span class="token operator">=</span> <span class="token boolean">True</span>
+
+        <span class="token comment"># 前向传播</span>
+        output <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        _<span class="token punctuation">,</span> init_pred <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token comment"># init_pred = output.max(1, keepdim=True)[1]</span>
+        <span class="token comment"># print(init_pred)</span>
+        <span class="token comment"># print(target)</span>
+
+        <span class="token comment"># 如果分类错误就不去扰动图像</span>
+        <span class="token keyword">if</span> init_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> target<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment"># print("Original image's predict is wrong!")</span>
+            <span class="token comment"># print("init_pred:", init_pred)</span>
+            <span class="token comment"># print("true_pred:", target)</span>
+            <span class="token keyword">continue</span>
+        
+        <span class="token comment"># 负对数似然损失</span>
+        loss <span class="token operator">=</span> F<span class="token punctuation">.</span>nll_loss<span class="token punctuation">(</span>output<span class="token punctuation">,</span> target<span class="token punctuation">)</span>
+        model<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        loss<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 收集数据损失</span>
+        <span class="token comment"># data.grad 是一个完整的梯度张量，可以用于进一步的梯度计算，</span>
+        <span class="token comment"># 而 data.grad.data 是梯度张量的数据内容，通常用于查看或操作梯度的具体数值，但不用于梯度计算。</span>
+        data_grad <span class="token operator">=</span> data<span class="token punctuation">.</span>grad<span class="token punctuation">.</span>data
+        <span class="token comment"># 使用FGSM进行攻击</span>
+        perturbed_data <span class="token operator">=</span> FGSM_attack<span class="token punctuation">(</span>data<span class="token punctuation">,</span> epsilons<span class="token punctuation">,</span> data_grad<span class="token punctuation">)</span>
+        <span class="token comment"># 对扰动后的图像进行重新分类</span>
+        output <span class="token operator">=</span> model<span class="token punctuation">(</span>perturbed_data<span class="token punctuation">)</span>
+        _<span class="token punctuation">,</span> attack_pred <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 模型对对抗样本的分类还是正确的</span>
+        <span class="token keyword">if</span> attack_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            correct <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token comment"># 保存噪声为0的5个图像用于后期的可视化</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>epsilons <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>adv_examples<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                adv_ex<span class="token operator">=</span> perturbed_data<span class="token punctuation">.</span>squeeze<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment"># 保留正确标签, 攻击后标签, 攻击后图像</span>
+                adv_examples<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>init_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> attack_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> adv_ex<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token comment"># 保留5个攻击后分类错误的实例</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>adv_examples<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">:</span>
+                adv_ex <span class="token operator">=</span> perturbed_data<span class="token punctuation">.</span>squeeze<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment"># 同样保存正确标签，攻击后标签，攻击后图像</span>
+                adv_examples<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>init_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> attack_pred<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> adv_ex<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    
+    <span class="token comment"># 被攻击后的分类准确率</span>
+    attack_acc <span class="token operator">=</span> correct <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_dataloader<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Epsilon: &#123;&#125;\tTest Accuracy = &#123;&#125; / &#123;&#125; = &#123;&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>epsilons<span class="token punctuation">,</span> correct<span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_dataloader<span class="token punctuation">)</span><span class="token punctuation">,</span> attack_acc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	
+    <span class="token comment"># 返回当前保存的攻击样本的相关内容和测试准确率</span>
+    <span class="token keyword">return</span> adv_examples<span class="token punctuation">,</span> attack_acc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接下来就是使用不同的eplison值生成对抗样本，并使用上述的测试函数进行测试。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">accuracies <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+examples <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token comment"># eps=0表示未受到攻击的测试准确性</span>
+epsilons <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">.2</span><span class="token punctuation">,</span> <span class="token number">.4</span><span class="token punctuation">,</span> <span class="token number">.5</span><span class="token punctuation">,</span> <span class="token number">.6</span><span class="token punctuation">,</span> <span class="token number">.65</span><span class="token punctuation">,</span> <span class="token number">.7</span><span class="token punctuation">]</span>
+
+<span class="token keyword">for</span> eps <span class="token keyword">in</span> epsilons<span class="token punctuation">:</span>
+    ex<span class="token punctuation">,</span> acc <span class="token operator">=</span> test_FGSM<span class="token punctuation">(</span>net<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_dataloader<span class="token punctuation">,</span> eps<span class="token punctuation">)</span>
+    accuracies<span class="token punctuation">.</span>append<span class="token punctuation">(</span>acc<span class="token punctuation">)</span>
+    examples<span class="token punctuation">.</span>append<span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/f891610e/4.png" class loading="lazy">
+
+<p>可视化不同epsilon下的准确率</p>
+<pre class="line-numbers language-none"><code class="language-none">plt.figure(figsize&#x3D;(5,5))
+plt.plot(epsilons, accuracies, &quot;*-&quot;)
+plt.title(&quot;Accuracy vs Epsilon -- FGSM&quot;)
+plt.xlabel(&quot;Epsilon&quot;)
+plt.ylabel(&quot;Accuracy&quot;)
+plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/f891610e/5.png" class loading="lazy">
+
+<p>可视化保存的不同epsilon下生成的对抗样本。</p>
+<pre class="line-numbers language-none"><code class="language-none">index &#x3D; 0
+plt.figure(figsize&#x3D;(8, 10))
+
+for i in range(len(epsilons)):
+    for j in range(len(examples[i])):
+        index +&#x3D; 1
+        plt.subplot(len(epsilons), len(examples[i]), index)
+        if j &#x3D;&#x3D; 0:
+            plt.ylabel(&quot;Eps: &#123;&#125;&quot;.format(epsilons[i]), fontsize&#x3D;14)
+        
+        init_pred, attack_pred, example &#x3D; examples[i][j]
+        plt.title(&quot;&#123;&#125; --&gt; &#123;&#125;&quot;.format(init_pred, attack_pred))
+        plt.imshow(example)
+
+plt.tight_layout()
+# plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/f891610e/6.png" class loading="lazy">
+
+<p>当epsilon为0时，其实就是没有做什么扰动，可以看到，随着epsilon值的提高，图像的扰动也是可以被察觉到的，值越大，扰动越明显。</p>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tangweijqxx/p/10615950.html">2.基于梯度的攻击——FGSM - 机器学习安全小白 - 博客园 (cnblogs.com)</a>（这篇文章中有作者对使用符号函数确定方向的思考）</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hickey2048/p/15025612.html">对抗攻击(一) FGSM - HickeyZhang - 博客园 (cnblogs.com)</a>（这篇文章对FGSM中要让损失函数增加的数学解释）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41466575/article/details/116747323">对抗样本之FGSM原理&amp;coding_fgsm是有目标还是无目标的-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45508265/article/details/118411362">GAN 系列的探索与pytorch实现 (数字对抗样本生成)_pytorch课程设计-CSDN博客</a>（由于我的能力有限，所以本文的代码主要参考参考文献中的后两篇文章）</p>
+<h4 id="BIM-I-FGSM"><a href="#BIM-I-FGSM" class="headerlink" title="BIM(I-FGSM)"></a><strong>BIM(I-FGSM)</strong></h4><h5 id="I-FGSM原理"><a href="#I-FGSM原理" class="headerlink" title="I-FGSM原理"></a>I-FGSM原理</h5><p>在FGSM算法中，生成的对抗样本是通过x‘&#x3D;x+μ进行单步攻击，直接在原图像中加上扰动得到的，其中μ&#x3D;ϵ∗sign(∇xJ(x,y))，也就是说是将每个像素点都变化了ε这么多。而I-FGSM算法是使用迭代的方法，寻找各个像素点的扰动，在FGSM的基础上进行了多次迭代。</p>
+<p>迭代的作用就是使新样本在旧样本的基础上每个像素点变化α，然后通过裁剪，控制得到的新样本各像素都在原始图像的ε领域内。这句话通过公式可以很好理解：</p>
+<div>
+$$
+\boldsymbol{X_0^{adv}} = \boldsymbol{X}, \quad \boldsymbol{X_{N+1}^{adv}}=Clip_{\boldsymbol{X}, \epsilon}\{\boldsymbol{X_{N}^{adv}} + \alpha sign(\nabla_XJ(\boldsymbol{X_{N}^{adv}, y_{true}})) \} \tag{1}
+$$
+</div>
+
+<h5 id="Pytorch代码实现-1"><a href="#Pytorch代码实现-1" class="headerlink" title="Pytorch代码实现"></a>Pytorch代码实现</h5><p><strong>在许多文章中，我看到对于BIM算法的实现就是简单简单的循环了FGSM算法(这样做我认为是不对的，因为忽视了ε和α参数的使用)，但是从公式中我们是可以看到，需要用α控制移动步长和ε来控制像素的变化范围，所以结合自己的理解，我修改了原始FGSM算法，得到以下I-FGSM的核心算法。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">I_FGSM_attack</span><span class="token punctuation">(</span>ori_images<span class="token punctuation">,</span> adv_images<span class="token punctuation">,</span> epsilon<span class="token punctuation">,</span> alpha<span class="token punctuation">,</span> data_grad<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    sign_data_grad <span class="token operator">=</span> data_grad<span class="token punctuation">.</span>sign<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    perturbed_image <span class="token operator">=</span> adv_images <span class="token operator">+</span> alpha <span class="token operator">*</span> sign_data_grad
+    perturbed_image <span class="token operator">=</span> torch<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span>perturbed_image<span class="token punctuation">,</span> ori_images <span class="token operator">-</span> epsilon<span class="token punctuation">,</span> ori_images <span class="token operator">+</span> epsilon<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> perturbed_image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>相比原始的FGSM算法</p>
+<pre class="line-numbers language-none"><code class="language-none">def FGSM_attack(image, epsilons, data_grad):
+    sign_data_grad &#x3D; data_grad.sign()
+    perturbed_image &#x3D; image + epsilons * sign_data_grad
+    perturbed_image &#x3D; torch.clamp(perturbed_image, 0, 1)
+
+    return perturbed_image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>首先是传入函数参数的变化，I-FGSM函数需要计算原始图像的ε的范围，所以有参数ori_images和epsilon，然后对每次得到的样本进行扰动，最后将其范围限制在原始图像像素-ε和原始图像+ε。</p>
+<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><p>这里就使用上文FGSM中所训练得到的模型，所以训练等代码和前面的一样，直接从测试开始。</p>
+<pre class="line-numbers language-none"><code class="language-none"># 测试函数  BMI&#x2F;I-FGSM
+def test_I_FGSM(model, device, test_dataloader, epsilons, alpha, iters&#x3D;40):
+    correct &#x3D; 0
+    adv_examples &#x3D; []
+
+    for data, target in test_dataloader:
+        data, target &#x3D; data.to(device), target.to(device)
+        # 设置张量的属性，对于攻击十分关键
+        data.requires_grad &#x3D; True
+
+        # 前向传播
+        output &#x3D; model(data)
+        _, init_pred &#x3D; torch.max(output, axis&#x3D;1)
+
+        # 如果分类错误就不去扰动图像
+        if init_pred.item() !&#x3D; target.item():
+            continue
+        
+        # 保存原始数据，并且不共享，用于在torch.clamp中使用
+        ori_data &#x3D; data.detach().clone()
+
+        # epsilons &#x3D;&#x3D; 0时,就是不添加任何扰动进行一次测试,反复迭代就是浪费计算资源
+        if alpha !&#x3D; 0:
+            for k in range(iters):
+                # 负对数似然损失
+                output &#x3D; model(data)
+                loss &#x3D; F.nll_loss(output, target)
+                model.zero_grad()
+                loss.backward()
+
+                # 收集数据损失
+                # data.grad 是一个完整的梯度张量，可以用于进一步的梯度计算，
+                # 而 data.grad.data 是梯度张量的数据内容，通常用于查看或操作梯度的具体数值，但不用于梯度计算。
+                data_grad &#x3D; data.grad.data
+                # 使用I-FGSM进行攻击, 每次都是在上一次的基础上进行扰动
+                data &#x3D; I_FGSM_attack(ori_data, data, epsilons, alpha, data_grad)
+                # 迭代求对抗样本中，需要及时的使用截断detach将重复使用变量，变成计算图中的叶子节点；
+                # 由于变成了叶子节点，后续还需要对该变量求偏导，故添加requires_grad参数
+                # 在I-FGSM中是要计算损失函数对xt的梯度，而data(就是这里的xt)是通过函数计算出来的,
+                # 他的grad_fn是其对应的类型实际计算中不会计算L对xt的梯度，xt只是一个中间过程
+                # 这里用detach_()把他变成一个叶子结点,那么就可以计算到L对xt的梯度
+                data.detach_()
+                data.requires_grad &#x3D; True
+
+        # 对扰动后的图像进行重新分类
+        output &#x3D; model(data)
+        _, attack_pred &#x3D; torch.max(output, axis&#x3D;1)
+        
+        # 说明攻击后的分类还是正确的
+        if attack_pred.item() &#x3D;&#x3D; target.item():
+            correct +&#x3D; 1
+            # 保存噪声为0的5个图像用于后期的可视化
+            if(epsilons &#x3D;&#x3D; 0) and (len(adv_examples) &lt; 5):
+                adv_ex&#x3D; data.squeeze().detach().cpu().numpy()
+                # 保留正确标签, 攻击后标签, 攻击后图像
+                adv_examples.append((init_pred.item(), attack_pred.item(), adv_ex))
+        # 保留攻击后分类错误的实例
+        else:
+            if len(adv_examples) &lt; 5:
+                adv_ex &#x3D; data.squeeze().detach().cpu().numpy()
+                adv_examples.append((init_pred.item(), attack_pred.item(), adv_ex))
+    
+    # 被攻击后的分类准确率
+    attack_acc &#x3D; correct &#x2F; len(test_dataloader)
+    print(&quot;Alpha: &#123;:.4f&#125;\tTest Accuracy &#x3D; &#123;&#125; &#x2F; &#123;&#125; &#x3D; &#123;&#125;&quot;.format(alpha, correct, len(test_dataloader), attack_acc))
+
+    return adv_examples, attack_acc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里为了方便，我没有调整ε的值，固定ε的值，调整了α，同时为了方便，也需要将测试数据加载器的batch_size设置为1。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">accuracies <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+examples <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+epsilons <span class="token operator">=</span> <span class="token number">0.3</span>
+alphas <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">/</span><span class="token number">512</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">/</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">/</span><span class="token number">128</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">/</span><span class="token number">64</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">/</span><span class="token number">32</span><span class="token punctuation">]</span>
+
+<span class="token keyword">for</span> alpha <span class="token keyword">in</span> alphas<span class="token punctuation">:</span>
+    ex<span class="token punctuation">,</span> acc <span class="token operator">=</span> test_I_FGSM<span class="token punctuation">(</span>net<span class="token punctuation">,</span> device<span class="token punctuation">,</span> test_dataloader<span class="token punctuation">,</span> epsilons<span class="token punctuation">,</span> alpha<span class="token punctuation">)</span>
+    accuracies<span class="token punctuation">.</span>append<span class="token punctuation">(</span>acc<span class="token punctuation">)</span>
+    examples<span class="token punctuation">.</span>append<span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-Python" data-language="Python"><code class="language-Python"># 测试结果
+Alpha: 0.0000	Test Accuracy &#x3D; 9833 &#x2F; 10000 &#x3D; 0.9833
+Alpha: 0.0039	Test Accuracy &#x3D; 9378 &#x2F; 10000 &#x3D; 0.9378
+Alpha: 0.0078	Test Accuracy &#x3D; 8126 &#x2F; 10000 &#x3D; 0.8126
+Alpha: 0.0156	Test Accuracy &#x3D; 3150 &#x2F; 10000 &#x3D; 0.315
+Alpha: 0.0312	Test Accuracy &#x3D; 2407 &#x2F; 10000 &#x3D; 0.2407
+Alpha: 0.0625	Test Accuracy &#x3D; 2204 &#x2F; 10000 &#x3D; 0.2204<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可视化结果</p>
+<pre class="line-numbers language-none"><code class="language-none">plt.figure(figsize&#x3D;(5,5))
+plt.plot(alphas, accuracies, &quot;*-&quot;)
+plt.title(&quot;Accuracy vs Alpha -- I-FGSM&quot;)
+plt.xlabel(&quot;Alpha&quot;)
+plt.ylabel(&quot;Accuracy&quot;)
+plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/f891610e/7.png" class loading="lazy">
+
+<p>在这个结果中，α从0.0078到0.0156的过程有大量的样本被攻击成功，读者可以试着修改α，ε还有iters等参数去进行修改。</p>
+<pre class="line-numbers language-none"><code class="language-none">index &#x3D; 0
+plt.figure(figsize&#x3D;(8, 10))
+
+for i in range(len(alphas)):
+    for j in range(len(examples[i])):
+        index +&#x3D; 1
+        plt.subplot(len(alphas), len(examples[i]), index)
+        if j &#x3D;&#x3D; 0:
+            plt.ylabel(&quot;Alpha: &#123;:.4f&#125;&quot;.format(alphas[i]), fontsize&#x3D;14)
+        
+        init_pred, attack_pred, example &#x3D; examples[i][j]
+        plt.title(&quot;&#123;&#125; --&gt; &#123;&#125;&quot;.format(init_pred, attack_pred))
+        plt.imshow(example)
+
+plt.tight_layout()
+# plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/posts/f891610e/8.png" class loading="lazy">
+
+<p>从可视化的结果中也可以看出，随着alpha的增大，对图像扰动的增加也越来越明显。</p>
+<h5 id="参考文献-1"><a href="#参考文献-1" class="headerlink" title="参考文献"></a>参考文献</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51171586/article/details/128165071">对抗样本生成方法综述（FGSM、BIM\I-FGSM、PGD、JSMA、C&amp;W、DeepFool）-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41466575/article/details/118928248">对抗样本之BIM原理&amp;coding_迭代攻击( bim)-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ilalaaa/article/details/106070091">对抗样本生成算法之BIM算法_bim攻击算法-CSDN博客</a></p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/f891610e/" title="对抗攻击:FGSM和BIM算法">http://lengnian.github.io/posts/f891610e/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/posts/a1b31fc5/" rel="prev" title="对抗攻击:PGD算法"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">对抗攻击:PGD算法</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/cb44fd80/" rel="next" title="电影和电视剧"><span class="post-nav-text">电影和电视剧</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

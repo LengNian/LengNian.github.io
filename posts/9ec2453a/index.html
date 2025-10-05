@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>目标计数简洁框架 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="前言前阵子看了些目标计数的综述性文章，然后自己大概整理了个框架，可以供想要快速了解目标计数的阅读。 目标计数目标计数：目标计数就是指对给定的图像或者视频进行分析，从中估计指定目标的数量。通过目标数量的空间分布信息，就可以推测给定场景中关注度高的区域，从而对图像或者视频进行合理的分析和解读。 目标计数模型分类(根据模型任务属性的角度分类)基于回归的计数模型模型通过学习输入图像直接输出待计数目标的数量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标计数简洁框架">
+<meta property="og:url" content="http://lengnian.github.io/posts/9ec2453a/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="前言前阵子看了些目标计数的综述性文章，然后自己大概整理了个框架，可以供想要快速了解目标计数的阅读。 目标计数目标计数：目标计数就是指对给定的图像或者视频进行分析，从中估计指定目标的数量。通过目标数量的空间分布信息，就可以推测给定场景中关注度高的区域，从而对图像或者视频进行合理的分析和解读。 目标计数模型分类(根据模型任务属性的角度分类)基于回归的计数模型模型通过学习输入图像直接输出待计数目标的数量">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-26T09:05:41.000Z">
+<meta property="article:modified_time" content="2024-07-26T09:39:32.718Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="目标计数">
+<meta property="article:tag" content="综述">
+<meta name="twitter:card" content="summary"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">30</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">22</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">目标计数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0%E6%A8%A1%E5%9E%8B%E5%88%86%E7%B1%BB-%E6%A0%B9%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%BB%BB%E5%8A%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E8%A7%92%E5%BA%A6%E5%88%86%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">目标计数模型分类(根据模型任务属性的角度分类)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%9E%E5%BD%92%E7%9A%84%E8%AE%A1%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">基于回归的计数模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%86%E5%BA%A6%E5%9B%BE%E4%BC%B0%E8%AE%A1%E7%9A%84%E8%AE%A1%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">基于密度图估计的计数模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1%E6%A8%A1%E5%9E%8B-%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%A4%9A%E7%A7%8D%E8%BE%93%E5%87%BA"><span class="toc-number">3.3.</span> <span class="toc-text">多任务模型(模型有多种输出)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.</span> <span class="toc-text">常用目标计数数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.1.</span> <span class="toc-text">人群计数常用数据集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%86%E8%83%9E%E8%AE%A1%E6%95%B0%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.2.</span> <span class="toc-text">细胞计数常用数据集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%A6%E8%BE%86%E8%AE%A1%E6%95%B0%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.3.</span> <span class="toc-text">车辆计数常用数据集</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">人群计数方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0%E6%96%B9%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text">传统人群计数方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0%E6%96%B9%E6%B3%95"><span class="toc-number">5.2.</span> <span class="toc-text">基于深度学习的人群计数方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">人群计数损失函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%BA%E7%BE%A4%E8%AE%A1%E6%95%B0ground-truth%E5%AF%86%E5%BA%A6%E5%9B%BE%E7%94%9F%E6%88%90%E6%96%B9%E6%B3%95"><span class="toc-number">7.</span> <span class="toc-text">人群计数ground-truth密度图生成方法</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/9ec2453a/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">目标计数简洁框架</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-07-26 17:05:41" itemprop="dateCreated datePublished" datetime="2024-07-26T17:05:41+08:00">2024-07-26</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">2k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">6m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E6%96%87%E7%AB%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写文章</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E7%9B%AE%E6%A0%87%E8%AE%A1%E6%95%B0/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">目标计数</span></a><a class="tag-item" href="/tags/%E7%BB%BC%E8%BF%B0/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">综述</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h4><p>前阵子看了些目标计数的综述性文章，然后自己大概整理了个框架，可以供想要快速了解目标计数的阅读。</p>
+<h4 id="目标计数"><a href="#目标计数" class="headerlink" title="目标计数"></a><strong>目标计数</strong></h4><p><strong>目标计数：</strong>目标计数就是指对给定的图像或者视频进行分析，从中估计指定目标的数量。通过目标数量的空间分布信息，就可以推测给定场景中关注度高的区域，从而对图像或者视频进行合理的分析和解读。</p>
+<h4 id="目标计数模型分类-根据模型任务属性的角度分类"><a href="#目标计数模型分类-根据模型任务属性的角度分类" class="headerlink" title="目标计数模型分类(根据模型任务属性的角度分类)"></a><strong>目标计数模型分类(根据模型任务属性的角度分类)</strong></h4><h5 id="基于回归的计数模型"><a href="#基于回归的计数模型" class="headerlink" title="基于回归的计数模型"></a>基于回归的计数模型</h5><p>模型通过学习输入图像直接输出待计数目标的数量。这种方法只能提供场景内目标的数量信息，空间上目标数量的分布情况可以提供更加复杂的信息，同时，基于传统图像处理的目标计数方法所面临的问题就是复杂背景的干扰和，目标重叠。所以研究中更倾向于通过估计密度图来间接获得目标数量。</p>
+<h5 id="基于密度图估计的计数模型"><a href="#基于密度图估计的计数模型" class="headerlink" title="基于密度图估计的计数模型"></a>基于密度图估计的计数模型</h5><p>种计数模型的输出是一张密度图，密度图中的每一个元素的值反应了当前位置上包含目标的数量。同时，密度图整体上也可以反映目标的空间分布，对密度图中任意区域内的元素进行积分，就可得到该区域中的目标数量。 密度图生成的前提就是需要对目标样本逐个进行标记。密度图真实值生成过程就是对于一张给定的包含目标的图像，先对每个目标都用一个靠近目标(人头、细胞等)中心的点进行标注，然后采用归一化高斯函数对其进行卷积。重叠区域输出的密度图是每个目标经卷积后的叠加结果。</p>
+<h5 id="多任务模型-模型有多种输出"><a href="#多任务模型-模型有多种输出" class="headerlink" title="多任务模型(模型有多种输出)"></a>多任务模型(模型有多种输出)</h5><p>以密度图估计任务为主，其他任务(目标数量估计、密度等级划分、图像分割等任务)为辅来帮助提高计数任务的准确性。</p>
+<h4 id="常用目标计数数据集"><a href="#常用目标计数数据集" class="headerlink" title="常用目标计数数据集"></a><strong>常用目标计数数据集</strong></h4><p>目标计数的应用范围十分广泛，如人群计数、车辆计数、细胞计数、野生动物计数等。</p>
+<h5 id="人群计数常用数据集"><a href="#人群计数常用数据集" class="headerlink" title="人群计数常用数据集"></a>人群计数常用数据集</h5><ul>
+<li><p>UCSD：该数据集是第一个用于人群计数的数据集，记录了固定场景下的人群流动情况，包含2000张分辨率为158×238的图片，共包含了49885个行人。</p>
+</li>
+<li><p>Mall：该数据集来源于一个商业公共区域的监控视频，包含2000张分辨率大小为240×320的图片，共有62325个行人。其记录场景相对复杂，存在物体遮挡问题。</p>
+</li>
+<li><p>UCF_CC_50：该数据集覆盖了音乐会、体育场等不同的场景，但是只包含50张图片，平均每张图片包含1280个人。</p>
+</li>
+<li><p>WorldExpo’10：该数据集包含108个摄像头的1132个视频序列，分辨率大小为576×720，覆盖了大量不同场景，共计199923人。</p>
+</li>
+<li><p>Shanghai Tech：该数据集由PartA和PartB两部分组成，A部分来自网络，包含482张大小不一致的图片，一共包含241677人。B部分拍摄了来自上海主城区的繁华街头场景，包含716张分辨率大小为768×1024张图片，共计88488人。</p>
+</li>
+</ul>
+<h5 id="细胞计数常用数据集"><a href="#细胞计数常用数据集" class="headerlink" title="细胞计数常用数据集"></a>细胞计数常用数据集</h5><ul>
+<li><p>VGG Cells：该数据集是一个荧光细胞数据集，模拟了真实图片中经常会出现的一系列问题，包含200张分辨率大小为256×256的图片。</p>
+</li>
+<li><p>MBM Cells：该数据集记录了8个不同病人的健康骨髓细胞，共有11张分辨率大小为1200×1200的图片。对错误订成后裁剪为44张分辨率大小为600×600的图片。</p>
+</li>
+<li><p>Adipocyte Cells：人体皮下脂肪细胞数据集，每张图片分辨率为150×150。</p>
+</li>
+</ul>
+<h5 id="车辆计数常用数据集"><a href="#车辆计数常用数据集" class="headerlink" title="车辆计数常用数据集"></a>车辆计数常用数据集</h5><ul>
+<li><p>WebCamT：该数据集由多台不同的交通摄像机记录了不同天气条件、不同时刻的路况。训练集包含了45480张图片，测试集包含了14150张图片，场景分为市区道路和公园道路。</p>
+</li>
+<li><p>TRANCOS：该数据集记录了多种不同的道路交通场景，共标记了46796辆车辆，共1244张图片。</p>
+</li>
+</ul>
+<h4 id="人群计数方法"><a href="#人群计数方法" class="headerlink" title="人群计数方法"></a><strong>人群计数方法</strong></h4><h5 id="传统人群计数方法"><a href="#传统人群计数方法" class="headerlink" title="传统人群计数方法"></a>传统人群计数方法</h5><ul>
+<li><p>检测法：检测图像的个体并统计人数，当人群密集时就无法得到准确结果。</p>
+</li>
+<li><p>回归法：建立手工提取特征到图像人数之间的映射来完成计数。</p>
+</li>
+<li><p>密度估计方法：学习提取特征与密度图之间的映射关系。</p>
+</li>
+</ul>
+<h5 id="基于深度学习的人群计数方法"><a href="#基于深度学习的人群计数方法" class="headerlink" title="基于深度学习的人群计数方法"></a>基于深度学习的人群计数方法</h5><ul>
+<li><p>多列CNN模型：多列网络是指用不同的列对应于不同感受野的多尺度信息。但是这种网络模型参数较多，训练困难，计数的实时性较差，网络结构冗余度较高。</p>
+</li>
+<li><p>单列CNN模型：单列网络仅存在单个深度网络，不会增加网络的复杂性，结构简单，模型训练容易。但是这种网络不能有效分析任意场景的透视信息，对尺度变化的处理效率低。</p>
+</li>
+</ul>
+<h4 id="人群计数损失函数"><a href="#人群计数损失函数" class="headerlink" title="人群计数损失函数"></a><strong>人群计数损失函数</strong></h4><p>评价模型的预测值与真实值ground-truth的一致程度，通过定义损失函数，可以将人群密度图的映射关系学习转化为一个最优化问题。</p>
+<ul>
+<li><p>欧式距离损失：采用像素级的欧式距离，度量估计密度图与真实密度图之间的差距。但是这种方法的鲁棒性差，很容易因为个别像素点的极端情况影响整体的计数效果，并且由于取了平均值，所以其并不关注结构化信息，生成的密度图模糊，细节不清晰。</p>
+</li>
+<li><p>结构相似性损失(SSIM)：这种方法从图像的亮度、对比度和结构这三方面度量图像相似性，并通过均值、方差、协方差3个局部统计量计算图像之间的相似性，其取值范围在-1和1之间，值越大表示图像之间越相似。这种方法更好地关注图像间对应局部块的差异，更好的生成密度图。</p>
+</li>
+<li><p>生成对抗损失：使用对抗损失函数，通过对抗的方式对生成图片进行矫正，避免密度图模糊的情况。</p>
+</li>
+</ul>
+<h4 id="人群计数ground-truth密度图生成方法"><a href="#人群计数ground-truth密度图生成方法" class="headerlink" title="人群计数ground-truth密度图生成方法"></a><strong>人群计数ground-truth密度图生成方法</strong></h4><p>为图片中的每个人头标注中心坐标，然后再利用高斯核将坐标图转化为ground-truth人群密度图。ground-truth密度图生成的关键在于如何选择高斯核。</p>
+<ul>
+<li>几何自适应法：由于存在透视效应，人群图片中远近景目标的尺寸差异较大，不同位置人头对应着不同大小的像素区域，所以考虑到透视畸变的影响，大人头采用大尺寸高斯核，小人头采用小尺寸高斯核。</li>
+<li>固定高斯核法：这种方法忽略了人头尺寸差异以及自身与邻居的相似性，无论图片中哪个位置的人头均采用方差大小固定的高斯核对每个人头进行高斯模糊。但是对于远处的人头高斯核尺寸较大，可能会出现重叠，导致密度图质量的降低。</li>
+<li>内容感知标注法：首先使用暴力最近邻算法定位最近的头部，再用无监督分割算法分割出头部区域，然后依据邻居头部的大小计算高斯核尺寸。</li>
+</ul>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/9ec2453a/" title="目标计数简洁框架">http://lengnian.github.io/posts/9ec2453a/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/posts/cb44fd80/" rel="prev" title="电影和电视剧"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">电影和电视剧</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/95fa3d73/" rel="next" title="Hexo-GitHub Pages解决上传文章图片不显示的问题"><span class="post-nav-text">Hexo-GitHub Pages解决上传文章图片不显示的问题</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

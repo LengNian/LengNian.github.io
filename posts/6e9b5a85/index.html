@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>Transformer总结与理解 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="前言最近在看一些few shot的文章时，发现将target和query作为q和kv以及kv和q会取得完全不同的效果。 为了加深自己对transformer的理解，所以决定阅读一些文章并进行思考，并在这里记录一下。 找到了一个大牛的文章系列探秘Transformer系列之文章列表 - 罗西的思考 - 博客园 后续计划对该系列文章逐一阅读并进行总结。  Transformer注意力机制对于trans">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer总结与理解">
+<meta property="og:url" content="http://lengnian.github.io/posts/6e9b5a85/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="前言最近在看一些few shot的文章时，发现将target和query作为q和kv以及kv和q会取得完全不同的效果。 为了加深自己对transformer的理解，所以决定阅读一些文章并进行思考，并在这里记录一下。 找到了一个大牛的文章系列探秘Transformer系列之文章列表 - 罗西的思考 - 博客园 后续计划对该系列文章逐一阅读并进行总结。  Transformer注意力机制对于trans">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-05T07:34:45.000Z">
+<meta property="article:modified_time" content="2025-10-05T10:17:06.914Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="Transformer">
+<meta name="twitter:card" content="summary"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">30</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">22</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformer"><span class="toc-number">2.</span> <span class="toc-text">Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="toc-number">2.1.</span> <span class="toc-text">注意力机制</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/6e9b5a85/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Transformer总结与理解</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2025-10-05 15:34:45" itemprop="dateCreated datePublished" datetime="2025-10-05T15:34:45+08:00">2025-10-05</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">2.7k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">9m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E7%AC%94%E8%AE%B0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写笔记</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Transformer/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">Transformer</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近在看一些few shot的文章时，发现将target和query作为q和kv以及kv和q会取得完全不同的效果。</p>
+<p>为了加深自己对transformer的理解，所以决定阅读一些文章并进行思考，并在这里记录一下。</p>
+<p>找到了一个大牛的文章系列<a target="_blank" rel="noopener" href="https://www.cnblogs.com/rossiXYZ/p/18785601">探秘Transformer系列之文章列表 - 罗西的思考 - 博客园</a></p>
+<p>后续计划对该系列文章逐一阅读并进行总结。</p>
+<hr>
+<h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><h4 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h4><p>对于transformer的产生背景：对于文本生成任务来说，自回归模型 –&gt; 隐变量自回归模型 –&gt; 编码器-解码器模型</p>
+<p>从宏观角度来看，文本生成任务就是通过总结上文，来对下文进行预测，但是怎么对长文本的序列压缩到一个较小状态值得考虑。人们使用神经网络进行拟合，即CNN,RNN和Transformer。</p>
+<p>对于<strong>序列转换</strong>任务来说面临着两个挑战：<strong>对齐和长依赖</strong>。</p>
+<p>对齐：英文单词和中文翻译必然不是一对一的关系，<strong>这就会导致我们在时刻t，无法确定此时模型是否已经获得了输出正确结果所需要的所有信息。</strong>所以人们通过将上文信息编码成为隐状态，这能够保证模型接受所有信息，但是，<strong>解码时无法确认每个词之间的贡献度，而是将其默认看作贡献度是一致的。</strong></p>
+<p>长依赖：作者在文章中举了一个例子”秋蝉的衰弱的残声，更是北国的特产，因为北平处处全长着树，屋子又低，所以无论在什么地方，都听得见它们的啼唱。”从这个句子中，我们可以看出”它们”是指代”秋蝉”，而模型则需要依赖交互关系建模，神经网络很难处理这里依赖关系，尤其是随着两个位置之间间隔越长，这种依赖越难学习，从而导致长时信息丢失，也就是遗忘问题。</p>
+<p>对于CNN来说，众所周知，其通过卷积核去捕获空间中的局部依赖关系，但是由于卷积核的尺寸是有限的，并且CNN对相对位置比较敏感，而对绝对位置不敏感，所以其很难提取长距离依赖关系。人们则是通过堆叠更深的卷积去将局部感受野扩大，不同深度的所看到的内容范围不同，在最顶层的卷积理论上是被看作将所有的序列信息压缩到了一个卷积窗口中的。但是<strong>这种逐深的去传播往往会导致信息只有部分被保留下来，导致模型性能下降。</strong>所以通常不会使用CNN去处理长文本信息。</p>
+<p>(我自己在读论文的过程中，其实经常可以看到Transformer+CNN这两种结构结合的模型，其立意通常就是Transformer去捕获长程依赖，而CNN去捕获局部信息，两种互相增强。)</p>
+<p>对于RNN来说，其本身就是一种时序结构，后面的时刻天然的就依赖于前一时刻的输出。其记忆功能，又使得它能够记住之前时刻的信息。所以<strong>在理论上，RNN可以利用先前的信息去预测无限长的文本。</strong>RNN在处理序列时也使用了权重共享的策略，这可以减少模型的参数量，但是也埋下了雷。在RNN中，其使用同一个函数将上文压缩成<strong>固定长度</strong>的隐向量，依赖这个固定长度的隐向量去预测下文毫无疑问会造成信息遗失的问题。很简单，因为长度固定，当信息越多，其丢失的细节一定也会更多，所以RNN中的隐向量对于编码上文的细节能力在本质上是有限的。同样地，在预测过程中，权重共享会导致对输入单词赋予相同权重，这显然无法区分其重要程度。对于RNN中的信息遗失问题，如果关键信息出现的序列起点，那么就很容易被忽略，并且其会优先关注尾部的输入，这其实也导致了难以捕获长距离依赖关系，这也让RNN形成一种有序假设，会让其无法平带看待每个输入的顺序。此外，RNN依赖先前隐状态和当前输入，导致其无法并行，训练效率极低，并且其信息传输通路只有一条，那么随着时间步的增加，其在反向传播时一定会导致指数级的衰减或爆炸。当提取消失时，信息无法及时传递，导致RNN难以学习长距离依赖关系，当梯度爆炸时，又会导致网络不稳定。</p>
+<p>综上所述，RNN和CNN都无法解决上面所提到的两个问题–对齐和长依赖。</p>
+<hr>
+<p>注意力机制本质上就是要像人类一样进行感知，可以选择性地优先关注相关信息，忽略或者抑制不相关信息。</p>
+<p><strong>注意力机制本质是上下文决定一切，注意力机制是一种资源分配方案，注意力机制是信息交换，是”全局信息查询”</strong></p>
+<p>论文”A General Survey on Attention Mechanisms in Deep Learning”中给出了注意力模型的通用结构，并将其称作任务模型。</p>
+<p>任务模型中包括四个部分：</p>
+<ul>
+<li>特征模型：特征模型就是将任务模型的输入X转换为特征向量F;</li>
+<li>查询模型: 查询模型产生查询向量q，q就可以理解为<strong>哪个特征向量中包含对q最重要的信息</strong>；</li>
+<li>注意力模型:注意力模型会输出上下文向量c，其输入是特征向量F和查询向量q<ul>
+<li>在注意力模型中，从输入特征向量F生成Key和Value；</li>
+<li>利用q和Key计算相似度分数，产生相似度向量e，** $ e_l $ 就代表Key中第l列对q的重要性。**</li>
+<li>对相似度分数进行处理得到注意力权重a；</li>
+<li>利用权重a对Value进行计算，得到上下文向量c</li>
+</ul>
+</li>
+<li>输出模型: 利用上下文向量c将各个部分进行加权。</li>
+</ul>
+<p>注意力模型中不可避免的要提到QKV这三个关键术语，对于注意力模型中的两个输入q和F，可以将其理解为q(正在处理的序列&#x2F;目标序列)和F(被关注的序列&#x2F;源序列)</p>
+<ul>
+<li>Q 查询矩阵：其针对目标序列q，可以理解为<strong>某个单词向其它单词发出询问</strong>，目标序列中的每个元素把自己的特征总结到一个向量query中(我理解为线性映射变为query)，所有元素的query就共同构成了查询矩阵Q；</li>
+<li>K 键矩阵：其针对源序列F，可以理解为<strong>某个单词依据自身特征对查询单词的回答</strong>，同理，源序列中的每个元素将自己的特征总结到一个向量key中，所有元素的key就共同构成了键矩阵K；</li>
+<li>V 值矩阵：其针对源序列F，每个元素的实际值是向量value，所有元素的value就构成了值矩阵V。</li>
+</ul>
+<p><strong>实际中，我们的KV是来自同一个特征，但是千万不能将其视作相同，K和V分别代表着不同的含义，而这个含义就是通过线性投影去映射出来的</strong>。</p>
+<p><strong>我对QKV的理解就把Q当作一个询问者，询问我和谁像，而K只是用来计算与Q是否像，V则是用于被取出，其对应的就是QK算出来像所对应的值</strong></p>
+<p>作者给出一种比喻：query是你要找的内容，key是字典的索引（字典里面有什么样的信息），value是对应的信息。普通的字典查找是精确匹配，即依据匹配的键来返回其对应的值。而注意力机制是向量化+模糊匹配+信息合并。注意力机制不仅查找最佳匹配，还要依据匹配程度做加权求和。源序列每个元素转化为&lt;key,value&gt;对，这就构成了源序列的字典。目标序列每个元素提出了query，这就是要查询的内容。在查找中，目标序列中每个元素会用自己的query去和目标序列每个元素的key计算得到对齐系数。这个对齐系数就是元素之间的相似度或者相关性。query和key越相似就代表value对query的影响力越大，query越需要吸收value的信息。随后query会根据两个词之间的亲密关系来决定从V中提取出多少信息出来融入到自身。</p>
+<p><strong>我认为注意力机制中比较重要的一点就是在解码过程中，会计算与每一个输入部分进行计算，其并不是像RNN存储一个包含上文信息的固定长度的隐状态，而是存储每个上文信息的隐状态，这使每个输入的隐状态没有被压缩，并且也忽略了距离的影响。</strong></p>
+<p>对于注意力中的加权求和，可以拆分成两部分：加权和求和：</p>
+<ul>
+<li>加权：CNN和RNN的权重会被固定，在测试阶段使用固定的权重，而<strong>注意力机制则是会动态地计算当前应该关注哪些输入</strong></li>
+<li>求和：对数据进行融合，不是按同等贡献，而是依据相似度有侧重点的进行融合。</li>
+</ul>
+<p>对比注意力机制和CNN，RNN，不难看出：</p>
+<ul>
+<li>对齐：注意力机制中允许对输入的不同部分计算相关性，这使不同输入与输出的对齐得到了控制，而不再是同等的对齐贡献</li>
+<li>长距离依赖：注意力机制中存储了每个输入的隐状态，这就避免了头部信息随着时间序列的增大而消失，并且消除了距离的概念，使RNN中的有序被克服，Transformer可以平等地看待每一个输入的隐状态。</li>
+</ul>
+<p>虽然注意力机制可以很好的克服CNN和RNN的缺陷，但是内存以及算例的需求也是急剧增长。</p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/6e9b5a85/" title="Transformer总结与理解">http://lengnian.github.io/posts/6e9b5a85/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/e0dc302e/" rel="next" title="Mamba学习记录"><span class="post-nav-text">Mamba学习记录</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

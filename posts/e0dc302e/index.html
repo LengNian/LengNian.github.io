@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>Mamba学习记录 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="前言最近我想使用Mamba去代替一下Transformer，所以在b站看了耿直哥老师的讲解视频，前半段所有内容几乎全部来自视频内容。 如果想看我自己总结的部分，可以直接跳转到补充部分 最近自己又看到几篇文章感觉讲的非常好，也在这里一同推荐给大家。 Mamba详解(一)之什么是SSM？ - 知乎 这篇文章的一系列感觉都很清晰，可以在作者文章中找到其它部分 The Annotated S4 一文通透想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mamba学习记录">
+<meta property="og:url" content="http://lengnian.github.io/posts/e0dc302e/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="前言最近我想使用Mamba去代替一下Transformer，所以在b站看了耿直哥老师的讲解视频，前半段所有内容几乎全部来自视频内容。 如果想看我自己总结的部分，可以直接跳转到补充部分 最近自己又看到几篇文章感觉讲的非常好，也在这里一同推荐给大家。 Mamba详解(一)之什么是SSM？ - 知乎 这篇文章的一系列感觉都很清晰，可以在作者文章中找到其它部分 The Annotated S4 一文通透想">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320151906758.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320152156279.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320153231028.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320153315530.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320162416870.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320162222937.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320163937323.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320170719312.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320171055772.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320171115823.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320174904901.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320175824740.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320180310474.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320180647275.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181221559.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181254994.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181852261.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320183146006.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327163227219.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327163554566.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327164433811.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327164612517.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327165316851.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327165526496.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327170404078.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327170432725.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327170954398.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327171657694.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327185113603.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327185134507.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327171842868.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327172637659.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327172710306.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327172718840.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173711824.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173756898.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173907263.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173914065.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173925414.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327180300544.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327180321463.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327180434153.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327181507179.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327181530737.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327183127351.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327183144420.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327183921685.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184406194.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184412584.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184534071.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184639573.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184818979.png">
+<meta property="og:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184908764.png">
+<meta property="article:published_time" content="2025-03-20T06:54:06.000Z">
+<meta property="article:modified_time" content="2025-03-27T11:23:55.386Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="Mamba">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lengnian.github.io/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320151906758.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">30</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">22</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">2.</span> <span class="toc-text">参考文献</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transformer%E7%BC%BA%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">Transformer缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8BSSM"><span class="toc-number">4.</span> <span class="toc-text">时序状态空间模型SSM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E7%A9%BA%E9%97%B4%E7%9A%84%E6%97%B6%E5%BA%8F%E5%BB%BA%E6%A8%A1"><span class="toc-number">4.1.</span> <span class="toc-text">连续空间的时序建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E7%A6%BB%E6%95%A3%E5%8C%96%E4%B8%8ERNN"><span class="toc-number">4.2.</span> <span class="toc-text">时序离散化与RNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8C%96%E5%A4%84%E7%90%86%E4%B8%8ECNN"><span class="toc-number">4.3.</span> <span class="toc-text">并行化处理与CNN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mamba"><span class="toc-number">5.</span> <span class="toc-text">Mamba</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.1.</span> <span class="toc-text">要解决的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E5%A2%9E%E5%8A%A0%E9%80%89%E6%8B%A9%E6%80%A7%EF%BC%9F"><span class="toc-number">5.2.</span> <span class="toc-text">怎么增加选择性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="toc-number">5.3.</span> <span class="toc-text">核心原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mamba%E7%BB%93%E6%9E%84"><span class="toc-number">5.4.</span> <span class="toc-text">Mamba结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">7.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Part1-Transformer-and-RNN"><span class="toc-number">7.1.</span> <span class="toc-text">Part1: Transformer and RNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part2-The-State-Space-Model-SSM"><span class="toc-number">7.2.</span> <span class="toc-text">Part2: The State Space Model(SSM)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#From-a-Continuous-to-a-Discrete-Signal"><span class="toc-number">7.2.1.</span> <span class="toc-text">From a Continuous to a Discrete Signal</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-Recurrent-Representation-The-Convolution-Representation"><span class="toc-number">7.2.2.</span> <span class="toc-text">The Recurrent Representation &amp;&amp; The Convolution  Representation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HiPPO-sequence"><span class="toc-number">7.2.3.</span> <span class="toc-text">HiPPO sequence</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part3-Mamba-A-Selective-SSM"><span class="toc-number">7.3.</span> <span class="toc-text">Part3: Mamba - A Selective SSM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The-scan-operation"><span class="toc-number">7.3.1.</span> <span class="toc-text">The scan operation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hardware-aware-Algorithm"><span class="toc-number">7.3.2.</span> <span class="toc-text">Hardware-aware Algorithm</span></a></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/e0dc302e/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Mamba学习记录</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2025-03-20 14:54:06" itemprop="dateCreated datePublished" datetime="2025-03-20T14:54:06+08:00">2025-03-20</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2025-03-27 19:23:55" itemprop="dateModified" datetime="2025-03-27T19:23:55+08:00">2025-03-27</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">3.9k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">14m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E7%AC%94%E8%AE%B0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写笔记</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Mamba/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">Mamba</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近我想使用Mamba去代替一下Transformer，所以在b站看了耿直哥老师的讲解视频，前半段所有内容几乎全部来自视频内容。</p>
+<p>如果想看我自己总结的部分，可以直接跳转到补充部分</p>
+<p>最近自己又看到几篇文章感觉讲的非常好，也在这里一同推荐给大家。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/694695534">Mamba详解(一)之什么是SSM？ - 知乎</a> 这篇文章的一系列感觉都很清晰，可以在作者文章中找到其它部分</p>
+<p><a target="_blank" rel="noopener" href="https://srush.github.io/annotated-s4/">The Annotated S4</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/134923301">一文通透想颠覆Transformer的Mamba：从SSM、HiPPO、S4到Mamba(被誉为Mamba最佳解读)_mamba模型-CSDN博客</a></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Xn4y1o7TE?spm_id_from=333.788.videopod.sections&vd_source=ce2ba30706a07f3300142a42d4e3023f">AI大讲堂：革了Transformer的小命？专业拆解【Mamba模型】_哔哩哔哩_bilibili</a></p>
+<p> <a target="_blank" rel="noopener" href="https://www.maartengrootendorst.com/blog/mamba/">A Visual Guide to Mamba and State Space Models - Maarten Grootendorst</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44162361/article/details/144591024">图文并茂【Mamba模型】详解-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/134923301">一文通透想颠覆Transformer的Mamba：从SSM、HiPPO、S4到Mamba(被誉为Mamba最佳解读)_mamba模型-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/694695534">Mamba详解(一)之什么是SSM？ - 知乎</a></p>
+<p>关于安装mamba_ssm我主要参考了这几篇文章</p>
+<p><a target="_blank" rel="noopener" href="https://jishuzhan.net/article/1808857327386759169">Ubuntu和Windows系统之Mamba_ssm安装 - 技术栈</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/686355774">配置mamba-ssm环境的乱七八糟的可能有用的操作 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_55684014/article/details/145939814">mamba_ssm和causal-conv1d详细安装教程_causal-conv1d离线安装包-CSDN博客</a></p>
+<h2 id="Transformer缺点"><a href="#Transformer缺点" class="headerlink" title="Transformer缺点"></a>Transformer缺点</h2><p>  位置编码：把时序内容空间化   </p>
+<p>对于transformer来说，其中的自注意力机制存在一个天然的缺陷，就是其自注意力机制的计算范围仅仅局限在了窗口内，而忽略了窗口外的元素，这就造成了视野狭窄，缺乏了全局观。如果增加窗口的长度，那么计算量会呈平方增长。</p>
+<p><strong>本质上说，Transformer就是通过位置编码，将序列数据空间化，然后通过计算空间相关度方向建模时序相关度，这个过程忽视了数据内在结构的关联关系。</strong> (我的理解就是对于输入数据，无论其是否冗余或者是否重要，都统一进行位置编码，然后将其空间化，计算其空间相关度)。但是这种做法是在当年为了充分利用GPU的并行能力，SSM类模型(时序状态空间模型SSM)就是让长序列数据建模回归传统，这是其思考问题的初衷和视角。</p>
+<h2 id="时序状态空间模型SSM"><a href="#时序状态空间模型SSM" class="headerlink" title="时序状态空间模型SSM"></a>时序状态空间模型SSM</h2><h3 id="连续空间的时序建模"><a href="#连续空间的时序建模" class="headerlink" title="连续空间的时序建模"></a>连续空间的时序建模</h3><p>Mamba是基于结构化状态空间序列模型(SSMs),对应论文[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2110.13985">2110.13985] Combining Recurrent, Convolutional, and Continuous-time Models with Linear State-Space Layers</a></p>
+<p> 上面这篇论文本质也是RNN模型。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320151906758.png" alt="image-20250320151906758" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320152156279.png" alt="image-20250320152156279" loading="lazy"></p>
+<p>这一段其实就是解释了上图中Continuous-time所对应的内容。绝大部分情况下，都是时变的，是动态的，而非时不变的。</p>
+<h3 id="时序离散化与RNN"><a href="#时序离散化与RNN" class="headerlink" title="时序离散化与RNN"></a>时序离散化与RNN</h3><p>其对应Recurrent这部分。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320153231028.png" alt="image-20250320153231028" loading="lazy"></p>
+<p>所谓离散化就是上图中连续的数据变成了离散化的数据</p>
+<p>而零阶保持则是变成离散化以后，将数据变化变成了阶跃式的，保持当前当前时间的状态。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320153315530.png" alt="image-20250320153315530" loading="lazy"></p>
+<h3 id="并行化处理与CNN"><a href="#并行化处理与CNN" class="headerlink" title="并行化处理与CNN"></a>并行化处理与CNN</h3><p> 对应于最上面图中的Convolutional， 对于SSM而言，就是通过卷积实现了并行化。<strong>其核心思想就是使用CNN对时序数据进行建模，借助不同尺度的卷积核，从不同时间尺度上捕获时序特征。</strong></p>
+<p> <img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320162416870.png" alt="image-20250320162416870" loading="lazy"></p>
+<p>k可以理解为一个伸缩窗口，当前状态可以用之前输出的加权和来表征，再把 $ h_t$代入到输出的式子，与卷积的公式进行对比。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320162222937.png" alt="image-20250320162222937" loading="lazy"></p>
+<p>在实际问题中，会对上述的AB矩阵进一步简化，会将其设置为对角阵，这就是结构化SSM，S4模型。</p>
+<p>对于SSM模型，要记住，这里有两个强假设：<strong>线性+时不变</strong>，这两个假设极大的限制了其应用范围。而Mamba本质上就是对SSM模型的改进，其不再考虑这两个约束。</p>
+<h2 id="Mamba"><a href="#Mamba" class="headerlink" title="Mamba"></a>Mamba</h2><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320163937323.png" alt="image-20250320163937323" loading="lazy"></p>
+<p>Mamba的设计机制让状态空间具备了选择性，同时在序列长度上实现了线性扩展。  </p>
+<p>看这幅图的中间部分，BC都变成为了带有t的时变参数，A虽然没有加t，但其实也是时变的，因为会将Δt加入到A中，这里的Δt是一个非线性的，</p>
+<p>Δt可以看作一个总开关，$B_t,C_t$就是旋钮。总开关 + 若干个旋钮 &#x3D; 非线性时变系统</p>
+<h3 id="要解决的问题"><a href="#要解决的问题" class="headerlink" title="要解决的问题"></a>要解决的问题</h3><p>序列建模的核心就是研究如何将长序列的上下文信息压缩到一个较小的状态中。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320170719312.png" alt="image-20250320170719312" loading="lazy"> </p>
+<p>作者希望可以关注两种能力：</p>
+<p>1.选择性复制任务(抓重点的能力)</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320171055772.png" alt="image-20250320171055772" loading="lazy"></p>
+<p>2.诱导头任务(上下文推理能力)</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320171115823.png" alt="image-20250320171115823" loading="lazy"></p>
+<h3 id="怎么增加选择性？"><a href="#怎么增加选择性？" class="headerlink" title="怎么增加选择性？"></a>怎么增加选择性？</h3><p>让B和C由原来固定的变为了可变的，根据$x_t$和其压缩投影学习可变参数。上图中蓝色部分(包括投影和连线)就是所谓的选择机制。<strong>目的是根据输入内容选择性地记忆和处理信息，从而提高对复杂序列数据的适应能力。</strong></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320174904901.png" alt="image-20250320174904901" loading="lazy"></p>
+<p>这里面的Δ是前面离散化计算时的参数，投影出来的三条蓝线其实就是$s_B,s_C和s_Δ三个选择函数$，共享一个投影模块(project)，主要是为了实现参数共享和计算效率。</p>
+<p>B：batch size，L：Sequence length，N：Feature dimension，D：input feature dimension。</p>
+<p> <img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320175824740.png" alt="image-20250320175824740" loading="lazy"></p>
+<p>上述所提到的$s_B(x)&#x3D;Linear_N(x), s_C(x)&#x3D;Linear_N(x), s_Δ(x)&#x3D;Broadcast_D(Linear_1(x)), \tau_Δ&#x3D;softplus$</p>
+<p>这样设计的效果如图所示：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320180310474.png" alt="image-20250320180310474" loading="lazy"></p>
+<p> 这也达到了注意力的效果。</p>
+<h3 id="核心原理"><a href="#核心原理" class="headerlink" title="核心原理"></a>核心原理</h3><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320180647275.png" alt="image-20250320180647275" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181221559.png" alt="image-20250320181221559" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181254994.png" alt="image-20250320181254994" loading="lazy"></p>
+<h3 id="Mamba结构"><a href="#Mamba结构" class="headerlink" title="Mamba结构"></a>Mamba结构</h3><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320181852261.png" alt="image-20250320181852261" loading="lazy"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250320183146006.png" alt="image-20250320183146006" loading="lazy"></p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="Part1-Transformer-and-RNN"><a href="#Part1-Transformer-and-RNN" class="headerlink" title="Part1: Transformer and RNN"></a>Part1: Transformer and RNN</h3><p>对于transformer来说，无论接收到什么输入，它都可以回溯序列中的任何早期标记，从而推导出其自己的表示。尽管已经生成了一些token，但是当生成下一个token时，transformer任然需要重新计算整个序列的attention，这就导致了二次方的计算复杂度，当序列长度增加，其代价也就越大。</p>
+<p>RNN有两个输入，一个是当前时间步的输入，另一个则是先前时间步的隐藏状态。利用这两个输入，RNN和产生下一个隐藏状态以及预测输出。<strong>当预测时，RNN避免重新计算先前所有的隐藏状态(这正是transformer想要做的)。</strong>这就意味着RNN在推理时非常快，因为其线性的尺度，也意味着在理论上RNN可以处理无限长的文本长度。</p>
+<p>但是RNN也存在一些问题，因为他只考虑上一个时间步的隐藏状态，所以随着时间推荐，其会忘掉一些重要信息(如下图，当处理到“Maarten”时，会遗忘掉“Hello”)；此外，RNN无法并行进行，因为它需要随着时间逐时间步的去进行处理。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327163227219.png" alt="image-20250327163227219" loading="lazy"></p>
+<p>这时，RNN和Transformer所面临的优缺点就非常明显了。我们如何才能找到一种折中的方法呢？<strong>又可以像Transformer一样并行化处理，又可以随着序列长度进行线性扩展的推理。</strong>没错，就是Mamba。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327163554566.png" alt="image-20250327163554566" loading="lazy"></p>
+<h3 id="Part2-The-State-Space-Model-SSM"><a href="#Part2-The-State-Space-Model-SSM" class="headerlink" title="Part2: The State Space Model(SSM)"></a>Part2: The State Space Model(SSM)</h3><p>状态空间就是能够充分描述一个系统所包含的最小变量数，其也是通过定义系统内可能的状态去数学化的代表一个问题。</p>
+<p>在传统的状态空间中，对于时间t，存在输入序列x(t)，潜在的状态空间表示h(t)，预测输出序列y(t)。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327164433811.png" alt="image-20250327164433811" loading="lazy"></p>
+<p>通过两个等式，就可以预测输出序列y(t)</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327164612517.png" alt="image-20250327164612517" loading="lazy"></p>
+<p>这两个等式就是SSM的核心部分，(上面的式子被称为状态等式，下面的式子被称为输出等式)。</p>
+<p>通过下图理解状态等式，<strong>可以看出隐藏状态是如何进行改变的(通过矩阵A)，以及输入是如何影响状态(通过矩阵B)。</strong></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327165316851.png" alt="image-20250327165316851" loading="lazy"></p>
+<p>同理，对于输出等式，<strong>可以看出状态是如何转换成输出(通过矩阵C)，以及输入如何影响输出（通过矩阵D）。</strong></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327165526496.png" alt="image-20250327165526496" loading="lazy"></p>
+<p>综上，我们可以得出以下结构（D也被叫做跳跃连接，这也是原因有时SSM会忽略掉这个跳跃连接）。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327170404078.png" alt="image-20250327170404078" loading="lazy"></p>
+<p>忽略跳跃连接以后的结构如下图所示。在这里我们仍然需要注意一点，<strong>输入和输出还都是连续的</strong>，但是我们经常处理的都是离散的token，所以就需要将连续变为离散。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327170432725.png" alt="image-20250327170432725" loading="lazy"></p>
+<h4 id="From-a-Continuous-to-a-Discrete-Signal"><a href="#From-a-Continuous-to-a-Discrete-Signal" class="headerlink" title="From a Continuous to a Discrete Signal"></a>From a Continuous to a Discrete Signal</h4><p>怎么将连续的信号变为离散的呢？这里使用的方法是零阶保持（Zero-order）。具体表现就是当我们接收到一个离散信号时，会一直保持其值，直到再次接受到一个新的离散信号，这个过程给SMM创造出了可以使用的连续信号。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327170954398.png" alt="image-20250327170954398" loading="lazy"></p>
+<p>零阶保持用数学公式的表达如下：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327171657694.png" alt="image-20250327171657694" loading="lazy"></p>
+<p>这里我看到了一个推导方法，可以帮助理解：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327185113603.png" alt="image-20250327185113603" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327185134507.png" alt="image-20250327185134507" loading="lazy"></p>
+<p>这个离散数值的保持时间由一个新的可学习的参数Δ来表示，其也代表了输入的分辨率。</p>
+<p><strong>现在我们有了连续的输入信号，就可以生成连续的输出，只需根据输入的时间步长对数值进行采样即可，采样值就是我们的离散化输出！！！</strong></p>
+<p>经过上述处理，我们可以从连续 SSM 变为离散 SSM，其表述方式不再是函数对函数，即 x(t) → y(t)，而是序列对序列 $x_k  → y_k$，如下图所示，这里的矩阵A和B目前代表模型的离散化参数。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327171842868.png" alt="image-20250327171842868" loading="lazy"></p>
+<p><strong>注意：在训练过程种，保存的是矩阵A的连续形式，而不是离散形式，在训练时，连续的表示形式会被离散化。</strong></p>
+<h4 id="The-Recurrent-Representation-The-Convolution-Representation"><a href="#The-Recurrent-Representation-The-Convolution-Representation" class="headerlink" title="The Recurrent Representation &amp;&amp; The Convolution  Representation"></a>The Recurrent Representation &amp;&amp; The Convolution  Representation</h4><p>现在，我们可以考虑如何在模型种进行计算。在每个时间步，我们计算当前输入如何影响先前的隐藏状态，并且计算所预测的输出。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327172637659.png" alt="image-20250327172637659" loading="lazy"></p>
+<p>这是之前所看过的RNN是比较相似的，如下图：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327172710306.png" alt="image-20250327172710306" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327172718840.png" alt="image-20250327172718840" loading="lazy"></p>
+<p>现在我们的计算方法类似RNN，其在推理时非常快速，但是训练时比较慢！</p>
+<p>我们也可以使用另一种表示方法就是卷积，因为我们需要处理的是序列，而不是图像，所以需要使用的也就是1维卷积。</p>
+<p>此时，我们使用的卷积核来自于SSM</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173711824.png" alt="image-20250327173711824" loading="lazy"></p>
+<p>卷积核的推导如下所示（需要结合上面的状态等式和输出等式一起看）：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173756898.png" alt="image-20250327173756898" loading="lazy"></p>
+<p>这样我们就以卷积的方式来<strong>并行</strong>计算。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173907263.png" alt="image-20250327173907263" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173914065.png" alt="image-20250327173914065" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327173925414.png" alt="image-20250327173925414" loading="lazy"></p>
+<h4 id="HiPPO-sequence"><a href="#HiPPO-sequence" class="headerlink" title="HiPPO sequence"></a>HiPPO sequence</h4><p>对于矩阵A来说，其是SSM中最重要的一个部分，因为其对上一个时间步的隐藏状态进行处理。矩阵A需要记住其之前所看过的所有标记之间的差异。那么该如何创建矩阵A，用于保留较大的内存去存储上下文呢？</p>
+<p>这里使用HiPPO（High-order Polynomial Projection Operators），HiPPO尝试将所有的输入信号压缩成为一个系数向量。它可以很好地捕捉最近的token并且弱化之前的token，表示如下图。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327180300544.png" alt="image-20250327180300544" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327180321463.png" alt="image-20250327180321463" loading="lazy"></p>
+<p><strong>此时，我们的状态空间就从SSM转变成为了S4模型。其有一个重要特性就是线性时间不变性（Linear TIME Invariance, LTI）其意味着，对于一个给定的SSM，矩阵A, B, C都是保持固定的，是静态的，这也说明无论你向SSM中提供什么序列，A,B,C的值并不会随输入的改变而改变，这就说明暂时其并不具备内容感知的能力。</strong></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327180434153.png" alt="image-20250327180434153" loading="lazy"></p>
+<h3 id="Part3-Mamba-A-Selective-SSM"><a href="#Part3-Mamba-A-Selective-SSM" class="headerlink" title="Part3: Mamba - A Selective SSM"></a>Part3: Mamba - A Selective SSM</h3><p>对于Mamba来说，其有两个主要贡献：</p>
+<ul>
+<li>选择扫描算法（selective scan algorithm）: 这允许模型去过滤相关或者不相关的信息。</li>
+<li>硬件感知算法（hardware-aware algorithm）：通过并行扫描、核融合和重新计算高效地存储中间结果。</li>
+</ul>
+<p>具体表述如下图：<br><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327181507179.png" alt="image-20250327181507179" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327181530737.png" alt="image-20250327181530737" loading="lazy"></p>
+<p>对于SSM以及S4，其对关注或忽略特定输入的内容等任务上表现并不好，在mamba中使用选择性复制（selective copying ）和感应头（induction heads）。</p>
+<p>由于我们上面提到的线性时间不变性导致了ssm无法进行内容感觉推理,但是我们希望ssm可以对输入进行推理，相比之下，transformer由于会根据输入序列动态改变注意力，其可以有选择地“注意”序列中的不同部分，所以在文本等任务上表现更好。这就说明矩阵A,B,C固有的LIM造成了无法进行内容感知的问题。</p>
+<p>对于SSM和S4，A, B, C三个矩阵和输入独立，不会随着输入的改变而发生改变。与之相反地，mamba使A, B, C，甚至Δ都依赖于输入的序列长度和batch大小。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327183127351.png" alt="image-20250327183127351" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327183144420.png" alt="image-20250327183144420" loading="lazy"></p>
+<p>这意味着，对于不同的输入，就有不同的矩阵B和C，这就解决了所面临的无法进行内容感知的问题。</p>
+<p><strong>注意：矩阵A是静态的，因为我们希望状态是静态的，但是A又通过B,C影响，所以A又是动态的！！！</strong></p>
+<p>这些矩阵共同选择将哪些内容保留在隐藏状态，哪些内容忽略不计，因为它们现在依赖于输入内容。</p>
+<p>较小的步长 ∆ 会导致忽略特定的单词，而更多地使用以前的上下文，而较大的步长 ∆ 则更多地关注输入的单词而不是上下文。</p>
+<h4 id="The-scan-operation"><a href="#The-scan-operation" class="headerlink" title="The scan operation"></a>The scan operation</h4><p>由于这些矩阵现在是动态的，因此无法使用卷积表示法进行计算，因为它假定了一个固定的核。我们只能使用递归表示法，而失去了卷积所提供的并行化功能。</p>
+<p>每个状态都是前一个状态（乘以 A）加上当前输入（乘以 B）的总和。这就是所谓的扫描运算，可以用 for 循环轻松计算。相比之下，并行化似乎是不可能的，因为只有当我们拥有前一个状态时，才能计算出每个状态。然而，Mamba 通过<em>并行扫描</em>算法实现了这一点。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327183921685.png" alt="image-20250327183921685" loading="lazy"></p>
+<p>动态矩阵 B 和 C 以及并行扫描算法共同创建了选择性扫描算法</p>
+<h4 id="Hardware-aware-Algorithm"><a href="#Hardware-aware-Algorithm" class="headerlink" title="Hardware-aware Algorithm"></a>Hardware-aware Algorithm</h4><p>最近推出的 GPU 的一个缺点是其小型但高效的 SRAM 与大型但效率稍低的 DRAM 之间的传输（IO）速度有限。经常在 SRAM 和 DRAM 之间复制信息会成为瓶颈。<br>Mamba 和 Flash Attention 一样，试图限制从 DRAM 到 SRAM 以及从 SRAM 到 DRAM 的次数。它通过内核融合来实现这一目标，使模型能够防止写入中间结果，并持续执行计算，直到完成为止。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184406194.png" alt="image-20250327184406194" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184412584.png" alt="image-20250327184412584" loading="lazy"></p>
+<p>我们可以通过可视化 Mamba 的基本架构来查看 DRAM 和 SRAM 分配的具体实例：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184534071.png" alt="image-20250327184534071" loading="lazy"></p>
+<p>硬件感知算法的最后一个环节是重新计算。</p>
+<p>中间状态不会被保存，但却是后向计算梯度所必需的。相反，作者在后向计算过程中重新计算了这些中间状态。</p>
+<p>虽然这看起来效率不高，但比从相对较慢的 DRAM 中读取所有这些中间状态的成本要低得多。</p>
+<p>整个Mamba的过程如下所示：</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184639573.png" alt="image-20250327184639573" loading="lazy"></p>
+<p>对于整个Mamba块的清晰表达如下图所示，它也可以通过堆叠多次来完成特定任务。</p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184818979.png" alt="image-20250327184818979" loading="lazy"></p>
+<p><img src="/Mamba%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20250327184908764.png" alt="image-20250327184908764" loading="lazy"></p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/e0dc302e/" title="Mamba学习记录">http://lengnian.github.io/posts/e0dc302e/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/posts/6e9b5a85/" rel="prev" title="Transformer总结与理解"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">Transformer总结与理解</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/795668d8/" rel="next" title="2024年总结"><span class="post-nav-text">2024年总结</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

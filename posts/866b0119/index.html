@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>Hexo+GitHub Pages 个人博客搭建 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="前言很久之前在网上看到别人自己的博客网站，感觉很好看。等到有时间，便自己也搭建了一个自己的网站，就好像自己的一个小空间，里面可以放些自己的内容。自己在搭建过程中也遇到了很多坑，所以结合自己搭建的过程，在这里记录一下。 环境准备GitHub注册要现在github注册一个账号，并且需要记住的用户名以及邮箱（后面会用） Nodejs环境Hexo是一款基于nodejs的博客框架，所以首先需要先安装node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo+GitHub Pages 个人博客搭建">
+<meta property="og:url" content="http://lengnian.github.io/posts/866b0119/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="前言很久之前在网上看到别人自己的博客网站，感觉很好看。等到有时间，便自己也搭建了一个自己的网站，就好像自己的一个小空间，里面可以放些自己的内容。自己在搭建过程中也遇到了很多坑，所以结合自己搭建的过程，在这里记录一下。 环境准备GitHub注册要现在github注册一个账号，并且需要记住的用户名以及邮箱（后面会用） Nodejs环境Hexo是一款基于nodejs的博客框架，所以首先需要先安装node">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lengnian.github.io/posts/866b0119/1.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/866b0119/2.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/866b0119/3.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/866b0119/4.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/866b0119/5.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/866b0119/7.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/866b0119/6.png">
+<meta property="article:published_time" content="2024-07-24T06:05:33.000Z">
+<meta property="article:modified_time" content="2024-07-24T11:56:48.068Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="GitHub Pages">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lengnian.github.io/posts/866b0119/1.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">30</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">22</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitHub%E6%B3%A8%E5%86%8C"><span class="toc-number">2.1.</span> <span class="toc-text">GitHub注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nodejs%E7%8E%AF%E5%A2%83"><span class="toc-number">2.2.</span> <span class="toc-text">Nodejs环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text">Git环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAGitHub%E5%8D%9A%E5%AE%A2"><span class="toc-number">2.4.</span> <span class="toc-text">搭建GitHub博客</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AESSH-key"><span class="toc-number">2.5.</span> <span class="toc-text">配置SSH key</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AEHexo"><span class="toc-number">3.</span> <span class="toc-text">本地配置Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85hexo"><span class="toc-number">3.1.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96hexo"><span class="toc-number">3.2.</span> <span class="toc-text">初始化hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%AB%99%E7%82%B9%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.</span> <span class="toc-text">配置站点文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6"><span class="toc-number">3.4.</span> <span class="toc-text">生成静态文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%84%E8%A7%88%E4%B8%BB%E9%A2%98"><span class="toc-number">3.5.</span> <span class="toc-text">预览主题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7"><span class="toc-number">3.6.</span> <span class="toc-text">安装部署工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0GitHub"><span class="toc-number">3.7.</span> <span class="toc-text">部署到GitHub</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">我遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%981%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">问题1：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%982%EF%BC%9A"><span class="toc-number">4.2.</span> <span class="toc-text">问题2：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%983%EF%BC%9A"><span class="toc-number">4.3.</span> <span class="toc-text">问题3：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/866b0119/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Hexo+GitHub Pages 个人博客搭建</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-07-24 14:05:33" itemprop="dateCreated datePublished" datetime="2024-07-24T14:05:33+08:00">2024-07-24</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">1.7k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">7m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E6%96%87%E7%AB%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写文章</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Hexo/" style="--text-color:#0E83CD"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">Hexo</span></a><a class="tag-item" href="/tags/GitHub-Pages/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">GitHub Pages</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久之前在网上看到别人自己的博客网站，感觉很好看。等到有时间，便自己也搭建了一个自己的网站，就好像自己的一个小空间，里面可以放些自己的内容。自己在搭建过程中也遇到了很多坑，所以结合自己搭建的过程，在这里记录一下。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><h4 id="GitHub注册"><a href="#GitHub注册" class="headerlink" title="GitHub注册"></a>GitHub注册</h4><p>要现在github注册一个账号，并且需要记住的用户名以及邮箱（后面会用）</p>
+<h4 id="Nodejs环境"><a href="#Nodejs环境" class="headerlink" title="Nodejs环境"></a>Nodejs环境</h4><p>Hexo是一款基于nodejs的博客框架，所以首先需要先安装nodejs。</p>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js — Run JavaScript Everywhere (nodejs.org)</a>在这里下载。</p>
+<p>下载之后使用Win+R进入cmd去验证是否安装成功。</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">nodejs</span><span class="token expression">安装后，该命令会显示nodejs的版本号</span></span>
+node <span class="token operator">-</span>v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"># 还有很重要的一个npm安装，通过该命令可以显示npm的版本号
+npm <span class="token operator">-</span>v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="Git环境"><a href="#Git环境" class="headerlink" title="Git环境"></a>Git环境</h4><p>在Git的官网进行下载。<a target="_blank" rel="noopener" href="https://git-scm.com/">Git (git-scm.com)</a></p>
+<p>傻瓜式安装即可。</p>
+<p>通过一下代码检查是否成功（Win+R，输入cmd）</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git <span class="token operator">--</span>version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在桌面鼠标右击可以看到这个选项</p>
+<img src="/posts/866b0119/1.png" class loading="lazy">
+
+<p>Git是分布式的版本控制系统，需要将用户名和邮箱设置为标识，点击Git Bash Here后输入如下内容：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"user_name"</span> # user_name 填GitHub的用户名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"user_email"</span> # user_email填GitHub注册的邮箱<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>比如我的用户名为wsj，注册邮箱为<a href="mailto:&#x77;&#x73;&#106;&#49;&#x31;&#x31;&#x32;&#x32;&#50;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x77;&#x73;&#106;&#49;&#x31;&#x31;&#x32;&#x32;&#50;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a>（后文以此为基础演示），那么就需要填入以下内容：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"wsj"</span>
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="搭建GitHub博客"><a href="#搭建GitHub博客" class="headerlink" title="搭建GitHub博客"></a>搭建GitHub博客</h4><p><strong>注：这里新建仓库时，需要注意仓库的分支，如果默认分支和之后配置站点文件的分支不同会出现预览和实际不同的问题，<a href="#emphasize">见问题2</a>因为master容易带有侮辱性色彩，所以这里建议使用main分支，也建议在建仓库前修改默认分支为main。（后文配置站点文件以main为例）</strong></p>
+<ul>
+<li>修改全局默认分支右击头像-&gt;Settings-&gt;Repositories，修改default branch为main。</li>
+<li>修改单个仓库默认分支，点击仓库，在仓库中点击Settings，在general中修改default branch为main。</li>
+</ul>
+<p>去GitHub上新建一个仓库，仓库命名一定命名为 username.github.io，username替换为自己实际的用户名，比如wsj.github.io，并且选择为public。</p>
+<img src="/posts/866b0119/2.png" class loading="lazy">
+
+<h4 id="配置SSH-key"><a href="#配置SSH-key" class="headerlink" title="配置SSH key"></a>配置SSH key</h4><p>点击Git Bash Here，输入以下命令：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">ssh<span class="token operator">-</span>keygen <span class="token operator">-</span>t rsa <span class="token operator">-</span>C <span class="token string">"user.email"</span> # user<span class="token punctuation">.</span>email为GitHub注册时的邮箱
+
+# 例如
+ssh<span class="token operator">-</span>keygen <span class="token operator">-</span>t rsa <span class="token operator">-</span>C <span class="token string">"wsj111222@gmail.com"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>连续按回车，不需要手动输入任何东西。</p>
+<p>打开C:\用户\用户名下找到.ssh文件。使用记事本打开id_rsa.pub文件，将其内容全部复制。</p>
+<p>紧接着在GitHub中点击头像，在settings中找到SSH and GPG keys，点击New SSH key。</p>
+<img src="/posts/866b0119/3.png" class loading="lazy">
+
+<img src="/posts/866b0119/4.png" class loading="lazy">
+
+<p>将刚才复制的内容全部黏贴到Key中，Title可以任意填写。</p>
+<p><strong>注意：id_rsa.pub是公钥，可以给别人，id_rsa是私钥，不可泄漏。</strong></p>
+<p>此时，在Git中验证公钥配置是否成功，右击打开Git Bash here，输入</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">ssh <span class="token operator">-</span>T git@github<span class="token punctuation">.</span>com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>配置成功显示如下：</p>
+<img src="/posts/866b0119/5.png" class loading="lazy">
+
+<h3 id="本地配置Hexo"><a href="#本地配置Hexo" class="headerlink" title="本地配置Hexo"></a>本地配置Hexo</h3><p>在电脑的文件夹中新建一个文件夹，用于存放博客的相关内容，命名、存放目录随意。如我在E:\My Blogs创建。</p>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>进入该目录即进入E:\My Blogs，打开Git（右击Git Bush here），输入以下命令</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span>cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="初始化hexo"><a href="#初始化hexo" class="headerlink" title="初始化hexo"></a>初始化hexo</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"># 输入命令
+hexo init<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>初始化成功后会提示：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">init successful：
+INFO  Cloning hexo<span class="token operator">-</span>starter https<span class="token operator">:</span><span class="token comment">//github.com/hexojs/hexo-starter.git</span>
+INFO  Install dependencies
+INFO  Start blogging with Hexo<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>初始化成功后也会在目录中多出很多文件。</p>
+<h4 id="配置站点文件"><a href="#配置站点文件" class="headerlink" title="配置站点文件"></a>配置站点文件</h4><p>在hexo中根据_config.yml文件进行配置。在根目录下的 _config.yml文件称为站点配置文件，即（E:\My Blogs\ _config.yml），使用不同主题时也会有配置文件，会位于E:\My Blogs\themes文件夹下，称为主题配置文件。</p>
+<p>现在打开根目录下的站点配置文件，在最后找到deploy：修改其中的内容。</p>
+<p>repo可以进入仓库，点击code，选择SSH或者HTTPS进行复制。</p>
+<img src="/posts/866b0119/7.png" class loading="lazy">
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token expression">Deployment</span></span>
+## Docs<span class="token operator">:</span> https<span class="token operator">:</span><span class="token comment">//hexo.io/docs/one-command-deployment</span>
+deploy<span class="token operator">:</span>
+  type<span class="token operator">:</span> git
+  # 这里使用了SSH配置<span class="token punctuation">(</span>推荐<span class="token punctuation">)</span>。如果使用https，则是https<span class="token operator">:</span><span class="token comment">//github.com/owner/username.github.io.git</span>
+  repo<span class="token operator">:</span> git@github<span class="token punctuation">.</span>com<span class="token operator">:</span>owner<span class="token operator">/</span>username<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token punctuation">.</span>git    
+  branch<span class="token operator">:</span> main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注：这里的branch是main还是master，应该根据自己的默认分支走，但是建议选择main，2020年10月1日后master正式由main取代，master容易带有侮辱性色彩。如果这里的branch没有设置正确，容易踩坑<a href="#emphasize">见问题2</a></p>
+<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><p>在Git中输入以下命令：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">Chexo g  # 生成静态文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>执行完该命令，Hexo 就会在 <code>public</code> 文件夹中生成相关的 <code>html</code> 文件，这些文件将来都是要提交到 <code>GitHub</code> 上的 <code>username.github.io</code> 的仓库中去的。</p>
+<h4 id="预览主题"><a href="#预览主题" class="headerlink" title="预览主题"></a>预览主题</h4><p>在Git中输入以下命令：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>打开浏览器访问 <code>http://localhost:4000</code> 即可看到内容C</p>
+<img src="/posts/866b0119/6.png" class loading="lazy">
+
+<p>我这里第2行是因为使用了主题，不会影响预览。</p>
+<h4 id="安装部署工具"><a href="#安装部署工具" class="headerlink" title="安装部署工具"></a>安装部署工具</h4><p>部署到GitHub使用hexo d命令，但是在此之前要先安装一个部署插件</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">npm install hexo-deployer-git --save # 安装部署插件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h4><p>输入</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>部署成功后，在浏览器中输入username.github.io，例如wsj.github.io，就可以进入自己的博客啦！</p>
+<h3 id="我遇到的问题"><a href="#我遇到的问题" class="headerlink" title="我遇到的问题"></a>我遇到的问题</h3><h4 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h4><p>在hexo初始化，即hexo init过程中出现</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">INFO  Cloning hexo-starter https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo-starter.git
+fatal: unable to access &#39;https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo-starter.git&#x2F;&#39;: Failed to connect to github.com port 443 after 21055 ms: Couldn&#39;t connect to server
+WARN  git clone failed. Copying data instead
+FATAL Something&#39;s wrong. Maybe you can find the solution here: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;troubleshooting.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  可能是网速问题，解决方法：可以多次尝试hexo init解决。C</p>
+<h4 id="问题2："><a href="#问题2：" class="headerlink" title="问题2："></a>问题2：<span id="emphasize"></span></h4><p>我第一次配置时，明明使用hexo s预览没有问题，但是进入username.github.io中却没有变化（可以区分清楚不同分支者可以跳过此问题，此问题对于新手来说建议博客仓库中有一个分支）。</p>
+<p>最后的原因就是因为branch没有配置正确，默认分支为master，而实际配置站点分支为main。</p>
+<p>解决方法：删除仓库以及博客文件夹，重新配置。</p>
+<h4 id="问题3："><a href="#问题3：" class="headerlink" title="问题3："></a>问题3：</h4><p>LF will be replaced by CRLF</p>
+<p>Git中提示warning: LF will be replaced by CRLF in</p>
+<p>执行：</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">git config --global core.safecrlf false<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_62928039/article/details/130248518">Hexo+GitHub搭建个人博客教程（2023最新版）_hexo github个人网站教程-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://fanyfull.github.io/2021/10/16/Github-Hexo-%E7%9C%9F-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-GitHub-%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/#%E4%BD%BF%E7%94%A8-hexo-%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6">GiHub + Hexo 真·从零开始搭建个人博客 - Fany Full’s Blog</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Lu_xiuyuan/article/details/112056997">关于hexo更新到GitHub后博客内容未变问题_hexo 部署到gitee 已经部署了 但是博客没更新-CSDN博客</a></p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/866b0119/" title="Hexo+GitHub Pages 个人博客搭建">http://lengnian.github.io/posts/866b0119/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/posts/7cddb87d/" rel="prev" title="Hexo+GitHub Pages搭建的个人博客加入到Bing搜索引擎"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">Hexo+GitHub Pages搭建的个人博客加入到Bing搜索引擎</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/653763f0/" rel="next" title="About me"><span class="post-nav-text">About me</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

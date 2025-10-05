@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="魏笙葭"><meta name="copyright" content="魏笙葭"><meta name="generator" content="Hexo 7.3.0"><meta name="theme" content="hexo-theme-yun"><title>GAN对抗网络原理与代码实现 | WeiSJ&amp;HEXO</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...undefined?.options,
+  });
+});</script><link class="aplayer-style-marker" rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script class="aplayer-script-marker" src="https://fastly.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" defer></script><script class="meting-script-marker" src="https://fastly.jsdelivr.net/npm/meting@1/dist/Meting.min.js" defer></script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"lengnian.github.io","root":"/","title":"魏笙葭的小窝","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"local_search":{"path":"/search.xml"},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="WeiSJ&HEXO" type="application/atom+xml"><meta name="description" content="GAN网络生成对抗网络（GAN，Generative adversarial network）是一种深度学习网络，他的灵感来自与零和博弈思想。GAN其实是由两个神经网络组成，分别是生成网络Generator（下文简称为G）和判别网络Discriminator（下文简称为D）。 生成网络G用于生成模拟数据，判别网络D用于判别生成的数据是真是假，通过两个网络的博弈，不断使生成网络的生成数据更加逼真，导">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAN对抗网络原理与代码实现">
+<meta property="og:url" content="http://lengnian.github.io/posts/9069b95a/index.html">
+<meta property="og:site_name" content="WeiSJ&amp;HEXO">
+<meta property="og:description" content="GAN网络生成对抗网络（GAN，Generative adversarial network）是一种深度学习网络，他的灵感来自与零和博弈思想。GAN其实是由两个神经网络组成，分别是生成网络Generator（下文简称为G）和判别网络Discriminator（下文简称为D）。 生成网络G用于生成模拟数据，判别网络D用于判别生成的数据是真是假，通过两个网络的博弈，不断使生成网络的生成数据更加逼真，导">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lengnian.github.io/posts/9069b95a/1.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/9069b95a/2.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/9069b95a/3.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/9069b95a/4.png">
+<meta property="og:image" content="http://lengnian.github.io/posts/9069b95a/5.png">
+<meta property="article:published_time" content="2024-08-07T02:18:13.000Z">
+<meta property="article:modified_time" content="2024-08-07T09:19:04.496Z">
+<meta property="article:author" content="魏笙葭">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="生成对抗网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lengnian.github.io/posts/9069b95a/1.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="魏笙葭"><img width="96" loading="lazy" src="/images/avatar1.png" alt="魏笙葭"><span class="site-author-status" title="不想科研">😭</span></a><div class="site-author-name"><a href="/about/">魏笙葭</a></div><span class="site-name">WeiSJ&HEXO</span><sub class="site-subtitle">享受独处</sub><div class="site-description">慢热且长情</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">30</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">22</span></a></div><a class="site-state-item hty-icon-button" href="/guestbook/" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:message-2-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/LengNian" title="GitHub" target="_blank" style="color:#6E5494"><span class="icon iconify" data-icon="ri:github-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.mit.edu/" title="School" target="_blank" style="color:#7E2222"><span class="icon iconify" data-icon="ri:school-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:1031477927@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=1544549234" title="网易云音乐" target="_blank" style="color:#C10D0C"><span class="icon iconify" data-icon="ri:netease-cloud-music-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="知乎" target="_blank" style="color:#0084FF"><span class="icon iconify" data-icon="ri:zhihu-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><span class="icon iconify" data-icon="ri:bilibili-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.link" title="Travelling" target="_blank" style="color:var(--hty-text-color)"><span class="icon iconify" data-icon="ri:train-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="QQ" target="_blank" style="color:#12B7F5"><span class="icon iconify" data-icon="ri:qq-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="微信公众号" target="_blank" style="color:#1AAD19"><span class="icon iconify" data-icon="ri:wechat-2-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Twitter" target="_blank" style="color:#1da1f2"><span class="icon iconify" data-icon="ri:twitter-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" title="Telegram Channel" target="_blank" style="color:#0088CC"><span class="icon iconify" data-icon="ri:telegram-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a><a class="links-item hty-icon-button" href="/girls/" title="我的小天使们" style="color:#FF0505"><span class="icon iconify" data-icon="ri:hearts-fill"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#GAN%E7%BD%91%E7%BB%9C"><span class="toc-number">1.</span> <span class="toc-text">GAN网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GAN%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">GAN网络基本结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%BD%91%E7%BB%9CGenerator"><span class="toc-number">2.1.</span> <span class="toc-text">生成网络Generator</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A4%E5%88%AB%E7%BD%91%E7%BB%9CDiscriminator"><span class="toc-number">2.2.</span> <span class="toc-text">判别网络Discriminator</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GAN%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">GAN网络优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GAN%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83"><span class="toc-number">4.</span> <span class="toc-text">GAN网络训练</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PyTorch%E4%BB%A3%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">PyTorch代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">6.</span> <span class="toc-text">参考文献</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://LengNian.github.io/posts/9069b95a/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="魏笙葭"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="WeiSJ&amp;HEXO"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">GAN对抗网络原理与代码实现</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-08-07 10:18:13" itemprop="dateCreated datePublished" datetime="2024-08-07T10:18:13+08:00">2024-08-07</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="本文字数"><span class="icon iconify" data-icon="ri:file-word-line"></span></span> <span title="本文字数">2.5k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读时长"><span class="icon iconify" data-icon="ri:timer-line"></span></span> <span title="阅读时长">10m</span></span></span><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><span class="icon iconify" data-icon="ri:eye-line"></span> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%86%99%E6%96%87%E7%AB%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">写文章</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">深度学习</span></a><a class="tag-item" href="/tags/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">生成对抗网络</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h4 id="GAN网络"><a href="#GAN网络" class="headerlink" title="GAN网络"></a>GAN网络</h4><p>生成对抗网络（GAN，Generative adversarial network）是一种深度学习网络，他的灵感来自与零和博弈思想。GAN其实是由两个神经网络组成，分别是生成网络Generator（下文简称为G）和判别网络Discriminator（下文简称为D）。</p>
+<p>生成网络G用于生成模拟数据，判别网络D用于判别生成的数据是真是假，通过两个网络的博弈，不断使生成网络的生成数据更加逼真，导致判别网络无法判别真假，使判别网络的判断也要更加准确。这二者相互博弈，所以运用的是零和博弈思想，并且叫做生成对抗网络。</p>
+<p>在一篇文章中看到作者这样比喻GAN网络。将小偷比作生成网络，警察比作判别网络。小偷只有伪装的不像小偷才能不被警察发现。最初小偷伪装的很差，总被警察发现，所以小偷不断提升自己，被警察抓住的几率变小一些，而警察发现小偷伪装技术变强也不断提高自己的业务能力。就这样，小偷和警察不断对抗提升自己，最后成为了伪装技术高超的小偷和抓捕技术高超的警察。</p>
+<h4 id="GAN网络基本结构"><a href="#GAN网络基本结构" class="headerlink" title="GAN网络基本结构"></a>GAN网络基本结构</h4><p>我在网上找到这么一张图片，形象的展示了GAN的架构。</p>
+<img src="/posts/9069b95a/1.png" class loading="lazy">
+
+<p>接下来自己介绍一下生成网络和判别网络。</p>
+<h5 id="生成网络Generator"><a href="#生成网络Generator" class="headerlink" title="生成网络Generator"></a>生成网络Generator</h5><p>生成网络的输入是随机数据（噪声），输出是一幅图像，往往是假图像。生成网络的模型结构可以随意，可以是简单的多层全连接神经网络，也可以是反卷积网络等。我们可以认为生成网络的输入包含着输出所要携带的信息，以MNIST手写数据集为例，输入可以表明了输出的数字为几，模糊程度等内容，因为这里对其具体信息不做要求，只希望能最大程度地骗过判别器，所以输入最好是可以满足常见分布的数据。</p>
+<h5 id="判别网络Discriminator"><a href="#判别网络Discriminator" class="headerlink" title="判别网络Discriminator"></a>判别网络Discriminator</h5><p>判别网络顾名思义其作用就是进行判别。判别网络的输入既有真实图片，也有生成网络生成的假图片。判别网络的输出会是一个概率，来说明输入的图像是真实图片还是假图片，而不是判别输入图像的类别是什么，是一个二分类问题。仍然以MNIST手写数据集为例，判别网络不是判别输入的图像是数字几，而是判定这副图像是不是由生成网络产生。和生成网络一样，判别网络的模型结构可以是多层全连接网络，也可以是卷积神经网络等。</p>
+<h4 id="GAN网络优化"><a href="#GAN网络优化" class="headerlink" title="GAN网络优化"></a>GAN网络优化</h4><p>我们根据上文已经知道了GAN中包含两个网络，这两个网络的作用不同，所以这两个网络的优化目标就不同，自然其损失函数也是不相同的。</p>
+<p>首先看<strong>生成网络的损失函数：</strong></p>
+<div>
+$$
+L_G=H(1,D(G(z))) \tag{1}
+$$
+</div>
+H是指交叉熵损失函数，D是判别网络，G是生成网络，z是输入到生成网络的随机数据，也可以理解为噪声。G(z)代表生成的假图片，D(G(z))就是对生成的假图片的概率判断。1代表是真，0代表假。这里可能会问，明明生成的是假网络，label应该是0，那为什么要和1进行比较呢？我的理解是**生成网络的目标就是要生成可以迷惑判别网络的假图片，所以就要让假图片与真图片非常接近，所以你就要让网络去不断逼近真实图片，所以这里的label是1。如果label是0的话，就要最大化输出概率与0的距离才能达到生成网络的目的，而我们通常使用最小化，所以这里的label就是1**。所以生成网络的损失函数就是要让由随机噪声经过生成网络得到的假图片被判别网络判别为真图片的概率越大。
+
+<p>接下来看<strong>判别网络的损失函数：</strong></p>
+<div>
+$$
+L_D = H(1,D(x))+H(0,D(G(z))) \tag{2}
+$$
+</div>
+判别网络的损失函数由两部分组成。同上，H表示交叉熵损失函数，D是判别网络，G是生成网络，x代表的是真实数据，z表示输入的随机数据。对于判别网络的损失函数，我的理解是**x是真实的图片，对应的label就是1，而G(z)是生成网络的假图片，对应的实际label为0，判别网络就是要将真实图片识别为真实图片，假图片识别为假图片，所以这里就是要最小化真实图片经过判别网络的概率和1之间的距离，以及假图片经过判别网络的概率和0之间的距离。**
+
+<h4 id="GAN网络训练"><a href="#GAN网络训练" class="headerlink" title="GAN网络训练"></a>GAN网络训练</h4><p>知道了GAN网络的优化目标，接下来看一下GAN网络的训练过程。</p>
+<p>GAN网络采用的是交替训练的策略。</p>
+<p>也就是首先固定一个网络，训练另一个网络，两者交替的进行。我们默认真实图片的标签为1，假图片的标签为0。</p>
+<p>对于判别网络的训练，让真实图片和假图片经过判别网络，然后计算和各自对应标签的损失就可以了。</p>
+<p>对于生成网络的训练，令生成网络产生的假图片，并通过判别网络，计算判别网络输出的概率值与<strong>label为1</strong>的距离。</p>
+<h4 id="PyTorch代码"><a href="#PyTorch代码" class="headerlink" title="PyTorch代码"></a>PyTorch代码</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>autograd
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> random
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>autograd <span class="token keyword">import</span> Variable
+<span class="token keyword">from</span> torchvision <span class="token keyword">import</span> transforms
+<span class="token keyword">from</span> torchvision <span class="token keyword">import</span> datasets
+<span class="token keyword">from</span> torchvision<span class="token punctuation">.</span>utils <span class="token keyword">import</span> save_image
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+<span class="token comment"># 定义一个规范化图像的函数</span>
+<span class="token keyword">def</span> <span class="token function">to_img</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    out <span class="token operator">=</span> <span class="token number">0.5</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> x<span class="token punctuation">)</span>
+    out <span class="token operator">=</span> out<span class="token punctuation">.</span>clamp<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    out <span class="token operator">=</span> out<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> out
+
+<span class="token comment"># 参数设置</span>
+batch_size <span class="token operator">=</span> <span class="token number">128</span>
+num_epoch <span class="token operator">=</span> <span class="token number">150</span>
+z_dimension <span class="token operator">=</span> <span class="token number">100</span>
+
+img_transform <span class="token operator">=</span> transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 加载数据</span>
+mnist <span class="token operator">=</span> datasets<span class="token punctuation">.</span>MNIST<span class="token punctuation">(</span>root<span class="token operator">=</span><span class="token string">'./dataset/'</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>img_transform<span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+dataloader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>dataset<span class="token operator">=</span>mnist<span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接下来定义判别网络和生成网络，网络主题结构就采用几层全连接层。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 定义判别器Discriminator</span>
+<span class="token keyword">class</span> <span class="token class-name">Discriminator</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>dis <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">784</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Sigmoid<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>dis<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> x <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 定义生成器Generator</span>
+<span class="token keyword">class</span> <span class="token class-name">Generator</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>gen <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">,</span> <span class="token number">512</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>LeakyReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">512</span><span class="token punctuation">,</span> <span class="token number">784</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            nn<span class="token punctuation">.</span>Tanh<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>gen<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">D <span class="token operator">=</span> Discriminator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+G <span class="token operator">=</span> Generator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+device <span class="token operator">=</span> torch<span class="token punctuation">.</span>device<span class="token punctuation">(</span><span class="token string">"cuda"</span> <span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">"cpu"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> torch<span class="token punctuation">.</span>cuda<span class="token punctuation">.</span>is_available<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    D <span class="token operator">=</span> D<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+    G <span class="token operator">=</span> G<span class="token punctuation">.</span>to<span class="token punctuation">(</span>device<span class="token punctuation">)</span>
+
+<span class="token comment"># 定义损失函数，优化器</span>
+criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>BCELoss<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 二分类的交叉熵</span>
+d_optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>D<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.0003</span><span class="token punctuation">)</span>
+g_optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>G<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.0003</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最后就是对GAN的训练。</p>
+<pre class="line-numbers language-none"><code class="language-none">d_loss_list &#x3D; []
+g_loss_list &#x3D; []
+
+for epoch in range(num_epoch):
+    # 不要图片的标签
+    for i, (img, _) in enumerate(dataloader):
+        # 获取batchsize
+        num_img &#x3D; img.size(0)
+        # 转换为(batchsize, 784)
+        img &#x3D; img.view(num_img, -1)
+
+
+        real_img &#x3D; img.to(device)  # shape:  [128, 784]
+        real_label &#x3D; torch.ones(num_img).to(device)
+        fake_label &#x3D; torch.zeros(num_img).to(device)
+
+        # 判别器Discrimination训练
+        # 真的图片判别为真，假图片判别为假
+        real_out &#x3D; D(real_img)   # shape: [128, 1]
+        real_out &#x3D; real_out.squeeze()  # shape: [128,]
+
+        # 真实图片的Loss
+        d_loss_real &#x3D; criterion(real_out, real_label)
+        # 真实图片的判别值,越接近1越好
+        real_scores &#x3D; real_out
+
+        # 计算假图片的损失
+        # 随机生成一些噪声
+        z &#x3D; torch.randn(num_img, z_dimension).to(device)  # shape: [128, 100]
+        # 将噪声通过生成网络，生成假图片，避免梯度传到G中，因为G不需要更新（此时训练D）
+        fake_img &#x3D; G(z).detach()
+        # 判别器判别假图片
+        fake_out &#x3D; D(fake_img)  # shape: [128, 1]
+        fake_out &#x3D; fake_out.squeeze()  # shape: [128,]
+        # 计算假图片的loss
+        d_loss_fake &#x3D; criterion(fake_out, fake_label)
+        # 假图片的判别值,越接近0越好
+        fake_scores &#x3D; fake_out
+        
+        # 损失函数和优化
+        # 损失包括真损失和假损失
+        d_loss &#x3D; d_loss_fake + d_loss_real
+        # 梯度清零
+        d_optimizer.zero_grad()
+        # 反向传播
+        d_loss.backward()
+        # 前向传播
+        d_optimizer.step()
+
+        # 生成器Generator训练
+        # 希望生成的假的图片被判别器识别为真的图片
+        # 将判别器固定，将假图片传入判别器的结果与真实label对应
+        # 方向传播更新生成网络里的参数
+        z &#x3D; torch.randn(num_img, z_dimension).to(device)
+        # 得到假图片
+        fake_img &#x3D; G(z)
+        # 将假图片经过判别器得到的结果
+        output &#x3D; D(fake_img) # shape: [128, 1]
+        output &#x3D; output.squeeze()
+        # 将假图片与真实图片的label计算loss
+        g_loss&#x3D; criterion(output, real_label)
+
+        g_optimizer.zero_grad()
+        g_loss.backward()
+        g_optimizer.step()
+
+
+    d_loss_list.append(d_loss.data.item())
+    g_loss_list.append(g_loss.data.item())
+        
+    print(&#39;Epoch[&#123;&#125;&#x2F;&#123;&#125;],d_loss:&#123;:.6f&#125;,g_loss:&#123;:.6f&#125; &#39;
+            &#39;D_real_output: &#123;:.6f&#125;,D_fake_output: &#123;:.6f&#125;&#39;.format(
+        epoch+1, num_epoch, d_loss.data.item(), g_loss.data.item(),
+        real_scores.data.mean(), fake_scores.data.mean()  # 打印的是真实图片的损失均值
+    ))
+
+    if epoch &#x3D;&#x3D; 0:
+        real_images &#x3D; to_img(real_img.cpu().data)
+        save_image(real_images, &#39;.&#x2F;img&#x2F;real_images.png&#39;)
+    elif epoch % 10 &#x3D;&#x3D; 0:
+        fake_images &#x3D; to_img(fake_img.cpu().data)
+        save_image(fake_images, &#39;.&#x2F;img&#x2F;fake_images-&#123;&#125;.png&#39;.format(epoch + 1))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由于能力有限，代码参考了参考文献中的第五篇文章。并在其基础中将一些pytorch中已经弃用的函数进行了修改。并在其他地方进行了小部分调整。</p>
+<p>看看生成的图像，这是原图。</p>
+<img src="/posts/9069b95a/2.png" class loading="lazy">
+
+<p>这是训练10轮后的图像</p>
+<img src="/posts/9069b95a/3.png" class loading="lazy">
+
+<p>这是训练50轮后的图像</p>
+<img src="/posts/9069b95a/4.png" class loading="lazy">
+
+<p>这是训练140轮后的图像</p>
+<img src="/posts/9069b95a/5.png" class loading="lazy">
+
+
+
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://easyai.tech/ai-definition/gan/">一文看懂「生成对抗网络 - GAN」基本原理+10种典型算法+13种应用 (easyai.tech)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/LEEANG121/article/details/104113406">深度学习：GAN 对抗网络原理详细解析（零基础必看）_gan网络-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Sakura55/article/details/81512600">深度学习—-GAN（生成对抗神经网络）原理解析_gan神经网络-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/DFCED/article/details/105175097">图解 生成对抗网络GAN 原理 超详解_gan原理图-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jizhidexiaoming/article/details/96485095">pytorch实现GAN-CSDN博客</a></p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/Wechat_pay.png"><img loading="lazy" src="/images/Wechat_pay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><span class="icon iconify" data-icon="ri:wechat-pay-line"></span></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>魏笙葭</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://lengnian.github.io/posts/9069b95a/" title="GAN对抗网络原理与代码实现">http://lengnian.github.io/posts/9069b95a/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/posts/877ae5d4/" rel="prev" title="2024研究生科研素养提升公益讲座笔记"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">2024研究生科研素养提升公益讲座笔记</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/posts/ffb6a1cc/" rel="next" title="对抗攻击:CW算法"><span class="post-nav-text">对抗攻击:CW算法</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>若您想及时得到回复提醒,建议发送邮件(邮箱在About me中可以找到)。</span><br></div><style>.utterances {
+  max-width: 100%;
+}</style><script src="https://utteranc.es/client.js" repo="LengNian/Blog-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; CopyRight 2023 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> 魏笙葭</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>感谢陪伴</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2024-07-22T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div id="busuanzi"><span id="busuanzi_container_site_uv" title="总访客量"><span><span class="icon iconify" data-icon="ri:user-line"></span></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><span class="icon iconify" data-icon="ri:eye-line"></span></span><span id="busuanzi_value_site_pv"></span></span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="footer-custom-text">Edited by 魏笙葭</div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script><script src="/js/search/local-search.js" defer type="module"></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><span class="icon iconify" data-icon="ri:close-line"></span></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..." value=""></div><div class="search-result-container"></div></div><script>function initMourn() {
+  const date = new Date();
+  const today = (date.getMonth() + 1) + "-" + date.getDate()
+  const mourn_days = ["4-4","9-18","12-13"]
+  if (mourn_days.includes(today)) {
+    document.documentElement.style.filter = "grayscale(1)";
+  }
+}
+initMourn();</script><div class="aplayer no-destroy" id="aplayer" data-id="4867800677" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay data-theme="#ad7a86" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex data-lrctype="0" data-listfolded data-listmaxheight="340px" data-storagename="metingjs"></div><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
+mediumZoom(images)</script><style>.medium-zoom-image {
+  z-index: 99;
+}</style><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":200,"height":400,"hOffset":-30,"vOffset":-20},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
