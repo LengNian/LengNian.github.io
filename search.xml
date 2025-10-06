@@ -3911,9 +3911,7 @@ hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
     <title>Transformer总结与理解</title>
     <url>/posts/6e9b5a85/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近在看一些few shot的文章时，发现将target和query作为q和kv以及kv和q会取得完全不同的效果。</p>
-<p>为了加深自己对transformer的理解，所以决定阅读一些文章并进行思考，并在这里记录一下。</p>
-<p>找到了一个大牛的文章系列<a href="https://www.cnblogs.com/rossiXYZ/p/18785601">探秘Transformer系列之文章列表 - 罗西的思考 - 博客园</a></p>
-<p>后续计划对该系列文章逐一阅读并进行总结。</p>
+<p>为了加深自己对transformer的理解，所以决定阅读<a href="https://www.cnblogs.com/rossiXYZ/p/18785601%E4%B8%AD%E7%9A%84%E6%96%87%E7%AB%A0%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%80%9D%E8%80%83%EF%BC%8C%E5%B9%B6%E5%9C%A8%E8%BF%99%E9%87%8C%E8%AE%B0%E5%BD%95%E9%98%85%E8%AF%BB%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%89%80%E6%80%9D%E6%89%80%E6%83%B3,%E5%B9%B6%E5%AF%B9%E4%BD%9C%E8%80%85%E7%9A%84%E8%A7%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93,%E4%BE%9B%E8%87%AA%E5%B7%B1%E6%97%A5%E5%90%8E%E9%98%85%E8%AF%BB%E3%80%82">https://www.cnblogs.com/rossiXYZ/p/18785601中的文章并进行思考，并在这里记录阅读过程中的所思所想,并对作者的观点进行归纳总结,供自己日后阅读。</a></p>
 <hr>
 <h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><h4 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h4><p>对于transformer的产生背景：对于文本生成任务来说，自回归模型 –&gt; 隐变量自回归模型 –&gt; 编码器-解码器模型</p>
 <p>从宏观角度来看，文本生成任务就是通过总结上文，来对下文进行预测，但是怎么对长文本的序列压缩到一个较小状态值得考虑。人们使用神经网络进行拟合，即CNN,RNN和Transformer。</p>
@@ -3934,7 +3932,7 @@ hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
 <li>查询模型: 查询模型产生查询向量q，q就可以理解为<strong>哪个特征向量中包含对q最重要的信息</strong>；</li>
 <li>注意力模型:注意力模型会输出上下文向量c，其输入是特征向量F和查询向量q<ul>
 <li>在注意力模型中，从输入特征向量F生成Key和Value；</li>
-<li>利用q和Key计算相似度分数，产生相似度向量e，** $ e_l $ 就代表Key中第l列对q的重要性。**</li>
+<li>利用q和Key计算相似度分数，产生相似度向量e，  $ e_l $  ** 就代表Key中第l列对q的重要性。**</li>
 <li>对相似度分数进行处理得到注意力权重a；</li>
 <li>利用权重a对Value进行计算，得到上下文向量c</li>
 </ul>
@@ -3962,6 +3960,47 @@ hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
 <li>长距离依赖：注意力机制中存储了每个输入的隐状态，这就避免了头部信息随着时间序列的增大而消失，并且消除了距离的概念，使RNN中的有序被克服，Transformer可以平等地看待每一个输入的隐状态。</li>
 </ul>
 <p>虽然注意力机制可以很好的克服CNN和RNN的缺陷，但是内存以及算例的需求也是急剧增长。</p>
+<h4 id="总结架构"><a href="#总结架构" class="headerlink" title="总结架构"></a>总结架构</h4><p>在介绍Transformer中，这里再次对一些关键的术语进行解释：</p>
+<ul>
+<li><p>分词(tokenize): 分词就是将用户输入的文本(通常是连续的文字)拆解为若干个独立的词汇单元，即一个一个的token;</p>
+</li>
+<li><p>编码：在NLP中会有一个词表，这些词表与词之间是一一对应的关系，其会为对应的词分配一个独一无二的整数ID代表词表的索引;</p>
+</li>
+<li><p>嵌入化(embedding): embedding就是将分词通过编码转化成的数字映射到一个高维向量空间中，这个token就被转换为了word embedding，只有这样每个token才能被LLM处理。embedding过程也可以被分为两部分:</p>
+<ul>
+<li>生成每个token的embedding,其堆叠在一起形成一个embedding矩阵,该矩阵是一个可学习的,通过随机初始化获得;<ul>
+<li>token embedding则是将每个token得到的整数ID和一个高维向量相关联,其会去embedding矩阵中查找第token_id的数据作为embedding.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>位置编码: 对于文本来说, 模型不单单需要理解文本的语义,还需要知道文本中每个单词的顺序,位置编码可以确保单词的顺序不会丢失,契合embedding向量相加,形成最终的嵌入矩阵.</p>
+</li>
+</ul>
+<p>可以结合下图去理解相关操作:<img src="/Transformer%E6%80%BB%E7%BB%93%E4%B8%8E%E7%90%86%E8%A7%A3/image-20251006161500903.png" alt="image-20251006161500903" loading="lazy"></p>
+<p><img src="/Transformer%E6%80%BB%E7%BB%93%E4%B8%8E%E7%90%86%E8%A7%A3/image-20251006151258779.png" alt="image-20251006151258779" loading="lazy"></p>
+<p>这是Transformer论文中的架构图, 其很明显可以分为四部分:输入,输出,编码器(Encoder, 左部分)和解码器(Decoder, 右部分). 从图中可以看出,编码器和解码器部分都有$ \times N $ 这表示这部分会堆叠N次,<strong>这种将同一结构重复多次的分层机制就是栈.</strong> 这里对分层做一个简短的解释,即第i层的输出会被作为第i+1的输入,以此不断重复N次$ (i\in {1, N-1}) $.</p>
+<p>此外,从图中也可以看到解码器的输入其实是有两个:</p>
+<ul>
+<li>编码器的输出,其将inputs编码成了隐状态(对应于RNN中的hidden state, Transformer中也叫memory), 或者也可以理解为编码器把源语言的完整句子编码成为隐状态,并<strong>一次性</strong>输出给解码器;</li>
+<li>Ouputs(shifted right):这个输入位于图的右下角,Outputs实际上是解码器之前输出的拼接,因为解码器不能一次性输出生成的文本,其也是一个一个输出,所以这次的输出需要加到这次输入的后面作为下次的输入,shifted right的目的也就是将序列整体右移一位.</li>
+</ul>
+<p>作者在这里提到了对<strong>多层的理解</strong>,自己之前只是也多层理解成为对捕获到的信息重复精炼,并没有再往深处思考,文中作者给出了几个观点:</p>
+<ul>
+<li>BERT中短语表示主要在神经网络的较低层捕捉短语级别的信息，并在中间层中编码了语言要素的复杂层次结构。这个层次结构以表层特征作为基础，中间层提取语法特征，最上层呈现语义特征。(论文: What Does BERT Learn about the Structure of Language?)</li>
+<li>较深层的注意力模块（最后25%的层）主要负责记忆, 较浅层的注意力模块对模型的泛化和推理能力至关重要, 在深层注意力模块应用短路（short-circuit）干预可以显著降低记忆所需内存，同时保持模型性能(这里其实也说明了残差连接的重要性).(论文: Analyzing Memorization in Large Language Models through the Lens of Model Attribution)</li>
+<li>语言模型存在一种普遍机制：防止过度自信（anti-overconfidence）：在模型的最后若干层，语言模型总是在抑制正确答案的输出。这种抑制具体又分为两种：1. 通过注意力头将输入起始位置的信息复制到了最末位置，我们发现起始位置的信息似乎包含了很多高频的token，模型可以通过这种方法来让高频token稀释残差流中的正确回答，降低回答的自信度; 2. 末层的MLP似乎在将残差流引导向一个“平均”token的方向（平均token是基于训练数据的词频，对token embedding加权平均得到的结果）。论文(Interpreting Key Mechanisms of Factual Recall in Transformer-Based Language Models)</li>
+</ul>
+<p>Transformer中有三种注意力结构:</p>
+<ul>
+<li><p>自注意力(Encoder中): 处理单个序列内部元素之间的关系;</p>
+</li>
+<li><p>交叉注意力:(Decoder中) 处理两个不同的序列之间的关系;</p>
+</li>
+<li><p>掩码自注意力(因果自注意力,Decoder中): 通过掩码去控制模型在计算注意力分数时的关注范围, <strong>从而在解码时不会受到未来信息的影响.</strong>(比如一个完整的句子为: 你今天学习自注意力机制了嘛?,当我们处理到”学”时,我们只能利用”你今天”,而”习自注意力机制了嘛”这些信息是不能看到的,因为这是我们之后要预测的内容) . <strong>引入掩码的原因: Transformer是自回归模型, 当当前输出文本加入到输入序列就会变成新的输入, 后续的输出依赖于前面的输出词,这种特性使其具备因果关系. 这种串行结构显然会大幅影响训练时间,所以人们通过引入掩码,这样在计算注意力的时候通过掩码以确保后面的词不会参与前面词的计算.</strong></p>
+</li>
+</ul>
+<p><strong>在Transformer的原论文种,作者就指出如果没有skip-connection和MLP,那么自注意力网络的输出会朝着一个rank-1的矩阵收缩, 这说明skip-connection和MLP可以很好地阻止自注意力网络的这种”秩坍塌”</strong></p>
 ]]></content>
       <categories>
         <category>写笔记</category>
